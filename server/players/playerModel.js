@@ -6,10 +6,13 @@ var playerSchema = new mongoose.Schema({
 		required : true,
 		unique : true
 	},
+	nameAr : String,
 	dateOB : Date,
 	pic : String,
 	nationality : String,
+	nationalityAr : String,
 	countryOfResidence : String,
+	countryOfResidenceAr : String,
 	images : [String],
 	competitions : [{
 		type : mongoose.Schema.Types.ObjectId,
@@ -24,7 +27,9 @@ var playerSchema = new mongoose.Schema({
 		ref : "Coach"
 	},
 	type : String,
+	typeAr : String,
 	size : String
+	sizeAr : String
 });
 
 var Player = mongoose.model("Player",playerSchema);
