@@ -28,20 +28,22 @@ var playerSchema = new mongoose.Schema({
 	},
 	type : String,
 	typeAr : String,
-	size : String
-	sizeAr : String
+	size : String,
+	sizeAr : String,
+	points : Number
 });
 
 var Player = mongoose.model("Player",playerSchema);
 
 // var player = new Player({
-// 	name : "tawfik kahwaje",
+// 	name : "Samera",
 // 	dateOB : new Date(),
 // 	pic : "sdfghjk",
 // 	nationality : "Syrian",
 // 	countryOfResidence : "Jordan",
 // 	images : ["Image1","Image2","Image3"],
-// 	club : "57d2a05e5b4d1b2f083389d5"
+// 	club : "57d2a05e5b4d1b2f083389d5",
+// 	points : 1
 // }).save(function (err,newPlayer){
 // if(err)
 // 	console.log(err)
