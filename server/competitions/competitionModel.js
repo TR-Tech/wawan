@@ -15,7 +15,8 @@ var competitionSchema = new mongoose.Schema({
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Player"
 	}],
-	points : [ Number ]
+	winersPoints : [ Number ],
+	enterpoint : Number
 });
 
 var Competition = mongoose.model("Competition",competitionSchema);
