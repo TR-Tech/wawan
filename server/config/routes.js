@@ -8,6 +8,7 @@ module.exports = function(app, express) {
 	app.get("/api/competition/championship/:id", Competition.getAllByChampionshipId);
 	app.post("/api/competition/addplayer/:id", Competition.addPlayerToCompetition);
 	app.post("/api/competition/newcompetition", Competition.createCompetition);
+	app.post("/api/competition/addNewWiner/:id", Competition.addNewWiner);
 
 
 	//error handling
