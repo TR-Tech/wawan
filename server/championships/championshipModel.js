@@ -18,8 +18,10 @@ var championshipSchema = new mongoose.Schema({
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Referee"
 	}],
+	refereesEnterPoint: Number,
 	playersLink : String,
-	audiencelink : String
+	audiencelink : String,
+
 })
 
 var Championship = mongoose.model("Championship",championshipSchema);

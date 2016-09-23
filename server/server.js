@@ -4,6 +4,7 @@ var app = express();
 var server = require ('http').createServer(app);
 
 var mongoURI = process.env.MONGODB_URI ||'mongodb://localhost/wawan';
+mongoose.Promise = global.Promise;
 mongoose.connect(mongoURI);
 db = mongoose.connection;
 
