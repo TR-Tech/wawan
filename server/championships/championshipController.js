@@ -1,6 +1,6 @@
 var Championship = require("./championshipModel.js");
 var Competition = require("../competitions/competitionModel.js");
-var Referee = require("../referees/refereerModel.js");
+var Referee = require("../referees/refereeModel.js");
 var repsonseHandler = require('../config/helpers.js').repsonseHandler;
 
 module.exports = {
