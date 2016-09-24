@@ -2,9 +2,8 @@ var Club = require('./clubModel.js');
 
 module.exports = {
 	createClub: function(req, res){
-		console.log("hi there")
 		var club = req.body;
-		var newClub = new club ({
+		var newClub = new Club ({
 			name: club.name,
 			nameAr: club.nameAr,
 			pic: club.pic,

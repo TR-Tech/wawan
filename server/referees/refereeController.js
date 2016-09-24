@@ -3,7 +3,7 @@ var Referee = require('./refereeModel.js');
 module.exports = {
 	createReferee: function(req, res){
 		var referee = req.body;
-		var newReferee = new referee ({
+		var newReferee = new Referee ({
 			name: referee.name,
 			nameAr: referee.nameAr,
 			pic: referee.pic,
