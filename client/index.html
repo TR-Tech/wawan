@@ -1,14 +1,28 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html lang="en" ng-app='Wawan'>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/lib/angular-material/angular-material.css">
+		<title>Wawan</title>
+	</head>
+	<body>
 
-    <title>Starter MEAN Single Page Application</title>
+		<div ng-view ></div>
 
-</head>
-<body>
+		<script src="lib/angular/angular.js"></script>
+		<script src="/lib/angular-route/angular-route.js"></script>
+		<script src="lib/angular-aria/angular-aria.js"></script>
+	  <script src="lib/angular-animate/angular-animate.js"></script>
+	  <script src="lib/angular-material/angular-material.js"></script>
 
-    we did it!
-
-</body>
+		<script src="/app/home/home.js"></script>
+		<script src="/app/admin/admin.js"></script>
+		<script src="/app/players/player.js"></script>
+		<script src="/app/championships/championship.js"></script>
+		<script src="/app/referees/referee.js"></script>
+		<script src="/app/clubs/club.js"></script>
+		<script src="/app/coaches/coach.js"></script>
+		<script src="/app/services/services.js"></script>
+		<script src="/app/app.js"></script>
+	</body>
 </html>
