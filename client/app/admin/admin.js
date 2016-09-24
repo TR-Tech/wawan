@@ -1,9 +1,10 @@
 angular.module('Wawan.admin', [])
-.controller('adminController', function($scope, $routeParams, Country, Player) {
+.controller('adminController', function($scope, $routeParams, Country, Player, Imugur) {
 	$scope.player = {};
 	$scope.types = ["Physic","Bodybuilding"];
 	$scope.typesAr = ["فيزيك","كمال اجسام"];
 	$scope.disableLevel = true;
+	$scope.player.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg"
 
 	$scope.initialize = function () {
 		Country.getAllCountry()
@@ -45,10 +46,37 @@ angular.module('Wawan.admin', [])
 
   $scope.createPlayer = function () {
   	console.log($scope.player);
-  	Player.createNewPlayer($scope.player)
-  	.then(function (player) {
-  		console.log(player);
-  	})
+  	if($scope.player.name && $scope.player.nameAr && $scope.player.dateOB && $scope.player.nationality && $scope.player.nationalityAr && $scope.player.countryOfResidence && $scope.player.countryOfResidenceAr && $scope.player.type && $scope.player.size && $scope.player.coach && $scope.player.club){
+	  	Player.createNewPlayer($scope.player)
+	  	.then(function (player) {
+	  		console.log(player);
+	  	})
+  	}
+  	else
+  		console.log("fill all fields")
   }
+  
+
+
+  $scope.changeProfilePic = function(){
+
+		var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
+		
+		var fileBt = $('<input>').attr('type','file');
+		fileBt.on('change', () => {
+			var file = fileBt[0].files[0];
+			var reader = new FileReader();
+			reader.addEventListener('load', ()=>{
+				var imgData = reader.result.slice(23);
+				// sending the decoded image to IMGUR to get a link for that image
+				Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
+					$scope.player.pic = result.link;
+				});
+			})
+			// using the reader to decode the image to base64
+			reader.readAsDataURL(file);
+		})
+		fileBt.click();
+	}
 
 });
