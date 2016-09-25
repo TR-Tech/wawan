@@ -62,6 +62,162 @@ angular.module('Wawan.services',[])
 		}
 	}
 })
+.factory('Club', function ($http) {
+	return {
+		getAllClub : function () {
+			return $http({
+				url : "/api/clubs",
+				method : "GET"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		getOneClub : function (clubId) {
+			return $http({
+				url : "/api/club/"+clubId,
+				method : "GET"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		editClub : function (clubId, club) {
+			return $http({
+				url : "/api/club/"+clubId+"/edit",
+				method : "POST",
+				data : club
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		removeClub : function (clubId) {
+			//
+			return $http({
+				url : "/api/club/removeClub/"+clubId,
+				method : "DELETE"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		createNewClub : function (club) {
+			return $http({
+				url : "/api/club",
+				method : "POST",
+				data : club
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		}
+	}
+})
+.factory('Coach', function ($http) {
+	return {
+		getAllCoachs : function () {
+			return $http({
+				url : "/api/coachs",
+				method : "GET"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		getOneCoach : function (coachId) {
+			return $http({
+				url : "/api/coach/"+coachId,
+				method : "GET"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		editCoach : function (coachId, coach) {
+			return $http({
+				url : "/api/coach/"+coachId+"/edit",
+				method : "POST",
+				data : coach
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		removeCoach : function (coachId) {
+			//
+			return $http({
+				url : "/api/coach/removeClub/"+coachId,
+				method : "DELETE"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		createNewCoach : function (coach) {
+			return $http({
+				url : "/api/coach",
+				method : "POST",
+				data : coach
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		}
+	}
+})
+.factory('Referee', function ($http) {
+	return {
+		getAllReferee : function () {
+			return $http({
+				url : "/api/referees",
+				method : "GET"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		getOneReferee : function (refereeId) {
+			return $http({
+				url : "/api/referee/"+refereeId,
+				method : "GET"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		editReferee : function (refereeId, referee) {
+			return $http({
+				url : "/api/referee/"+refereeId+"/edit",
+				method : "POST",
+				data : referee
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		removeReferee : function (refereeId) {
+			//
+			return $http({
+				url : "/api/referee/removeReferee/"+refereeId,
+				method : "DELETE"
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		createNewReferee : function (referee) {
+			return $http({
+				url : "/api/referee",
+				method : "POST",
+				data : referee
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		}
+	}
+})
 .factory('Country', function ($http) {
 	return {
 		getAllCountry : function () {
