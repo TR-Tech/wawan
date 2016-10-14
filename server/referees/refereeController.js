@@ -9,8 +9,8 @@ module.exports = {
 			pic: referee.pic,
 			summary: referee.summary,
 			summaryAr: referee.summaryAr,
-			competitions: referee.competitions,
-			points: referee.points
+			//competitions: referee.competitions,
+			points: referee.points || 0
 		})
 		newReferee.save(function(err, newReferee){
 			if(err){
@@ -50,7 +50,7 @@ module.exports = {
 			pic: referee.pic,
 			summary: referee.summary,
 			summaryAr: referee.summaryAr,
-			competitions: referee.competitions,
+			//competitions: referee.competitions,
 			points: referee.points
 		}})
 		.exec(function(err, edited){
