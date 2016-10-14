@@ -14,13 +14,18 @@ var championshipSchema = new mongoose.Schema({
 		ref : "Competition"
 	}],
 	requiredPoints : Number,
+	winersPoints : [ Number ],
 	referees : [{
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Referee"
 	}],
+	joinReferees : [{referee : {
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "Referee"
+	}, join : Boolean}],
 	refereesEnterPoint: Number,
 	playersLink : String,
-	audiencelink : String,
+	audiencelink : String
 
 })
 

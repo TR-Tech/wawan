@@ -48,7 +48,7 @@ module.exports = {
 			pic: coach.pic,
 			club: coach.club,
 			competitions: coach.competitions, 
-			points: coach.points
+			points: coach.points || 0
 		}})
 		.exec(function(err, edited){
 			if(err){

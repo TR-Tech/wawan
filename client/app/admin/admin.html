@@ -1,123 +1,607 @@
 <div style="width: 80%;margin: 0 auto; ">
   <md-content>
     <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="New Player">
-        <md-content layout-padding>
-          <div>
-            <form name="userForm">
-              <div layout-gt-xs="row">
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Name (English)</label>
-                  <input ng-model="player.name">
-                </md-input-container>
+      <md-tab label="Create">
+        <md-tabs md-dynamic-height md-border-bottom>
+          <md-tab label="New Player">
+            <md-content layout-padding>
+              <div>
+                <form name="playerForm" ng-submit="createPlayer()" >
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Name (English)</label>
+                      <input required ng-model="player.name">
+                      <div ng-messages="projectForm.clientName.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
 
-                <md-input-container flex-gt-sm>
-                  <label>Name (Arabic)</label>
-                  <input ng-model="player.nameAr" >
-                </md-input-container>
+                    <md-input-container flex-gt-sm>
+                      <label>Name (Arabic)</label>
+                      <input required ng-model="player.nameAr" >
+                    </md-input-container>
 
-                <md-input-container>
-                  <label>Date of birthd</label>
-                  <md-datepicker ng-model="player.dateOB"></md-datepicker>
-                </md-input-container>
+                    <md-input-container>
+                      <label>Date of birthd</label>
+                      <md-datepicker required ng-model="player.dateOB"></md-datepicker>
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Nationality (English)</label>
+                      <input required ng-model="player.nationality" >
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Nationality (Arabic)</label>
+                      <input required ng-model="player.nationalityAr">
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Country of residence (English)</label>
+                      <md-select required ng-model="player.countryOfResidence">
+                        <md-option ng-repeat="countrye in countryes" value="{{countrye.name}}">
+                          {{countrye.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Country of residence (Arabic)</label>
+                      <input required ng-model="player.countryOfResidenceAr">
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Sport Type (English)</label>
+                      <md-select required ng-model="player.type" ng-change="typeSelectChangedPlayer()">
+                        <md-option ng-repeat="type in types" value="{{type}}">
+                          {{type}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Sport Type (Arabic)</label>
+                      <md-select required ng-model="player.typeAr">
+                        <md-option ng-repeat="type in typesAr" value="{{type}}">
+                          {{type}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row" >
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Sport Level (English)</label>
+                      <md-select required ng-model="player.size" ng-disabled="disableLevel" ng-change="sizeSelectChanged()">
+                        <md-option ng-repeat="size in sizes" value="{{size}}">
+                          {{size}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Sport Level (Arabic)</label>
+                      <md-select required ng-model="player.sizeAr" ng-disabled="disableLevel">
+                        <md-option ng-repeat="size in sizeAr" value="{{size}}">
+                          {{size}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row" >
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Coach Name</label>
+                      <md-select required ng-model="player.coach">
+                        <md-option ng-repeat="coach in coaches" value="{{coach.name}}">
+                          {{coach.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Club Name</label>
+                      <md-select required ng-model="player.club" >
+                        <md-option ng-repeat="club in clubs" value="{{club.name}}">
+                          {{club.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <div layout-gt-sm="row" >
+                    <md-button class="md-raised" ng-click="changeProfilePic()" flex-gt-sm >Upload Image</md-button>
+                    <img ng-src="{{player.pic}}" width="50px" height="50px">
+                    <md-button type="submit" class="md-raised md-primary" flex-gt-sm >Create</md-button>
+                  </div>
+                  <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                  </div>
+                </form>
               </div>
+            </md-content>
+          </md-tab>
 
-              <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Nationality (English)</label>
-                  <input ng-model="player.nationality" >
-                </md-input-container>
+          <!-- New Championship Tab -->
+          <md-tab label="New Championship">
+            <md-content layout-padding>
+              <div>
+                <form name="userForm" ng-submit="createChampion()">
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Name (English)</label>
+                      <input required ng-model="championship.name">
+                    </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Nationality (Arabic)</label>
-                  <input ng-model="player.nationalityAr">
-                </md-input-container>
+                    <md-input-container flex-gt-sm>
+                      <label>Name (Arabic)</label>
+                      <input required ng-model="championship.nameAr" >
+                    </md-input-container>
+
+                    <md-input-container>
+                      <label>Date of Championship</label>
+                      <md-datepicker required ng-model="championship.date"></md-datepicker>
+                    </md-input-container>
+                  </div>
+
+                  <!-- Competitons fields :  -->
+                  <md-toolbar class="md-hue-2" style="background-color: #f2f2f2; color: #666">
+                    <span flex></span>
+                    <h2 class="md-toolbar-tools">
+                      <span class="md-flex">Add new competition</span>
+                    </h2>
+                  </md-toolbar>
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Competition Type</label>
+                      <md-select  ng-model="competition.type" ng-change="typeSelectChangedChampions()">
+                        <md-option ng-repeat="type in typesChampion" value="{{type}}">
+                          {{type}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container flex-gt-sm>
+                      <label>Competition Level</label>
+                      <md-select  ng-model="competition.size">
+                        <md-option ng-repeat="size in sizesChampion" value="{{size}}">
+                          {{size}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container>
+                      <md-button ng-click= "addCompetition()">Add</md-button>
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-xs="row">
+                    <table class="table">
+                      <tr>
+                        <th>Competition Type</th>
+                        <th>Competition Level</th>
+                        <th></th>
+                      </tr>
+                      <tr ng-repeat= "OneCompetition in data.competitions">
+                        <td>{{OneCompetition.type}}</td>
+                        <td>{{OneCompetition.size}}</td>
+                        <td ng-click ="removeCopmetitiopn(OneCompetition)">Remove</td>
+                      </tr>
+                    </table>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm ng-repeat="position in positions track by $index">
+                      <label>{{position}}</label>
+                      <input required ng-model="championship.positions[$index]" >
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Awards (English)</label>
+                      <input required ng-model="championship.awards" >
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Awards (Arabic)</label>
+                      <input required ng-model="championship.awardsAr">
+                    </md-input-container>
+                  </div>
+
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Championship Address (English)</label>
+                      <input required ng-model="championship.address">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Championship Address (Arabic)</label>
+                      <input required ng-model="championship.addressAr">
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Required Points</label>
+                      <input required ng-model="championship.requiredPoints" type="Number">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Referees Enter Point</label>
+                      <input required ng-model="championship.refereesEnterPoint" type="Number">
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Players Link</label>
+                      <input required ng-model="championship.playersLink">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Audience Link</label>
+                      <input required ng-model="championship.audiencelink">
+                    </md-input-container>
+                  </div> 
+
+                  
+                  <div layout-gt-sm="row" >
+                    <md-button class="md-raised" ng-click="championshipPic()" flex-gt-sm >Upload Image</md-button>
+                    <img ng-src="{{championship.pic}}" width="50px" height="50px">
+                    <md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Create</md-button>
+                  </div>
+                  <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                  </div>
+                </form>
               </div>
+            </md-content>
+          </md-tab>
 
-              <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Country of residence (English)</label>
-                  <md-select ng-model="player.countryOfResidence">
-                    <md-option ng-repeat="countrye in countryes" value="{{countrye.name}}">
-                      {{countrye.name}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
+          <!-- New Club Tab -->
+          <md-tab label="New Club">
+            <md-content layout-padding>
+              <div>
+                <form name="userForm" ng-submit="createClub()">
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Name (English)</label>
+                      <input required ng-model="club.name">
+                    </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Country of residence (Arabic)</label>
-                  <input ng-model="player.countryOfResidenceAr">
-                </md-input-container>
+                    <md-input-container flex-gt-sm>
+                      <label>Name (Arabic)</label>
+                      <input required ng-model="club.nameAr" >
+                    </md-input-container>
+                  </div>
+                  
+                  <div layout-gt-sm="row" >
+                    <md-button class="md-raised" ng-click="clubPic()" flex-gt-sm >Upload Image</md-button>
+                    <img ng-src="{{club.pic}}" width="50px" height="50px">
+                    <md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Create</md-button>
+                  </div>
+                  <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                  </div>
+                </form>
               </div>
+            </md-content>
+          </md-tab>
 
-              <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Sport Type (English)</label>
-                  <md-select ng-model="player.type" ng-change="typeSelectChanged()">
-                    <md-option ng-repeat="type in types" value="{{type}}">
-                      {{type}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
+          <!-- New Coach Tab -->
+          <md-tab label="New Coach">
+            <md-content layout-padding>
+              <div>
+                <form name="userForm" ng-submit="createCoach()">
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Name (English)</label>
+                      <input required ng-model="coach.name">
+                    </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Sport Type (Arabic)</label>
-                  <md-select ng-model="player.typeAr">
-                    <md-option ng-repeat="type in typesAr" value="{{type}}">
-                      {{type}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
+                    <md-input-container flex-gt-sm>
+                      <label>Name (Arabic)</label>
+                      <input required ng-model="coach.nameAr" >
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row" >
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Club Name</label>
+                      <md-select required ng-model="coach.club" >
+                        <md-option ng-repeat="club in clubs" value="{{club.name}}">
+                          {{club.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  
+                  <div layout-gt-sm="row" >
+                    <md-button class="md-raised" ng-click="coachPic()" flex-gt-sm >Upload Image</md-button>
+                    <img ng-src="{{coach.pic}}" width="50px" height="50px">
+                    <md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Create</md-button>
+                  </div>
+                  <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                  </div>
+                </form>
               </div>
+            </md-content>
+          </md-tab>
 
-              <div layout-gt-sm="row" >
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Sport Level (English)</label>
-                  <md-select ng-model="player.size" ng-disabled="disableLevel" ng-change="sizeSelectChanged()">
-                    <md-option ng-repeat="size in sizes" value="{{size}}">
-                      {{size}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
+          <!-- New Referee Tab -->
+          <md-tab label="New Referee">
+            <md-content layout-padding>
+              <div>
+                <form name="userForm" ng-submit="createReferee()">
 
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Sport Level (Arabic)</label>
-                  <md-select ng-model="player.sizeAr" ng-disabled="disableLevel">
-                    <md-option ng-repeat="size in sizeAr" value="{{size}}">
-                      {{size}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Name (English)</label>
+                      <input required ng-model="referee.name">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Name (Arabic)</label>
+                      <input required ng-model="referee.nameAr" >
+                    </md-input-container>
+                  </div>
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Summary (English)</label>
+                      <textarea ng-model="referee.summary" md-maxlength="150" rows="3" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Summary (Arabic)</label>
+                      <textarea ng-model="referee.summaryAr" md-maxlength="150" rows="3" md-select-on-focus></textarea>
+                    </md-input-container>
+                  </div>
+                  
+                  
+                  <div layout-gt-sm="row" >
+                    <md-button class="md-raised" ng-click="refereePic()" flex-gt-sm >Upload Image</md-button>
+                    <img ng-src="{{referee.pic}}" width="50px" height="50px">
+                    <md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Create</md-button>
+                  </div>
+                  <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                  </div>
+                </form>
               </div>
+            </md-content>
+          </md-tab>
 
-              <div layout-gt-sm="row" >
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Coach Name</label>
-                  <md-select ng-model="player.coach">
-                    <md-option ng-repeat="countrye in countryes" value="{{countrye.name}}">
-                      {{countrye.name}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-
-                <md-input-container class="md-block" flex-gt-sm>
-                  <label>Club Name</label>
-                  <md-select ng-model="player.club" >
-                    <md-option ng-repeat="club in clubs" value="{{club}}">
-                      {{club}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
-              </div>
-              <div layout-gt-sm="row" >
-                <md-button class="md-raised" ng-click="changeProfilePic()" flex-gt-sm >Upload Image</md-button>
-                <img ng-src="{{player.pic}}" width="50px" height="50px">
-                <md-button class="md-raised md-primary" ng-click="createPlayer()" flex-gt-sm >Create</md-button>
-              </div>
-            </form>
-          </div>
-        </md-content>
+        </md-tabs>
       </md-tab>
-    </md-tabs>
+      <md-tab label="Edit" ng-click="editTab()">
+        <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="Edit Player">
+          <md-content layout-padding>
+              <div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Select Player</label>
+                      <md-select  ng-model="edit.player.name" ng-change="selectPlayer()">
+                        <md-option ng-repeat="player in edit.players" value="{{player.name}}">
+                          {{player.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                </div>
+              </div>
+            </md-content>
+            <md-content layout-padding>
+              <div>
+                <form name="playerForm" ng-submit="editPlayer()" >
+                  <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Name (English)</label>
+                      <input required ng-model="edit.player.name">
+                      <div ng-messages="projectForm.clientName.$error">
+                        <div ng-message="required">This is required.</div>
+                      </div>
+                    </md-input-container>
+
+                    <md-input-container flex-gt-sm>
+                      <label>Name (Arabic)</label>
+                      <input required ng-model="edit.player.nameAr" >
+                    </md-input-container>
+                  </div>
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Nationality (English)</label>
+                      <input required ng-model="edit.player.nationality" >
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Nationality (Arabic)</label>
+                      <input required ng-model="edit.player.nationalityAr">
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Country of residence (English)</label>
+                      <md-select required ng-model="edit.player.countryOfResidence">
+                        <md-option ng-repeat="countrye in countryes" value="{{countrye.name}}">
+                          {{countrye.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Country of residence (Arabic)</label>
+                      <input required ng-model="edit.player.countryOfResidenceAr">
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Sport Type (English)</label>
+                      <md-select required ng-model="edit.player.type" ng-change="typeSelectChangedPlayer()">
+                        <md-option ng-repeat="type in types" value="{{type}}">
+                          {{type}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Sport Type (Arabic)</label>
+                      <md-select required ng-model="edit.player.typeAr">
+                        <md-option ng-repeat="type in typesAr" value="{{type}}">
+                          {{type}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row" >
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Sport Level (English)</label>
+                      <md-select required ng-model="edit.player.size" ng-change="sizeSelectChanged()">
+                        <md-option ng-repeat="size in sizes" value="{{size}}">
+                          {{size}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Sport Level (Arabic)</label>
+                      <md-select required ng-model="edit.player.sizeAr">
+                        <md-option ng-repeat="size in sizeAr" value="{{size}}">
+                          {{size}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+
+                  <div layout-gt-sm="row" >
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Coach Name</label>
+                      <md-select  ng-model="edit.player.coach">
+                        <md-option ng-repeat="coach in coaches" value="{{coach.name}}">
+                          {{coach.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                      <label>Club Name</label>
+                      <md-select  ng-model="edit.player.club" >
+                        <md-option ng-repeat="club in clubs" value="{{club.name}}">
+                          {{club.name}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                  <div layout-gt-sm="row" >
+                    <md-button class="md-raised" ng-click="changeProfilePic()" flex-gt-sm >Upload Image</md-button>
+                    <img ng-src="{{edit.player.pic}}" width="50px" height="50px">
+                    <md-button type="submit" class="md-raised md-primary" flex-gt-sm >Create</md-button>
+                  </div>
+                  <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+                  </div>
+                </form>
+              </div>
+            </md-content>
+
+        </md-tab>
+
+        <md-tab label="Edit Championship">
+        
+        </md-tab>
+
+        <md-tab label="Edit Club">
+        
+        </md-tab>
+
+        <md-tab label="Edit Coach">
+        
+        </md-tab>
+
+        <md-tab label="Edit Referee">
+        
+        </md-tab>
+        </md-tabs>
+      </md-tab>
+
+      <md-tab label="Manage">
+        <md-content layout-padding>
+                <div layout-gt-sm="row">
+                  <md-input-container class="md-block" flex-gt-sm>
+                    <label>Select Championship</label>
+                    <md-select  ng-model="data.championship.name" ng-change="championshipSelected()">
+                      <md-option ng-repeat="addchampionship in data.championships" value="{{addchampionship.name}}">
+                        {{addchampionship.name}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+                <div class="col-md-12">
+                  <div class="panel panel-primary">
+                  <div class="panel-heading">Add Referee</div>
+                   <md-input-container class="md-block" flex-gt-sm>
+                    <md-select placeholder="chose referee"  ng-model="data.championship.referee" ng-change="addRefereeToChampion()">
+                      <md-option ng-repeat="referee in referees" value="{{referee.name}}">
+                        {{referee.name}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+
+                   <ul class="list-group" >
+                    <li class="list-group-item" ng-repeat="referee in data.championship.referees track by $index">
+                      <md-switch class="md-primary" 
+                      ng-model="referee.flag" 
+                      aria-label="Switch 1" 
+                      style="margin: 0; float: right;" 
+                      ng-change="refereeSwitchChanged(data.championship,referee._id,referee.flag)">
+                      </md-switch>
+                      {{referee.name}}
+                    </li>
+                  </ul>
+                  <!-- <button ng-click="saveReferees()" type="button" class="btn btn-primary" style="float: right;" >Save</button> -->
+
+                 </div>
+                </div>
+
+                <div class="col-md-12" ng-repeat="competition in data.championship.competitions track by $index ">
+                  <div class="panel panel-primary">
+                  <!-- <div class="panel-heading">{{competition.competition.type}}</div> -->
+                  <div class="panel-heading">Add player to :{{competition.competition.type + " ("+competition.competition.size+")"}}</div>
+                   <md-input-container class="md-block" flex-gt-sm>
+                    <md-select placeholder="chose player"  ng-model="data.championship.player" ng-change="addPlayerToChampion(competition.competition,data.championship.player,$index)">
+                      <md-option ng-repeat="player in players | filter:competition.competition.size" value="{{player.name}}">
+                        {{player.name}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+
+                   <ul class="list-group" >
+                    <li class="list-group-item" ng-repeat="player in data.championship.competitions[$index].players track by $index">
+                      <md-switch class="md-primary" ng-model="player.flag" ng-value="true" aria-label="active switch" style="margin: 0; float: right;" 
+                      ng-change="playerSwitchChanged(competition.competition._id,player._id,player.flag)" >
+                      </md-switch>
+                      {{player.name}}
+                    </li>
+                  </ul>
+
+                 </div>
+                </div>
+
+                
+                
+
+            </md-content>
+      </md-tab>
+    <md-tabs md-dynamic-height md-border-bottom>
   </md-content>
 </div>

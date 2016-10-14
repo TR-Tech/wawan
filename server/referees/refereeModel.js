@@ -10,7 +10,12 @@ var refereeSchema = new mongoose.Schema({
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Competition"
 	}],
-	points: Number
+	championships : [{
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "Championship"
+	}],
+	points: Number,
+	flag : Boolean
 });
 
 var Referee = mongoose.model("Referee",refereeSchema);
