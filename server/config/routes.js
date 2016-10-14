@@ -27,16 +27,22 @@ module.exports = function(app, express) {
 	app.get("/api/competition/:id", Competition.getOne);
 	app.get("/api/competition/championship/:id", Competition.getAllByChampionshipId);
 	app.post("/api/competition/addplayer/:id", Competition.addPlayerToCompetition);
+	app.post("/api/competition/playerJoinCompetition/:id", Competition.playerJoinCompetition);
 	app.post("/api/competition/newcompetition", Competition.createCompetition);
 	app.post("/api/competition/addNewWiner/:id", Competition.addNewWiner);
 	app.get("/api/competition/getAllAboutCompetition/:id", Competition.getAllAboutCompetition);
+	app.get("/api/competition/getAllPlayerOfCopmetition/:id", Competition.getAllPlayerOfCopmetition);
+
 
 	// Championship routes :
 	app.get("/api/championship/:id", Championship.getOne);
 	app.get("/api/championships", Championship.getAll);
+	
 	app.get("/api/championship/getAllAboutChampionship/:id", Championship.getAllAboutChampionship);
+	app.get("/api/championship/getAllAboutChampionshipByName/:id", Championship.getAllAboutChampionshipByName);
 	app.post("/api/newchampionship", Championship.createChampionship);
-	app.post("/api/addNewRefereeToChampionship/:id", Championship.addNewRefereeToChampionship);
+	app.post("/api/addNewRefereeToChampionshipJoin/:id", Championship.addNewRefereeToChampionshipJoin);
+	app.post("/api/refereeJoinChampionship/:id", Championship.refereeJoinChampionship);
 	app.post("/api/addCompetitionToChampionship/:id", Championship.addCompetitionToChampionship);
 
 	// Player routes :
