@@ -4,10 +4,10 @@ var coachSchema = new mongoose.Schema({
 	name: String,
 	nameAr: String,
 	pic: String,
-	club: [{
+	club: {
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Club"
-	}],
+	},
 	competitions : [{
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Competition"
