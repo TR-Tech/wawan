@@ -1,6 +1,6 @@
 angular.module('Wawan.admin', [
     'ngMessages'])
-.controller('adminController', function($scope, $routeParams, Country, Player, Competition, Championship, Translate, Imugur, Club, Coach, Referee) {
+.controller('adminController', function($scope, $routeParams, Country, Player, Competition, Championship, Translate, Imugur, Club, Coach, Referee, $mdDialog) {
 	$scope.player = {};
 	$scope.clubs = [];
 	$scope.coaches = [];
@@ -14,6 +14,7 @@ angular.module('Wawan.admin', [
 	$scope.player.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg"
 
 	$scope.championship = {};
+	$scope.flag = false;
 	$scope.data = {};
 	$scope.data.competitions = [];
 	$scope.championship.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg"
@@ -404,16 +405,24 @@ angular.module('Wawan.admin', [
 		for (var i = 0; i < $scope.referees.length; i++) {
 			if($scope.referees[i].name === refereeName){
 				refereeId = $scope.referees[i]._id;
+				for (var j = 0; j < $scope.data.championship.referees.length; j++) {
+					if($scope.data.championship.referees[j].name === refereeName){
+						console.log("the referee alrady exist");
+						return null;
+					}
+				}
 				$scope.data.championship.referees.push($scope.referees[i]);
 				Championship.addNewRefereeToChampionship($scope.data.championship._id,$scope.data.championship.referees[i]._id)
 				.then(function (championship) {
 					console.log(championship);
 				})
+				break;
 			}
 		}
 
 	}
 	$scope.championshipSelected = function () {
+		$scope.flag = true;
 		$scope.data.championship.refereesID = [];
 		$scope.data.championship.referees = [];
 		$scope.data.championship.competitions = [];
@@ -429,6 +438,7 @@ angular.module('Wawan.admin', [
 			for (var i = 0; i < data.competitions.length; i++) {
 				Competition.getAllPlayerOfCopmetition(data.competitions[i]._id)
 				.then(function (resData) {
+					console.log(resData);
 					$scope.data.championship.competitions.push(resData);
 				})
 			}
@@ -454,7 +464,12 @@ angular.module('Wawan.admin', [
 		for (var i = 0; i < $scope.players.length; i++) {
 			if($scope.players[i].name === playerName){
 				playerId = $scope.players[i]._id;
-				console.log(competitionId, playerId);
+				for (var j = 0; j < $scope.data.championship.competitions[index].players.length; j++) {
+					if($scope.data.championship.competitions[index].players[j]._id === playerId){
+						console.log("the player alrady exist");
+						return null;
+					}
+				}
 				$scope.data.championship.competitions[index].players.push($scope.players[i]);
 				Competition.addPlayerToCometition(competitionId, playerId)
 				.then(function (competitionObj) {
@@ -470,6 +485,48 @@ angular.module('Wawan.admin', [
 			console.log(competition);
 		})
 	}
+
+	$scope.getNumber = function(num) {
+		console.log(num);
+		return new Array(num);   
+	}
+
+	$scope.doNoThing = function () {
+	}
+
+	$scope.setPlayerPostion = function(competitionId,playerId,position) {
+		
+		console.log(competitionId,playerId,position,$scope.data.championship._id);
+		position = parseInt(position);
+
+
+		Competition.addNewWiner(competitionId, playerId, position, $scope.data.championship._id)
+		.then(function (competition) {
+			console.log(competition);
+		})
+		.catch(function (err) {
+			console.log(err);
+		})
+		
+	}
+
+	$scope.showConfirm = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.confirm()
+          .title('Would you like to delete your debt?')
+          .textContent('All of the banks have agreed to forgive you your debts.')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('Please do it!')
+          .cancel('Sounds like a scam');
+
+    $mdDialog.show(confirm).then(function() {
+      $scope.status = 'You decided to get rid of your debt.';
+    }, function() {
+      $scope.status = 'You decided to keep your debt.';
+    });
+  };
+
 
 
 });

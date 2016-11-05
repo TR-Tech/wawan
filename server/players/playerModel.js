@@ -31,7 +31,8 @@ var playerSchema = new mongoose.Schema({
 	size : String,
 	sizeAr : String,
 	points : Number,
-	flag : Boolean
+	flag : Boolean,
+	position : Number
 });
 
 var Player = mongoose.model("Player",playerSchema);
