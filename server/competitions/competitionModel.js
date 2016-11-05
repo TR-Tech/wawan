@@ -18,7 +18,7 @@ var competitionSchema = new mongoose.Schema({
 	joinPlayers : [{player : {
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Player"
-	}, join : Boolean}],
+	}, join : Boolean, position : Number}],
 	enterpoint : Number,
 	winerPlayers : [{playerId :{
 		type : mongoose.Schema.Types.ObjectId,
