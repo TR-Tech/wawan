@@ -120,6 +120,16 @@ angular.module('Wawan.services',[])
 			.then(function (res) {
 				return res.data;
 			})
+		},
+		addNewWiner : function (competitionId, playerId, position, championshipId) {
+			return $http({
+				url : "/api/competition/addNewWiner/"+competitionId,
+				method : "POST",
+				data : {playerId : playerId, winerPostion : position, championshipId : championshipId}
+			})
+			.then(function (res) {
+				return res.data;
+			})
 		}
 
 	}
