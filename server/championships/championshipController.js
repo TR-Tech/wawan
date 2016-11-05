@@ -32,7 +32,7 @@ module.exports = {
 			address : championship.address,
 			addressAr : championship.addressAr,
 			requiredPoints : championship.requiredPoints,
-			winersPoints : championship.winersPoints,
+			winersPoints : championship.positions,
 			playersLink : championship.playersLink,
 			audiencelink : championship.audiencelink,
 			refereesEnterPoint : championship.refereesEnterPoint,
