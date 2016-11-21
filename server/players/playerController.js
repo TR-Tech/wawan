@@ -30,6 +30,7 @@ module.exports = {
 			sizeAr : player.sizeAr,
 			points : 0
 		}).save(function (err, player) {
+			
 			repsonseHandler(err, req, res, {status: 200, returnObj: player}, next);
 		})
 	},

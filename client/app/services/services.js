@@ -101,11 +101,11 @@ angular.module('Wawan.services',[])
 				return res.data;
 			})
 		},
-		addPlayerToCometition : function (competitionId,playerId) {
+		addPlayerToCometition : function (competitionId,playerId, championshipId) {
 			return $http({
 				url : "/api/competition/addplayer/"+competitionId,
 				method : "POST",
-				data : {playerId : playerId}
+				data : {playerId : playerId, championshipId : championshipId}
 			})
 			.then(function (res) {
 				return res.data;
@@ -207,6 +207,16 @@ angular.module('Wawan.services',[])
 				url : "/api/refereeJoinChampionship/"+championshipId,
 				method : "POST",
 				data : {refereeId : refereeId, flag : flag, enterPoints : enterPoints}
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		},
+		addOverAllWiner : function (championshipId, playerId, type) {
+			return $http({
+				url : "/api/addOverAllWiner/"+championshipId,
+				method : "POST",
+				data : {playerId : playerId, type : type}
 			})
 			.then(function (res) {
 				return res.data;

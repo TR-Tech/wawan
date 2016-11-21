@@ -44,6 +44,7 @@ module.exports = function(app, express) {
 	app.post("/api/addNewRefereeToChampionshipJoin/:id", Championship.addNewRefereeToChampionshipJoin);
 	app.post("/api/refereeJoinChampionship/:id", Championship.refereeJoinChampionship);
 	app.post("/api/addCompetitionToChampionship/:id", Championship.addCompetitionToChampionship);
+	app.post("/api/addOverAllWiner/:id", Championship.addOverAllWiner);
 
 	// Player routes :
 	app.get("/api/player/getOne/:id", Player.getOnePlayer);

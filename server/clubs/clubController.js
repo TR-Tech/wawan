@@ -8,7 +8,9 @@ module.exports = {
 			nameAr: club.nameAr,
 			pic: club.pic,
 			competitions: club.competitions, 
-			points: club.points || 0
+			points: club.points || 0,
+			address : club.address,
+			addressAr : club.addressAr
 		})
 		newClub.save(function(err, newClub){
 			if(err){
@@ -49,7 +51,9 @@ module.exports = {
 			pic: club.pic,
 			club: club.club,
 			competitions: club.competitions, 
-			points: club.points || 0
+			points: club.points || 0,
+			address : club.address,
+			addressAr : club.addressAr
 		}})
 		.exec(function(err, edited){
 			if(err){

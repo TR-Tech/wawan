@@ -8,11 +8,20 @@ var coachSchema = new mongoose.Schema({
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Club"
 	},
-	competitions : [{
+	championships : [{
 		type : mongoose.Schema.Types.ObjectId,
-		ref : "Competition"
+		ref : "Championship"
 	}],
-	points: Number
+	points: Number,
+	age : Number,
+	nationality : String,
+	nationalityAr : String,
+	countryOfResidence : String,
+	countryOfResidenceAr : String,
+	players : [{
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "Player"
+	}]
 });
 
 var Coach = mongoose.model("Coach",coachSchema);

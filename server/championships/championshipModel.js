@@ -25,7 +25,23 @@ var championshipSchema = new mongoose.Schema({
 	}, join : Boolean}],
 	refereesEnterPoint: Number,
 	playersLink : String,
-	audiencelink : String
+	audiencelink : String,
+	overAllPlayers : [{player : {
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "Player"
+	}, type : String}],
+	Physique : {
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "Player"
+	},
+	Bodybuilding : {
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "Player"
+	},
+	Bodystyle : {
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "Player"
+	}
 
 })
 

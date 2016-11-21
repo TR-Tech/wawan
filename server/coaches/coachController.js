@@ -9,8 +9,14 @@ module.exports = {
 			pic: coach.pic,
 			club: coach.club,
 			competitions: coach.competitions, 
-			points: coach.points
+			points: coach.points,
+			nationality : coach.nationality,
+			nationalityAr : coach.nationalityAr,
+			countryOfResidence : coach.countryOfResidence,
+			countryOfResidenceAr : coach.countryOfResidenceAr
 		})
+
+
 		newCoach.save(function(err, newCoach){
 			if(err){
 				res.status(500).send(err)
@@ -48,7 +54,11 @@ module.exports = {
 			pic: coach.pic,
 			club: coach.club,
 			competitions: coach.competitions, 
-			points: coach.points || 0
+			points: coach.points || 0,
+			nationality : coach.nationality,
+			nationalityAr : coach.nationalityAr,
+			countryOfResidence : coach.countryOfResidence,
+			countryOfResidenceAr : coach.countryOfResidenceAr
 		}})
 		.exec(function(err, edited){
 			if(err){
