@@ -2,7 +2,8 @@
   "name": "wawan",
   "main": "server.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "postinstall": "npm install -g bower; bower install "
   },
   "dependencies": {
     "express" : "~4.5.1",
