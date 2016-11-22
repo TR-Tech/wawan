@@ -54,6 +54,7 @@ module.exports = {
 		var competitionId = req.params.id;
 		//var competitionsEnterpoint = req.body.enterpoint;
 		var playerId = req.body.playerId;
+		var championshipId = req.body.championshipId;
 		// add competitions Id to player 
 		Player.findOneAndUpdate({_id: playerId}, {$pull : {competitions: competitionId}}).exec();
 		Player.findOneAndUpdate({_id: playerId}, {$push : {competitions: competitionId}}).exec(
@@ -63,14 +64,20 @@ module.exports = {
 			// add points for clube 
 			//Club.findOneAndUpdate({_id: player.club}, { $inc: { points: competitionsEnterpoint }}).exec();
 			// add copmetition Id in club
-			Club.findOneAndUpdate({_id: player.club}, {$pull : {competitions: competitionId}}).exec();
-			Club.findOneAndUpdate({_id: player.club}, {$push : {competitions: competitionId}}).exec();
+			Club.findOneAndUpdate({_id: player.club}, {$pull : {championships: championshipId}}).exec();
+			Club.findOneAndUpdate({_id: player.club}, {$push : {championships: championshipId}}).exec();
+
+			Club.findOneAndUpdate({_id: player.club}, {$pull : {players: playerId}}).exec();
+			Club.findOneAndUpdate({_id: player.club}, {$push : {players: playerId}}).exec();
 			
 			// add points for Coach
 			//Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: competitionsEnterpoint }}).exec();
 			// add competition Id in Coach
-			Coach.findOneAndUpdate({_id: player.coach}, {$pull : {competitions: competitionId}}).exec();
-			Coach.findOneAndUpdate({_id: player.coach}, {$push : {competitions: competitionId}}).exec();
+			Coach.findOneAndUpdate({_id: player.coach}, {$pull : {championships: championshipId}}).exec();
+			Coach.findOneAndUpdate({_id: player.coach}, {$push : {championships: championshipId}}).exec();
+
+			Coach.findOneAndUpdate({_id: player.coach}, {$pull : {players: playerId}}).exec();
+			Coach.findOneAndUpdate({_id: player.coach}, {$push : {players: playerId}}).exec();
 		});
 		Competition.findOneAndUpdate({_id: competitionId}, {$pull : {joinPlayers: {player : playerId, join : false, position : 0}}}).exec();
 		Competition.findOneAndUpdate({_id: competitionId}, {$push : {joinPlayers: {player : playerId, join : false, position : 0}}},{ new : true})
@@ -85,21 +92,21 @@ module.exports = {
 		var flag = req.body.flag;
 		var competitionsEnterpoint = req.body.competitionsEnterpoint;
 		if(flag) {
-			Player.findOneAndUpdate({_id: playerId}, { $inc: { points: competitionsEnterpoint }}).exec(
+			Player.findOne({_id: playerId}).exec(
 			function (err, player) {
 				// add points for clube 
 				Club.findOneAndUpdate({_id: player.club}, { $inc: { points: competitionsEnterpoint }}).exec();
 				// add points for Coach
-				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: competitionsEnterpoint }}).exec();
+				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: 2 }}).exec();
 			});
 		}
 		else {
-			Player.findOneAndUpdate({_id: playerId}, { $inc: { points: -competitionsEnterpoint }}).exec(
+			Player.findOne({_id: playerId}).exec(
 			function (err, player) {
 				// add points for clube 
 				Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -competitionsEnterpoint }}).exec();
 				// add points for Coach
-				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -competitionsEnterpoint }}).exec();
+				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -2 }}).exec();
 			});
 		} 
 
@@ -174,23 +181,6 @@ module.exports = {
 			})
 		})
 
-
-
-
-
-		// Competition.findOneAndUpdate({_id: competitionId}, 
-		// 	{ $push: { winerPlayers : { $each: [ {playerId : playerId , winerPostion: winerPostion} ],$position: winerPostion } }}
-		// 	,{new : true})
-		// 	.exec(function (err, competition) {
-		// 		console.log("competition is "+competition);
-		// 		Player.findOneAndUpdate({_id: playerId}, { $inc: { points: 100 }})
-		// 		.exec(function (err, player) {
-		// 			console.log("player is "+ player)
-		// 			Club.findOneAndUpdate({_id: player.club}, { $inc: { points: 100 }}).exec();
-		// 			Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: 100 }}).exec();
-		// 		});
-		// 		repsonseHandler(err, req, res, {status: 200, returnObj: competition}, next);
-		// 	})
 	},
 
 	getAllAboutCompetition : function (req, res, next) {

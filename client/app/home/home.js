@@ -1,14 +1,27 @@
 angular.module('Wawan.home', [])
 .controller('homeController', function($scope, $routeParams, Player, $location, Referee, Club, Coach) {
 	$scope.data = {};
-	$scope.data.size = '';
+	$scope.data.bsize = '';
 	$scope.data.type = '';
+	$scope.limit = 10;
+
 
 	$scope.types = ["Physic","Bodybuilding"];
 	$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM"];
 	$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
 
 	$scope.sizeActive_1 = 'active';
+
+	$scope.bFilter='';
+	$scope.phFilter='';
+
+	$scope.bBySize = function(id, $event){//filter bodybuilding players by size
+		$scope.bFilter= id;
+	}
+
+	$scope.phBySize = function(id, $event){//filter physique players by size
+		$scope.phFilter= id;
+	}
 
 	$scope.typeChanged = function(id){
 		$scope.selectSize('',-1);
@@ -38,7 +51,12 @@ angular.module('Wawan.home', [])
 		}
 	};
 
-
+	$scope.showThisTable = function($event){
+		$scope.limit='';
+		$('.table-responsive').hide()
+		$($event.srcElement).parents('.table-responsive').show().addClass('main-table');
+		$('div').removeClass('col-md-3');
+	}
 	$scope.initialize = function () {
 		$scope.allActive = "active";
 		$scope.playerActive = 'active';
@@ -69,12 +87,9 @@ angular.module('Wawan.home', [])
 		Coach.getAllCoachs()
 		.then(function (coachs) {
 			$scope.data.coaches = coachs;
-		})
-
-		
-
-		
+		})								
 	}
+
 	$scope.initialize();
 
 
@@ -149,6 +164,5 @@ angular.module('Wawan.home', [])
 	$scope.showItem = function (type, obj) {
 		$location.path("/"+type+"/"+obj._id);
 	}
-
-
 });
+

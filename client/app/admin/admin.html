@@ -13,7 +13,7 @@
 										</md-select>
 									</md-input-container>
 								</div>
-								<div class="col-md-12" ng-show="flag">
+								<div class="col-md-6" ng-show="flag">
 									<div class="panel panel-primary">
 									<div class="panel-heading">Add Referee</div>
 									 <md-input-container class="md-block" flex-gt-sm>
@@ -32,6 +32,52 @@
 									</md-list>
 								 </div>
 								</div>
+
+								<div class="col-md-6" ng-show="flag">
+									<div class="panel panel-primary">
+									<div class="panel-heading">Over All Campion</div>
+									
+
+									<div>
+										Physique
+										<md-input-container class="md-block" flex-gt-sm>
+											<md-select placeholder="chose player"  ng-model="data.championship.Physique" ng-change="addOverAllWiner(data.championship,data.championship.Physique, 'Physique')">
+												<md-option ng-repeat="player in players | filter:'Physic'" value="{{player.name}}">
+													{{player.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+									</div>
+
+									<div>
+										Bodybuilding
+										<md-input-container class="md-block" flex-gt-sm>
+											<md-select placeholder="chose player"  ng-model="data.championship.Bodybuilding" ng-change="addOverAllWiner(data.championship,data.championship.Bodybuilding, 'Bodybuilding')">
+												<md-option ng-repeat="player in players | filter:'Bodybuilding'" value="{{player.name}}">
+													{{player.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+									</div>
+
+									<div>
+										Bodystyle
+										<md-input-container class="md-block" flex-gt-sm>
+											<md-select placeholder="chose player"  ng-model="data.championship.Bodystyle" ng-change="addOverAllWiner(data.championship,data.championship.Bodystyle, 'Bodystyle')">
+												<md-option ng-repeat="player in players | filter:'Bodystyle'" value="{{player.name}}">
+													{{player.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+									</div>
+
+
+								 </div>
+								</div>
+								<div class="clear">
+									
+								</div>
+
 								<div class="col-md-6" ng-repeat="competition in data.championship.competitions track by  $index " >
 									<div class="panel panel-primary" style="height: 300px; margin-top: 20px;margin-bottom: 20px;float: left;width: 100%;overflow-y: auto;">
 									<div class="panel-heading">Add player to :{{competition.competition.type + " ("+competition.competition.size+")"}}</div>
@@ -43,12 +89,12 @@
 										</md-select>
 									</md-input-container>
 									<md-list>
-										<md-list-item ng-repeat="player in data.championship.competitions[$index].players track by $index" class="noright" ng-click="doNoThing()">
+										<md-list-item ng-repeat="player in data.championship.competitions[$index].players | orderBy:'position' track by $index" class="noright" ng-click="doNoThing()">
 											<img alt="{{ player.name }}" ng-src="{{ player.pic }}" class="md-avatar" />
 											<p>{{ player.name }}</p>
 											<md-input-container class="md-block" flex-gt-sm style="width: 100px; flex: 0;">
 												<label>Place</label>
-												<md-select required ng-model="player.position"
+												<md-select  ng-model="player.position"
 												ng-change="setPlayerPostion(competition.competition._id,player._id,player.position)">
 													<md-option ng-repeat="position in positions" value="{{position}}">
 														{{position}}
@@ -98,7 +144,11 @@
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Nationality (English)</label>
-											<input required ng-model="player.nationality" >
+											<md-select required ng-model="player.nationality">
+												<md-option ng-repeat="nationality in countryes" value="{{nationality.alpha2Code}}+{{nationality.name}}">
+													{{nationality.name}}
+												</md-option>
+											</md-select>
 										</md-input-container>
 
 										<md-input-container class="md-block" flex-gt-sm>
@@ -273,12 +323,14 @@
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Awards (English)</label>
-											<input required ng-model="championship.awards" >
+											<textarea ng-model="championship.awards" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+											<!-- <textarea  ng-model="championship.awards" rows="3" maxlength="150"> </textarea> -->
 										</md-input-container>
 
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Awards (Arabic)</label>
-											<input required ng-model="championship.awardsAr">
+											<textarea ng-model="championship.awardsAr" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+											<!-- <textarea  ng-model="championship.awardsAr" rows="3" maxlength="150" /> -->
 										</md-input-container>
 									</div>
 
@@ -349,6 +401,18 @@
 											<input required ng-model="club.nameAr" >
 										</md-input-container>
 									</div>
+
+									<div layout-gt-xs="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Address (English)</label>
+											<input required ng-model="club.address">
+										</md-input-container>
+
+										<md-input-container flex-gt-sm>
+											<label>Address (Arabic)</label>
+											<input required ng-model="club.addressAr" >
+										</md-input-container>
+									</div>
 									
 									<div layout-gt-sm="row" >
 										<md-button class="md-raised" ng-click="clubPic()" flex-gt-sm >Upload Image</md-button>
@@ -389,6 +453,43 @@
 													{{club.name}}
 												</md-option>
 											</md-select>
+										</md-input-container>
+									</div>
+
+									<div layout-gt-sm="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Nationality (English)</label>
+											<md-select required ng-model="coach.nationality">
+												<md-option ng-repeat="nationality in countryes" value="{{nationality.alpha2Code}}+{{nationality.name}}">
+													{{nationality.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Nationality (Arabic)</label>
+											<input required ng-model="coach.nationalityAr">
+										</md-input-container>
+									</div>
+
+									<div layout-gt-sm="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Country of residence (English)</label>
+											<md-select required ng-model="coach.countryOfResidence">
+												<md-option ng-repeat="countrye in countryes" value="{{countrye.name}}">
+													{{countrye.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Country of residence (Arabic)</label>
+											<input required ng-model="coach.countryOfResidenceAr">
+										</md-input-container>
+
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Age</label>
+											<input type="Number" ng-model="coach.age">
 										</md-input-container>
 									</div>
 									

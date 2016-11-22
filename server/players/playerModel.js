@@ -32,7 +32,7 @@ var playerSchema = new mongoose.Schema({
 	sizeAr : String,
 	points : Number,
 	flag : Boolean,
-	position : Number
+	position : {type :Number, default: -1}
 });
 
 var Player = mongoose.model("Player",playerSchema);

@@ -1,6 +1,9 @@
 var Championship = require("./championshipModel.js");
 var Competition = require("../competitions/competitionModel.js");
 var Referee = require("../referees/refereeModel.js");
+var Player = require("../players/playerModel.js");
+var Coach = require("../coaches/coachModel.js");
+var Club = require("../clubs/clubModel.js");
 var repsonseHandler = require('../config/helpers.js').repsonseHandler;
 
 module.exports = {
@@ -163,6 +166,7 @@ module.exports = {
 		var championshipId = req.params.id;
 		var refereeId = req.body.refereeId;
 		var enterPoints = req.body.enterPoints;
+		console.log(typeof(refereeId));
 
 		Referee.findOneAndUpdate({_id: refereeId},{$pull : {championships : championshipId}}).exec();
 		Referee.findOneAndUpdate({_id: refereeId},{$push : {championships : championshipId}}).exec();
@@ -190,6 +194,108 @@ module.exports = {
 		.exec(function (err, championship) {
 			repsonseHandler(err, req, res, {status: 200, returnObj: championship}, next);
 		})	
+	},
+
+	addOverAllWiner : function (req, res, next) {
+		var championshipId = req.params.id;
+		var playerId = req.body.playerId;
+		var type = req.body.type;
+		console.log(typeof(playerId));
+		console.log(typeof(type));
+		 var overAllPoints = 10;
+		console.log(championshipId, playerId, type);
+
+		// Championship.findOneAndUpdate({_id: championshipId}, {$pull : {overAllPlayers: {player : playerId, type : type}}}).exec();
+		// Championship.findOneAndUpdate({_id: championshipId}, {$push : {overAllPlayers: {player : playerId, type : type}}},{ new : true})
+		// .exec(function (err, championship) {
+		// 	repsonseHandler(err, req, res, {status: 200, returnObj: championship}, next);
+		// })
+
+
+		
+		//CastError: Cast to [string] failed for value "[{"type":"Physic","player":"57e52cf29fd7f9cba746e764"}]" at path "overAllPlayers"
+
+		if(type === "Physique") {
+			Championship.findOne({_id : championshipId})
+			.exec(function (error, championshipObj) {
+				if(championshipObj.Physique){
+					Player.findOneAndUpdate({_id : championshipObj.Physique}, { $inc: { points: -overAllPoints }})
+						.exec(function (err, player) {
+							Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -overAllPoints }}).exec();
+							Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -overAllPoints }}).exec();
+						});
+				}
+			})
+			Championship.findOneAndUpdate({_id: championshipId}, {$set : { Physique : playerId} },{ new : true})
+			.exec(function (err, championship) {
+				console.log("asdasd")
+						// Player.findOneAndUpdate({_id: championship.overAllPlayers[i].player}, { $inc: { points: -overAllPoints }})
+						// .exec(function (err, player) {
+						// 	Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -overAllPoints }}).exec();
+						// 	Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -overAllPoints }}).exec();
+						// });
+						Player.findOneAndUpdate({_id : playerId}, { $inc: { points: overAllPoints }})
+						.exec(function (err, player) {
+							Club.findOneAndUpdate({_id: player.club}, { $inc: { points: overAllPoints }}).exec();
+							Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: overAllPoints }}).exec();
+						});
+				repsonseHandler(err, req, res, {status: 200, returnObj: championship}, next);
+			})
+		}
+		else if(type === "Bodybuilding"){
+			Championship.findOne({_id : championshipId})
+			.exec(function (error, championshipObj) {
+				if(championshipObj.Bodybuilding){
+					Player.findOneAndUpdate({_id : championshipObj.Bodybuilding}, { $inc: { points: -overAllPoints }})
+						.exec(function (err, player) {
+							Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -overAllPoints }}).exec();
+							Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -overAllPoints }}).exec();
+						});
+				}
+			})
+
+			Championship.findOneAndUpdate({_id: championshipId}, {$set : { Bodybuilding : playerId} },{ new : true})
+			.exec(function (err, championship) {
+						// Player.findOneAndUpdate({_id: championship.overAllPlayers[i].player}, { $inc: { points: -overAllPoints }})
+						// .exec(function (err, player) {
+						// 	Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -overAllPoints }}).exec();
+						// 	Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -overAllPoints }}).exec();
+						// });
+						Player.findOneAndUpdate({_id : playerId}, { $inc: { points: overAllPoints }})
+						.exec(function (err, player) {
+							Club.findOneAndUpdate({_id: player.club}, { $inc: { points: overAllPoints }}).exec();
+							Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: overAllPoints }}).exec();
+						});
+				repsonseHandler(err, req, res, {status: 200, returnObj: championship}, next);
+			})
+		}
+		else {
+			Championship.findOne({_id : championshipId})
+			.exec(function (error, championshipObj) {
+				if(championshipObj.Bodystyle){
+					Player.findOneAndUpdate({_id : championshipObj.Bodystyle}, { $inc: { points: -overAllPoints }})
+						.exec(function (err, player) {
+							Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -overAllPoints }}).exec();
+							Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -overAllPoints }}).exec();
+						});
+				}
+			})
+			Championship.findOneAndUpdate({_id: championshipId}, {$set : { Bodystyle : playerId} },{ new : true})
+			.exec(function (err, championship) {
+						// Player.findOneAndUpdate({_id: championship.overAllPlayers[i].player}, { $inc: { points: -overAllPoints }})
+						// .exec(function (err, player) {
+						// 	Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -overAllPoints }}).exec();
+						// 	Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -overAllPoints }}).exec();
+						// });
+						Player.findOneAndUpdate({_id : playerId}, { $inc: { points: overAllPoints }})
+						.exec(function (err, player) {
+							Club.findOneAndUpdate({_id: player.club}, { $inc: { points: overAllPoints }}).exec();
+							Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: overAllPoints }}).exec();
+						});
+				repsonseHandler(err, req, res, {status: 200, returnObj: championship}, next);
+			})
+		}
+
 	}
 
 }

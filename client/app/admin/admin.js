@@ -4,8 +4,8 @@ angular.module('Wawan.admin', [
 	$scope.player = {};
 	$scope.clubs = [];
 	$scope.coaches = [];
-	$scope.types = ["Physic","Bodybuilding"];
-	$scope.typesAr = ["فيزيك","كمال اجسام"];
+	$scope.types = ["Physic","Bodybuilding","Bodystyle"];
+	$scope.typesAr = ["فيزيك","كمال اجسام","بادي ستايل"];
 
 	$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM","Under 75 KG","Under 85 KG","Above 85 KG"];
 	$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم","تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
@@ -17,9 +17,9 @@ angular.module('Wawan.admin', [
 	$scope.flag = false;
 	$scope.data = {};
 	$scope.data.competitions = [];
-	$scope.championship.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg"
-	$scope.typesChampion = ["Physic","Bodybuilding"];
-	$scope.typesArChampion = ["فيزيك","كمال اجسام"];
+	$scope.championship.pic = "http://www.clipartkid.com/images/523/prize-reward-sport-trophy-win-winner-icon-icon-search-engine-mmsWyq-clipart.png"
+	$scope.typesChampion = ["Physic","Bodybuilding","Bodystyle"];
+	$scope.typesArChampion = ["فيزيك","كمال اجسام","بادي ستايل"];
 	$scope.positions = [1,2,3,4,5,6,7,8,9,10];
 	$scope.championship.competitions = [];
 	$scope.championship.positions=[];
@@ -73,6 +73,11 @@ angular.module('Wawan.admin', [
 			$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM"];
 			$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
 		}
+		else if($scope.player.type === "Bodystyle") {
+			$scope.player.typeAr = "بادي ستايل";
+			$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+			$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+		}
 		else{
 			$scope.player.typeAr = "كمال اجسام";
 			$scope.sizes = ["Under 75 KG","Under 85 KG","Above 85 KG"];
@@ -83,6 +88,10 @@ angular.module('Wawan.admin', [
 	$scope.typeSelectChangedChampions = function(){
 		$scope.disableLevel = false;
 		if($scope.competition.type === "Physic"){
+			$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+			$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+		}
+		else if($scope.competition.type === "Bodystyle") {
 			$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
 			$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
 		}
@@ -423,6 +432,9 @@ angular.module('Wawan.admin', [
 	}
 	$scope.championshipSelected = function () {
 		$scope.flag = true;
+		$scope.data.championship.Physique = '';
+		$scope.data.championship.Bodybuilding = '';
+		$scope.data.championship.Bodystyle = '';
 		$scope.data.championship.refereesID = [];
 		$scope.data.championship.referees = [];
 		$scope.data.championship.competitions = [];
@@ -433,6 +445,9 @@ angular.module('Wawan.admin', [
 		.then(function (data) {
 			console.log(data)
 			$scope.data.championship._id = data.championship._id;
+			$scope.data.championship.Physique = $scope.getPlayerName(data.championship.Physique);
+			$scope.data.championship.Bodybuilding = $scope.getPlayerName(data.championship.Bodybuilding);
+			$scope.data.championship.Bodystyle = $scope.getPlayerName(data.championship.Bodystyle);
 			$scope.data.championship.refereesEnterPoint = data.championship.refereesEnterPoint;
 			$scope.data.championship.referees = data.referees;
 			for (var i = 0; i < data.competitions.length; i++) {
@@ -471,7 +486,7 @@ angular.module('Wawan.admin', [
 					}
 				}
 				$scope.data.championship.competitions[index].players.push($scope.players[i]);
-				Competition.addPlayerToCometition(competitionId, playerId)
+				Competition.addPlayerToCometition(competitionId, playerId, $scope.data.championship._id)
 				.then(function (competitionObj) {
 					console.log(competitionObj);
 				})
@@ -525,7 +540,40 @@ angular.module('Wawan.admin', [
     }, function() {
       $scope.status = 'You decided to keep your debt.';
     });
-  };
+  }
+
+  $scope.addOverAllWiner = function (championshipId, player, type) {
+  	console.log(championshipId._id, $scope.getPlayerId(player), type);
+  	console.log("hiii");
+  	Championship.addOverAllWiner(championshipId._id, $scope.getPlayerId(player), type)
+  	.then(function (championship) {
+	  	console.log("hiii2");
+		console.log(championship);
+	})
+	.catch(function (err) {
+	  	console.log("hiii2");
+		console.log(err);
+	})
+  }
+
+  $scope.getPlayerId = function (name) {
+  	for (var i = 0; i < $scope.players.length; i++) {
+  		if($scope.players[i].name === name)
+  			return $scope.players[i]._id;
+  	}
+  	return null;
+  }
+
+  $scope.getPlayerName = function (id) {
+  	console.log("AsdasD", id)
+  	for (var i = 0; i < $scope.players.length; i++) {
+  		if($scope.players[i]._id === id)
+  			return $scope.players[i].name;
+  	}
+  	return null;
+  }
+
+
 
 
 
