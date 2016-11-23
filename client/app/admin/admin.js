@@ -444,7 +444,7 @@ angular.module('Wawan.admin', [
 		for (var i = 0; i < $scope.edit.coaches.length; i++) {
 			if($scope.edit.coaches[i].name === coachName){
 				$scope.edit.coach = $scope.edit.coaches[i];
-				$scope.edit.coach.club = $scope.getClubName($scope.edit.coaches[i].club)
+				$scope.edit.coach.club = $scope.getClubName($scope.edit.coach.club);
 			}
 		}
 	}

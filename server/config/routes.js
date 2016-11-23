@@ -59,7 +59,7 @@ module.exports = function(app, express) {
 	app.get('/api/coachs', coach.getAllCoaches);
 	app.get('/api/coach/:id', coach.getCoach);
 	app.post('/api/coach', coach.createCoach);
-	app.put('/api/coach/:id/edit', coach.editCoach);
+	app.post('/api/coach/:id/edit', coach.editCoach);
 	app.delete('/api/coach/removeCoach/:id', coach.removeCoach);
 
 	//error handling
