@@ -313,12 +313,12 @@
 										</table>
 									</div>
 
-									<div layout-gt-sm="row">
+<!-- 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm ng-repeat="position in positions track by $index">
 											<label>{{position}}</label>
 											<input required ng-model="championship.positions[$index]" >
 										</md-input-container>
-									</div>
+									</div> -->
 
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
@@ -550,6 +550,7 @@
 
 				</md-tabs>
 			</md-tab>
+
 			<md-tab label="Edit" ng-click="editTab()">
 				<md-tabs md-dynamic-height md-border-bottom>
 				<md-tab label="Edit Player">
@@ -615,7 +616,7 @@
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Sport Type (English)</label>
-											<md-select required ng-model="edit.player.type" ng-change="typeSelectChangedPlayer()">
+											<md-select required ng-model="edit.player.type" ng-change="typeEditSelected()">
 												<md-option ng-repeat="type in types" value="{{type}}">
 													{{type}}
 												</md-option>
@@ -635,7 +636,7 @@
 									<div layout-gt-sm="row" >
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Sport Level (English)</label>
-											<md-select required ng-model="edit.player.size" ng-change="sizeSelectChanged()">
+											<md-select required ng-model="edit.player.size" ng-change="sizeEditSelected()">
 												<md-option ng-repeat="size in sizes" value="{{size}}">
 													{{size}}
 												</md-option>
@@ -674,7 +675,7 @@
 									<div layout-gt-sm="row" >
 										<md-button class="md-raised" ng-click="changeProfilePic()" flex-gt-sm >Upload Image</md-button>
 										<img ng-src="{{edit.player.pic}}" width="50px" height="50px">
-										<md-button type="submit" class="md-raised md-primary" flex-gt-sm >Create</md-button>
+										<md-button type="submit" class="md-raised md-primary" flex-gt-sm >Edit</md-button>
 									</div>
 									<div layout="row" layout-sm="column" layout-align="space-around">
 										<md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
@@ -686,19 +687,297 @@
 				</md-tab>
 
 				<md-tab label="Edit Championship">
-				
+					<md-content layout-padding>
+						<div>
+							<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Select Player</label>
+										<md-select  ng-model="edit.championship.name" ng-change="selectChampion()">
+											<md-option ng-repeat="championship in edit.championships" value="{{championship.name}}">
+												{{championship.name}}
+											</md-option>
+										</md-select>
+									</md-input-container>
+							</div>
+						</div>
+					</md-content>
+					<md-content layout-padding>
+						<div>
+							<form name="userForm" ng-submit="editChampion()">
+								<div layout-gt-xs="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Name (English)</label>
+										<input required ng-model="edit.championship.name">
+									</md-input-container>
+
+									<md-input-container flex-gt-sm>
+										<label>Name (Arabic)</label>
+										<input required ng-model="edit.championship.nameAr" >
+									</md-input-container>
+
+									<md-input-container>
+										<label>Date of Championship</label>
+										<md-datepicker required ng-model="edit.championship.date"></md-datepicker>
+									</md-input-container>
+								</div>
+
+								<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Awards (English)</label>
+										<textarea ng-model="edit.championship.awards" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+										<!-- <textarea  ng-model="edit.championship.awards" rows="3" maxlength="150"> </textarea> -->
+									</md-input-container>
+
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Awards (Arabic)</label>
+										<textarea ng-model="edit.championship.awardsAr" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+										<!-- <textarea  ng-model="edit.championship.awardsAr" rows="3" maxlength="150" /> -->
+									</md-input-container>
+								</div>
+
+
+								<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Championship Address (English)</label>
+										<input required ng-model="edit.championship.address">
+									</md-input-container>
+
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Championship Address (Arabic)</label>
+										<input required ng-model="edit.championship.addressAr">
+									</md-input-container>
+								</div>
+
+								<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Players Link</label>
+										<input required ng-model="edit.championship.playersLink">
+									</md-input-container>
+
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Audience Link</label>
+										<input required ng-model="edit.championship.audiencelink">
+									</md-input-container>
+								</div> 
+
+								
+								<div layout-gt-sm="row" >
+									<md-button class="md-raised" ng-click="championshipPic()" flex-gt-sm >Upload Image</md-button>
+									<img ng-src="{{edit.championship.pic}}" width="50px" height="50px">
+									<md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Edit</md-button>
+								</div>
+								<div layout="row" layout-sm="column" layout-align="space-around">
+									<md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+								</div>
+							</form>
+						</div>
+					</md-content>
+
 				</md-tab>
 
 				<md-tab label="Edit Club">
-				
+					<md-content layout-padding>
+						<div>
+							<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Select Club</label>
+										<md-select  ng-model="edit.club.name" ng-change="selectClub()">
+											<md-option ng-repeat="club in edit.clubs" value="{{club.name}}">
+												{{club.name}}
+											</md-option>
+										</md-select>
+									</md-input-container>
+							</div>
+						</div>
+					</md-content>
+					<md-content layout-padding>
+						<div>
+							<form name="userForm" ng-submit="editClub()">
+									<div layout-gt-xs="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Name (English)</label>
+											<input required ng-model="edit.club.name">
+										</md-input-container>
+
+										<md-input-container flex-gt-sm>
+											<label>Name (Arabic)</label>
+											<input required ng-model="edit.club.nameAr" >
+										</md-input-container>
+									</div>
+
+									<div layout-gt-xs="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Address (English)</label>
+											<input  ng-model="edit.club.address">
+										</md-input-container>
+
+										<md-input-container flex-gt-sm>
+											<label>Address (Arabic)</label>
+											<input  ng-model="edit.club.addressAr" >
+										</md-input-container>
+									</div>
+									
+									<div layout-gt-sm="row" >
+										<md-button class="md-raised" ng-click="clubPic()" flex-gt-sm >Upload Image</md-button>
+										<img ng-src="{{edit.club.pic}}" width="50px" height="50px">
+										<md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Edit</md-button>
+									</div>
+									<div layout="row" layout-sm="column" layout-align="space-around">
+										<md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+									</div>
+								</form>
+						</div>
+					</md-content>
+
 				</md-tab>
 
 				<md-tab label="Edit Coach">
-				
+					<md-content layout-padding>
+						<div>
+							<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Select Club</label>
+										<md-select  ng-model="edit.coach.name" ng-change="selectCoach()">
+											<md-option ng-repeat="coach in edit.coaches" value="{{coach.name}}">
+												{{coach.name}}
+											</md-option>
+										</md-select>
+									</md-input-container>
+							</div>
+						</div>
+					</md-content>
+					<md-content layout-padding>
+							<div>
+								<form name="userForm" ng-submit="editCoach()">
+									<div layout-gt-xs="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Name (English)</label>
+											<input required ng-model="edit.coach.name">
+										</md-input-container>
+
+										<md-input-container flex-gt-sm>
+											<label>Name (Arabic)</label>
+											<input required ng-model="edit.coach.nameAr" >
+										</md-input-container>
+									</div>
+
+									<div layout-gt-sm="row" >
+
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Club Name</label>
+											<md-select required ng-model="edit.coach.club" >
+												<md-option ng-repeat="club in clubs" value="{{club.name}}">
+													{{club.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+									</div>
+
+									<div layout-gt-sm="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Nationality (English)</label>
+											<md-select required ng-model="edit.coach.nationality">
+												<md-option ng-repeat="nationality in countryes" value="{{nationality.alpha2Code}}+{{nationality.name}}">
+													{{nationality.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Nationality (Arabic)</label>
+											<input required ng-model="edit.coach.nationalityAr">
+										</md-input-container>
+									</div>
+
+									<div layout-gt-sm="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Country of residence (English)</label>
+											<md-select required ng-model="edit.coach.countryOfResidence">
+												<md-option ng-repeat="countrye in countryes" value="{{countrye.name}}">
+													{{countrye.name}}
+												</md-option>
+											</md-select>
+										</md-input-container>
+
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Country of residence (Arabic)</label>
+											<input required ng-model="edit.coach.countryOfResidenceAr">
+										</md-input-container>
+
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Age</label>
+											<input type="Number" ng-model="edit.coach.age">
+										</md-input-container>
+									</div>
+									
+									<div layout-gt-sm="row" >
+										<md-button class="md-raised" ng-click="coachPic()" flex-gt-sm >Upload Image</md-button>
+										<img ng-src="{{edit.coach.pic}}" width="50px" height="50px">
+										<md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Edit</md-button>
+									</div>
+									<div layout="row" layout-sm="column" layout-align="space-around">
+										<md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+									</div>
+								</form>
+							</div>
+						</md-content>
+
+
+
 				</md-tab>
 
 				<md-tab label="Edit Referee">
-				
+					<md-content layout-padding>
+						<div>
+							<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Select Club</label>
+										<md-select  ng-model="edit.referee.name" ng-change="selectReferee()">
+											<md-option ng-repeat="referee in edit.referees" value="{{referee.name}}">
+												{{referee.name}}
+											</md-option>
+										</md-select>
+									</md-input-container>
+							</div>
+						</div>
+					</md-content>
+					<md-content layout-padding>
+							<div>
+								<form name="userForm" ng-submit="editReferee()">
+									<div layout-gt-xs="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Name (English)</label>
+											<input required ng-model="edit.referee.name">
+										</md-input-container>
+
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Name (Arabic)</label>
+											<input required ng-model="edit.referee.nameAr" >
+										</md-input-container>
+									</div>
+									<div layout-gt-xs="row">
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Summary (English)</label>
+											<textarea ng-model="edit.referee.summary" md-maxlength="150" rows="3" md-select-on-focus></textarea>
+										</md-input-container>
+										<md-input-container class="md-block" flex-gt-sm>
+											<label>Summary (Arabic)</label>
+											<textarea ng-model="edit.referee.summaryAr" md-maxlength="150" rows="3" md-select-on-focus></textarea>
+										</md-input-container>
+									</div>
+									
+									
+									<div layout-gt-sm="row" >
+										<md-button class="md-raised" ng-click="refereePic()" flex-gt-sm >Upload Image</md-button>
+										<img ng-src="{{edit.referee.pic}}" width="50px" height="50px">
+										<md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Create</md-button>
+									</div>
+									<div layout="row" layout-sm="column" layout-align="space-around">
+										<md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+									</div>
+								</form>
+							</div>
+						</md-content>
 				</md-tab>
 				</md-tabs>
 			</md-tab>

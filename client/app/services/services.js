@@ -221,6 +221,16 @@ angular.module('Wawan.services',[])
 			.then(function (res) {
 				return res.data;
 			})
+		},
+		editChampionship : function (championship) {
+			return $http({
+				url : "/api/editChampionship/"+championship._id,
+				method : "POST",
+				data : championship
+			})
+			.then(function (res) {
+				return res.data;
+			})
 		}
 	}
 })
@@ -243,6 +253,8 @@ angular.module('Wawan.services',[])
 				return "فيزيك";
 			else if(word === "Bodybuilding")
 				return "كمال اجسام";
+			else if(word === "BodyStyle")
+				return "بدي ستايل";
 			return "No Translate";
 		}
 	}
@@ -269,7 +281,7 @@ angular.module('Wawan.services',[])
 		},
 		editClub : function (clubId, club) {
 			return $http({
-				url : "/api/club/"+clubId+"/edit",
+				url : "/api/editclub/"+ clubId,
 				method : "POST",
 				data : club
 			})
