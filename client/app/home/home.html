@@ -82,10 +82,10 @@
       height: 32px;
     }
   </style>
-  <div class="container" style="margin:10px; width: 100%;">
+  <div class="container" style="width: 90%; margin-top:10px;">
     <div class="row">
       <!-- Bodybuilding -->
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="table-responsive">
           <table class="table table-bordered table-hover" >
             <thead class="thead-inverse" style="background-color:#DD0C0C ">
@@ -120,7 +120,7 @@
       </div>
 
       <!-- Physique -->
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="table-responsive">
           <table class="table table-bordered table-hover" >
             <thead class="thead-inverse" style="background-color: #9B9D0E">
@@ -155,7 +155,7 @@
       </div>
 
       <!-- Coaches -->
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="table-responsive">
           <table class="table table-bordered table-hover">
             <thead class="thead-inverse" style="background-color: #174BAB">
@@ -179,8 +179,11 @@
         </div>
       </div>
 
+      
+    </div>
+    <div class="row">
       <!-- Clubs -->
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="table-responsive">
           <table class="table table-bordered table-hover" >
             <thead class="thead-inverse" style="background-color: #97248E">
@@ -190,23 +193,19 @@
               <tr>
                 <th width="5%">RANKING</th>
                 <th width="75%">PLAYER</th>
-                <th width="20%">POINTS</th>
               </tr>
             </thead>
             <tbody class="md-body-1">
               <tr ng-repeat = "club in data.clubs | limitTo: 10| orderBy:'-points' track by $index" ng-click="showItem('club',club)">
                 <th scope="row">{{$index+1}}</th>
                 <td>{{club.name}}</td>
-                <td>{{club.points}}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-    <!-- Referees -->
-    </div>
-    <div class="row">
-      <div class="col-md-12">
+      <!-- Referees -->
+      <div class="col-md-6">
         <div class="table-responsive">
           <table class="table table-bordered table-hover" >
             <thead class="thead-inverse" style="background-color: #3A9F26">
@@ -216,14 +215,12 @@
               <tr>
                 <th width="5%">RANKING</th>
                 <th width="75%">PLAYER</th>
-                <th width="20%">POINTS</th>
               </tr>
             </thead>
             <tbody class="md-body-1">
               <tr ng-repeat = "referee in data.referees |  limitTo: 10 | orderBy:'-points' track by $index" ng-click="showItem('referee',referee)">
                 <th scope="row">{{$index+1}}</th>
                 <td>{{referee.name}}</td>
-                <td>{{referee.points}}</td>
               </tr>
             </tbody>
           </table>
