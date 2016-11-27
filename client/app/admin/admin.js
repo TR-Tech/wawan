@@ -1,6 +1,6 @@
 angular.module('Wawan.admin', [
     'ngMessages'])
-.controller('adminController', function($scope, $routeParams, Country, Player, Competition, Championship, Translate, Imugur, Club, Coach, Referee, $mdDialog) {
+.controller('adminController', function($scope, $routeParams, $window, $location, Country, Player, Competition, Championship, Translate, Imugur, Club, Coach, Referee, $mdDialog) {
 	$scope.player = {};
 	$scope.clubs = [];
 	$scope.coaches = [];
@@ -32,6 +32,9 @@ angular.module('Wawan.admin', [
 	$scope.referee = {};
 
 	$scope.initialize = function () {
+		if($window.localStorage.loggedIN=='false'){
+			$location.path('/login');
+		}
 		$scope.club.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg";
 		$scope.coach.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg";
 		$scope.referee.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg";
@@ -65,6 +68,12 @@ angular.module('Wawan.admin', [
 		})
 	}
 	$scope.initialize();
+
+	$scope.logout = function () {
+	    $window.localStorage.clear();
+	    $window.localStorage.loggedIN=false;
+	    $location.path('/login');
+	}
 
 	$scope.typeSelectChangedPlayer = function(){
 		$scope.disableLevel = false;
