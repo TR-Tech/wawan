@@ -1,5 +1,6 @@
 angular.module('Wawan',[
 	'ngRoute',
+    'Wawan.auth',
 	'Wawan.home',
 	'Wawan.admin',
 	'Wawan.player',
@@ -15,9 +16,13 @@ angular.module('Wawan',[
       templateUrl: 'app/home/home.html',
       controller: 'homeController'
     })
-    .when('/admin', {
-			templateUrl: 'app/admin/admin.html',
-			controller: 'adminController'
+    .when('/login', {
+      templateUrl: 'app/auth/signin.html',
+      controller: 'AuthController'
+    })
+    .when('/admin', {   
+		templateUrl: 'app/admin/admin.html',
+		controller: 'adminController'
     })
     .when('/player/:id',{
     	templateUrl : 'app/players/player.html',

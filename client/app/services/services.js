@@ -1,5 +1,20 @@
 angular.module('Wawan.services',[])
 
+.factory('UserAuth',function ($http) {
+	return{
+		login: function(user) {
+			return $http({
+				method:'POST',
+				url:'/api/users/login',
+				data:user
+			})
+			.then(function (res) {
+				return res.data;
+			})
+		}
+	}	
+})
+
 .factory('Player', function ($http) {
 	return {
 		getAllPlayer : function () {
