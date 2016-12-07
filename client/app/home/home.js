@@ -56,13 +56,13 @@ angular.module('Wawan.home', [])
 		$('.table-responsive').hide()
 		$($event.srcElement).parents('.table-responsive').show();
 		$('.row').children().removeClass('col-md-4 col-md-6');
-		$('body').prepend('<div class="upper-bar"><button class="btn" id="backBtn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>Back</button></div>');
+		$('.upper-bar').removeClass('hidden');
 		$('#backBtn').click(function(){
 			$scope.limit=10;
 			$('.table-responsive').show();
 			$('.row:nth-child(1)').children('div').addClass('col-md-4');
 			$('.row:nth-child(2)').children('div').addClass('col-md-6');
-			$('.upper-bar').hide();
+			$('.upper-bar').addClass('hidden');
 		});
 	}
 	$scope.initialize = function () {
@@ -170,7 +170,8 @@ angular.module('Wawan.home', [])
 	}
 
 	$scope.showItem = function (type, obj) {
-		$location.path("/"+type+"/"+obj._id);
+			$location.path("/"+type+"/"+obj._id);
+
 	}
 });
 
