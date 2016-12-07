@@ -32,7 +32,7 @@ angular.module('Wawan.admin', [
 	$scope.referee = {};
 
 	$scope.initialize = function () {
-		if($window.localStorage.loggedIN=='false'){
+		if($window.localStorage.loggedIN=='false' || $window.localStorage.loggedIN==null){
 			$location.path('/login');
 		}
 		$scope.club.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg";
