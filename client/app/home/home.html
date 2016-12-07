@@ -41,6 +41,15 @@
     .main-table{
       padding: 30px;
     }
+    .upper-bar{
+      width: 100%;
+      background-color: grey;
+      color:white;
+    }
+    #backBtn{
+      margin: 5px 0 5px 50px;
+      padding: 8px;
+    }
     table {
       background-color: #F5F5F2;
     }
@@ -160,7 +169,7 @@
           <table class="table table-bordered table-hover">
             <thead class="thead-inverse" style="background-color: #174BAB">
               <tr>
-                <td colspan="5">Coaches Rank</td>
+                <td ng-click="showThisTable($event)" colspan="5">Coaches Rank</td>
               </tr>
               <tr>
                 <th width="5%">RANKING</th>
@@ -188,7 +197,7 @@
           <table class="table table-bordered table-hover" >
             <thead class="thead-inverse" style="background-color: #97248E">
               <tr>
-                <td colspan="5">Clubs Rank</td>
+                <td ng-click="showThisTable($event)" colspan="5">Clubs Rank</td>
               </tr>
               <tr>
                 <th width="5%">RANKING</th>
@@ -210,7 +219,7 @@
           <table class="table table-bordered table-hover" >
             <thead class="thead-inverse" style="background-color: #3A9F26">
               <tr>
-                <td colspan="5">Referees Rank</td>
+                <td ng-click="showThisTable($event)" colspan="5">Referees Rank</td>
               </tr>
               <tr>
                 <th width="5%">RANKING</th>
