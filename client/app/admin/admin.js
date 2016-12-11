@@ -70,9 +70,17 @@ angular.module('Wawan.admin', [
 	$scope.initialize();
 
 	$scope.logout = function () {
-	    $window.localStorage.clear();
-	    $window.localStorage.loggedIN=false;
-	    $location.path('/login');
+		if(typeof(Storage)!="undefined"){
+			$window.localStorage.clear();
+		    $window.localStorage.loggedIN=false;
+		    $location.path('/login');
+		}
+	    else{
+	    	setCookie('token','', 15);
+        	setCookie('userId','', 15);
+        	setCookie('loggedIN', false, 15);
+        	$location.path('/login');
+	    }
 	}
 
 	$scope.typeSelectChangedPlayer = function(){
@@ -162,10 +170,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 		var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 		var fileBt = $('<input>').attr('type','file');
-		fileBt.on('change', () => {
+		fileBt.on('change', function() {
 			var file = fileBt[0].files[0];
 			var reader = new FileReader();
-			reader.addEventListener('load', ()=>{
+			reader.addEventListener('load', function(){
 				var imgData = (reader.result.split(','))[1];
 				// sending the decoded image to IMGUR to get a link for that image
 				Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -184,10 +192,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 			var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 			var fileBt = $('<input>').attr('type','file');
-			fileBt.on('change', () => {
+			fileBt.on('change', function(){
 				var file = fileBt[0].files[0];
 				var reader = new FileReader();
-				reader.addEventListener('load', ()=>{
+				reader.addEventListener('load', function(){
 					var imgData = (reader.result.split(','))[1];
 					// sending the decoded image to IMGUR to get a link for that image
 					Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -254,10 +262,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 			var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 			var fileBt = $('<input>').attr('type','file');
-			fileBt.on('change', () => {
+			fileBt.on('change', function() {
 				var file = fileBt[0].files[0];
 				var reader = new FileReader();
-				reader.addEventListener('load', ()=>{
+				reader.addEventListener('load', function(){
 					var imgData = (reader.result.split(','))[1];
 					// sending the decoded image to IMGUR to get a link for that image
 					Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -289,10 +297,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 		var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 		var fileBt = $('<input>').attr('type','file');
-		fileBt.on('change', () => {
+		fileBt.on('change', function() {
 			var file = fileBt[0].files[0];
 			var reader = new FileReader();
-			reader.addEventListener('load', ()=>{
+			reader.addEventListener('load', function(){
 				var imgData = (reader.result.split(','))[1];
 				// sending the decoded image to IMGUR to get a link for that image
 				Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -331,10 +339,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 		var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 		var fileBt = $('<input>').attr('type','file');
-		fileBt.on('change', () => {
+		fileBt.on('change', function() {
 			var file = fileBt[0].files[0];
 			var reader = new FileReader();
-			reader.addEventListener('load', ()=>{
+			reader.addEventListener('load', function(){
 				var imgData = (reader.result.split(','))[1];
 				// sending the decoded image to IMGUR to get a link for that image
 				Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
