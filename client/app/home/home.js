@@ -55,13 +55,13 @@ angular.module('Wawan.home', [])
 		$scope.limit='';
 		$('.table-responsive').hide()
 		$($event.srcElement).parents('.table-responsive').show();
-		$('.row').children().removeClass('col-md-4 col-md-6');
+		$('.row').children().removeClass('col-md-6 col-md-12');
 		$('.upper-bar').removeClass('hidden');
 		$('#backBtn').click(function(){
 			$scope.limit=10;
 			$('.table-responsive').show();
-			$('.row:nth-child(1)').children('div').addClass('col-md-4');
-			$('.row:nth-child(2)').children('div').addClass('col-md-6');
+			$('.row:nth-child(1)').children('div').addClass('col-md-6');
+			$('.row:nth-child(2)').children('div').addClass('col-md-12');
 			$('.upper-bar').addClass('hidden');
 		});
 	}
