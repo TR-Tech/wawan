@@ -53,15 +53,15 @@ angular.module('Wawan.home', [])
 
 	$scope.showThisTable = function($event){
 		$scope.limit='';
-		$('.table-responsive').hide()
-		$($event.srcElement).parents('.table-responsive').show();
-		$('.row').children().removeClass('col-md-6 col-md-12');
+		$('.table-responsive').addClass('hidden')
+		$('.row').children().removeClass('col-md-4');
 		$('.upper-bar').removeClass('hidden');
+		$($event.srcElement).parents('.table-responsive').removeClass('hidden');
 		$('#backBtn').click(function(){
 			$scope.limit=10;
-			$('.table-responsive').show();
-			$('.row:nth-child(1)').children('div').addClass('col-md-6');
-			$('.row:nth-child(2)').children('div').addClass('col-md-12');
+			$('.table-responsive').removeClass('hidden');
+			$('.row:nth-child(1)').children('div').addClass('col-md-4');
+			//$('.row:nth-child(2)').children('div').addClass('col-md-12');
 			$('.upper-bar').addClass('hidden');
 		});
 	}
