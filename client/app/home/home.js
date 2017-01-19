@@ -79,7 +79,7 @@ angular.module('Wawan.home', [])
 			$('.row:nth-child(2)').children('div').addClass('col-md-6');
 			$('.upper-bar').addClass('hidden');
 			$('thead td').attr('title','Go to full ranking');
-			$('small').html('(full ranking)');
+			$('small').html('(top ten)');
 		});
 	}
 	$scope.initialize = function () {
