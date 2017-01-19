@@ -75,7 +75,7 @@ angular.module('Wawan.home', [])
 		$('#backBtn').click(function(){
 			$scope.limit=10;
 			$('.table-responsive').removeClass('hidden');
-			$('.row:nth-child(1)').children('div').addClass('col-md-4');
+			$('.row:nth-child(1)').children('div').addClass('col-md-6');
 			$('.row:nth-child(2)').children('div').addClass('col-md-6');
 			$('.upper-bar').addClass('hidden');
 			$('thead td').attr('title','Go to full ranking');
