@@ -818,6 +818,7 @@ angular.module('Wawan.admin', [
   	}
   	return null;
   }
+
   $scope.getCoachName = function (id) {
   	for (var i = 0; i < $scope.coaches.length; i++) {
   		if($scope.coaches[i]._id === id)
@@ -841,7 +842,6 @@ angular.module('Wawan.admin', [
   $scope.sizeEditSelected = function () {
   	$scope.edit.player.sizeAr = Translate.getArr($scope.edit.player.size);
   }
-
 
   $scope.deletePlayer = function (ev) {
   	if($scope.edit.player){
@@ -984,5 +984,33 @@ angular.module('Wawan.admin', [
 	    });
   	}
   }
+ //  $scope.disableLevel = false;
+	// 	if($scope.competition.type === "Physic"){
+	// 		$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+	// 		$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+	// 	}
+	// 	else if($scope.competition.type === "Bodystyle") {
+	// 		$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+	// 		$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+	// 	}
+	// 	else{
+	// 		$scope.sizesChampion = ["Under 75 KG","Under 85 KG","Above 85 KG"];
+	// 		$scope.sizeArChampion = ["تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
+	// 	}
+	// };
 
+	// $scope.sizeSelectChanged = function () {
+	// 	console.log($scope.player.size)
+	// 	if($scope.player.size === "Under 171 CM")
+	// 		$scope.player.sizeAr = "تحت 171 سم";
+	// 	else if($scope.player.size === "Under 176 CM")
+	// 		$scope.player.sizeAr = "تحت 176 سم";
+	// 	else if($scope.player.size === "Above 176 CM")
+	// 		$scope.player.sizeAr = "فوق 176 سم";
+	// 	else if($scope.player.size === "Under 75 KG")
+	// 		$scope.player.sizeAr = "تحت 75 كغ";
+	// 	else if($scope.player.size === "Under 85 KG")
+	// 		$scope.player.sizeAr = "تحت 85 كغ";
+	// 	else
+	// 		$scope.player.sizeAr = "فوق 85 كغ";
 });
