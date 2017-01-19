@@ -1,5 +1,5 @@
 angular.module('Wawan.home', [])
-.controller('homeController', function($scope, $route, $window, $routeParams, Player, $location, Referee, Club, Coach) {
+.controller('homeController', function($scope, $routeParams, Player, $location, Referee, Club, Coach) {
 	$scope.data = {};
 	$scope.data.bsize = '';
 	$scope.data.type = '';
@@ -89,7 +89,6 @@ angular.module('Wawan.home', [])
 		$scope.playersTableShow = true;
 		Player.getAllPlayer()
 		.then(function (players) {
-			console.log(players);
 			$scope.data.players = players;
 		});
 
@@ -190,7 +189,6 @@ angular.module('Wawan.home', [])
 
 	$scope.showItem = function (type, obj) {
 		$location.path("/"+type+"/"+obj._id);
-		$window.location.reload();
 	}
 });
 
