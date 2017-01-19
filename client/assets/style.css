@@ -13,9 +13,10 @@
   margin: 5px 0 5px 50px;
   padding: 8px;
 }
-table {
+table:not(.player-table) {
   background-color: #F5F5F2;
 }
+
 thead:first-child {
   background-color: #4D4C4C;
   color: white;
@@ -52,4 +53,7 @@ min-width:10px;
 } 
 .table-filter{
   height: 32px;
+}
+.bold{
+  font-weight: bold;
 }

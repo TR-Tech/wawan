@@ -67,14 +67,19 @@ angular.module('Wawan.home', [])
 		$scope.limit='';
 		$('.table-responsive').addClass('hidden')
 		$('.row').children().removeClass('col-md-4');
+		$('.row').children().removeClass('col-md-6');
 		$('.upper-bar').removeClass('hidden');
 		$($event.srcElement).parents('.table-responsive').removeClass('hidden');
+		$('thead td').removeAttr('title')
+		$('small').html('(full ranking)')
 		$('#backBtn').click(function(){
 			$scope.limit=10;
 			$('.table-responsive').removeClass('hidden');
 			$('.row:nth-child(1)').children('div').addClass('col-md-4');
-			//$('.row:nth-child(2)').children('div').addClass('col-md-12');
+			$('.row:nth-child(2)').children('div').addClass('col-md-6');
 			$('.upper-bar').addClass('hidden');
+			$('thead td').attr('title','Go to full ranking');
+			$('small').html('(full ranking)');
 		});
 	}
 	$scope.initialize = function () {
@@ -107,8 +112,10 @@ angular.module('Wawan.home', [])
 		Coach.getAllCoachs()
 		.then(function (coachs) {
 			$scope.data.coaches = coachs;
-		})								
-	}
+		});
+
+		$('[data-toggle="tooltip"]').tooltip();
+	}   									
 
 	$scope.initialize();
 
@@ -182,8 +189,7 @@ angular.module('Wawan.home', [])
 	}
 
 	$scope.showItem = function (type, obj) {
-			$location.path("/"+type+"/"+obj._id);
-
+		$location.path("/"+type+"/"+obj._id);
 	}
 });
 
