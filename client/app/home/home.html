@@ -1,249 +1,155 @@
-<!-- <nav class="navbar navbar-light bg-faded" style="margin-bottom: 0px;">
-<div class="container">
-  <form class="form-inline float-xs-left">
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <button class="btn btn-outline-success {{playerActive}}" type="button" ng-click="showPlayers()">Players</button>
-      <button class="btn btn-outline-success {{refereeActive}}" type="button" ng-click="showReferees()">Referee</button>
-      <button class="btn btn-outline-success {{clubActive}}" type="button" ng-click="showClubs()">Clubs</button>
-      <button class="btn btn-outline-success {{coachActive}}" type="button" ng-click="showCoaches()">Coaches</button>
-      <button class="btn btn-sm align-middle btn-outline-secondary" type="button" style="float: right;">Arabic</button>
-      <p class="nav navbar-nav pull-xs-right">Signed in as</p>
-    </div>
-  </form>
-</div>
-</nav>
- -->
-<!-- Players Points -->
-<!-- <div ng-show=playersTableShow>
- --><!--   <nav class="navbar navbar-light bg-faded" style="margin-bottom: 0px;" >
-    <div class="container">
-      <form class="form-inline float-xs-left">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button id="All" class="btn btn-sm align-middle btn-outline-info {{allActive}}" type="button" ng-click="typeChanged('All')">All</button>
-          <button id="Physic" class="btn btn-sm align-middle btn-outline-info {{PhysicActive}}" type="button" ng-click="typeChanged('Physic')">Physic</button>
-          <button id="Bodybuilding" class="btn btn-sm align-middle btn-outline-info {{BodybuildingActive}}" type="button" ng-click="typeChanged('Bodybuilding')">Bodybuilding</button>
-        </div>
-      </form>
-    </div>
-  </nav> -->
-<!--   <nav class="navbar navbar-light bg-faded" ng-show="sizeShow">
-    <div class="container">
-    <form class="form-inline float-xs-left">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button ng-click="selectSize('',-1)" class="btn btn-sm align-middle btn-outline-secondary {{sizeActive_1}}" type="button">All</button>
-          <button ng-repeat = "size in sizes track by $index" ng-model="size" ng-click="selectSize(size,$index)" class="btn btn-sm align-middle btn-outline-secondary" ng-class="{{'sizeActive'+$index}}" type="button">{{size}}</button>
-        </div>
-      </form>
-    </div>
-  </nav> -->
-  <div class="upper-bar hidden"><button class="btn" id="backBtn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Back</button></div>
-  <div class="container" style="width: 90%; margin-top:10px;">
-    <div class="row">
-      <!-- Bodybuilding -->
-      <div class="col-md-4">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover" >
-            <thead class="thead-inverse" style="background-color:#DD0C0C ">
-              <tr>
-                <td ng-click="showThisTable($event)" colspan="5">Bodybuilding Rank</td>
-              </tr>
-              <tr>
-                <td colspan="5">
-                  <section class="table-filter" layout="row" layout-align="center center"  >
-                    <md-button class="groupX left" ng-click="bBySize('', $event)">All</md-button>
-                    <md-button class="groupX middle" ng-click="bBySize('Under 75 KG', $event)">Under 75 kg</md-button>
-                    <md-button class="groupX middle" ng-click="bBySize('Under 85 KG', $event)">Under 85 kg</md-button>
-                    <md-button class="groupX right" ng-click="bBySize('Above 85 KG', $event)">Above 85 kg</md-button>
-                  </section>
-                </td>
-              </tr>
-              <tr>
-                <th width="5%">RANKING</th>
-                <th width="75%">PLAYER</th>
-                <th width="20%">POINTS</th>
-              </tr>
-            </thead>
-            <tbody class="md-body-1">
-              <tr ng-repeat = "player in data.players | filter: data.type='Bodybuilding' | limitTo: limit |filter: data.size= bFilter | orderBy:'-points' track by $index" ng-click="showItem('player',player)">
-                <th scope="row">{{$index+1}}</th>
-                <td>{{player.name}}</td>
-                <td>{{player.points}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<div class="upper-bar hidden"><button class="btn" id="backBtn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Back</button></div>
+<div class="container" style="width: 90%; margin-top:10px;">
+  <div class="row">
+    <!-- Bodybuilding -->
+    <div class="col-md-4">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" >
+          <thead class="thead-inverse" style="background-color:#DD0C0C ">
+            <tr>
+              <td ng-click="showThisTable($event)" colspan="5">Bodybuilding Rank</td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <section class="table-filter" layout="row" layout-align="center center"  >
+                  <md-button class="groupX left" ng-click="bBySize('')">All</md-button>
+                  <md-button class="groupX middle" ng-click="bBySize('Under 75 kg')">Under 75 kg</md-button>
+                  <md-button class="groupX middle" ng-click="bBySize('Under 85 kg')">Under 85 kg</md-button>
+                  <md-button class="groupX right" ng-click="bBySize('Above 85 kg')">Above 85 kg</md-button>
+                </section>
+              </td>
+            </tr>
+            <tr>
+              <th width="5%">RANKING</th>
+              <th width="75%">PLAYER</th>
+              <th width="20%">POINTS</th>
+            </tr>
+          </thead>
+          <tbody class="md-body-1">
+            <tr ng-repeat = "player in data.players | filter: data.type='Bodybuilding' | limitTo: limit |filter: data.size= bFilter | orderBy:'-points' track by $index" ng-click="showItem('player',player)">
+              <th scope="row">{{$index+1}}</th>
+              <td>{{player.name}}</td>
+              <td>{{player.points}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <!-- Physique -->
-      <div class="col-md-4">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover" >
-            <thead class="thead-inverse" style="background-color: #9B9D0E">
-              <tr>
-                <td ng-click="showThisTable($event)" colspan="5">Physique Rank</td>
-              </tr>
-              <tr>
-                <td colspan="5">
-                  <section class="table-filter" layout="row" layout-align="center center">
-                    <md-button class="groupX left" ng-click="phBySize('', $event)">All</md-button>
-                    <md-button class="groupX middle" ng-click="phBySize('Under 171 CM', $event)">Under 171 cm</md-button>
-                    <md-button class="groupX middle" ng-click="phBySize('Under 176 CM', $event)">Under 176 cm</md-button>
-                    <md-button class="groupX right" ng-click="phBySize('Above 176 CM', $event)"> Above 176 cm</md-button>
-                  </section>
-                </td>
-              </tr>
-              <tr>
-                <th width="5%">RANKING</th>
-                <th width="75%">PLAYER</th>
-                <th width="20%">POINTS</th>
-              </tr>
-            </thead>
-            <tbody class="md-body-1">
-              <tr ng-repeat = "player in data.players | filter: data.type='Physic' | limitTo: limit| filter: data.size= phFilter | orderBy:'-points' track by $index" ng-click="showItem('player',player)">
-                <th scope="row">{{$index+1}}</th>
-                <td>{{player.name}}</td>
-                <td>{{player.points}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- Coaches -->
-      <div class="col-md-4">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover">
-            <thead class="thead-inverse" style="background-color: #174BAB">
-              <tr>
-                <td ng-click="showThisTable($event)" colspan="5">Coaches Rank</td>
-              </tr>
-              <tr>
-                <th width="5%">RANKING</th>
-                <th width="75%">PLAYER</th>
-                <th width="20%">POINTS</th>
-              </tr>
-            </thead>
-            <tbody class="md-body-1">
-              <tr ng-repeat = "coach in data.coaches |  limitTo: 10 | orderBy:'-points' track by $index" ng-click="showItem('coach',coach)">
-                <th scope="row">{{$index+1}}</th>
-                <td>{{coach.name}}</td>
-                <td>{{coach.points}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>    
     </div>
-
-      <!-- Clubs -->
-<!--       <div class="col-md-6">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover" >
-            <thead class="thead-inverse" style="background-color: #97248E">
-              <tr>
-                <td ng-click="showThisTable($event)" colspan="5">Clubs Rank</td>
-              </tr>
-              <tr>
-                <th width="5%">RANKING</th>
-                <th width="75%">PLAYER</th>
-              </tr>
-            </thead>
-            <tbody class="md-body-1">
-              <tr ng-repeat = "club in data.clubs | limitTo: 10| orderBy:'-points' track by $index" ng-click="showItem('club',club)">
-                <th scope="row">{{$index+1}}</th>
-                <td>{{club.name}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- Physique -->
+    <div class="col-md-4">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" >
+          <thead class="thead-inverse" style="background-color: #9B9D0E">
+            <tr>
+              <td ng-click="showThisTable($event)" colspan="5">Physique Rank</td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <section class="table-filter" layout="row" layout-align="center center">
+                  <md-button class="groupX left" ng-click="phBySize('')">All</md-button>
+                  <md-button class="groupX middle" ng-click="phBySize('Under 171 cm')">Under 171 cm</md-button>
+                  <md-button class="groupX middle" ng-click="phBySize('Under 176 cm')">Under 176 cm</md-button>
+                  <md-button class="groupX right" ng-click="phBySize('Above 176 cm')"> Above 176 cm</md-button>
+                </section>
+              </td>
+            </tr>
+            <tr>
+              <th width="5%">RANKING</th>
+              <th width="75%">PLAYER</th>
+              <th width="20%">POINTS</th>
+            </tr>
+          </thead>
+          <tbody class="md-body-1">
+            <tr ng-repeat = "player in data.players | filter: data.type='Physic' | limitTo: limit| filter: data.size= phFilter | orderBy:'-points' track by $index" ng-click="showItem('player',player)">
+              <th scope="row">{{$index+1}}</th>
+              <td>{{player.name}}</td>
+              <td>{{player.points}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      Referees
-      <div class="col-md-6">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover" >
-            <thead class="thead-inverse" style="background-color: #3A9F26">
-              <tr>
-                <td ng-click="showThisTable($event)" colspan="5">Referees Rank</td>
-              </tr>
-              <tr>
-                <th width="5%">RANKING</th>
-                <th width="75%">PLAYER</th>
-              </tr>
-            </thead>
-            <tbody class="md-body-1">
-              <tr ng-repeat = "referee in data.referees |  limitTo: 10 | orderBy:'-points' track by $index" ng-click="showItem('referee',referee)">
-                <th scope="row">{{$index+1}}</th>
-                <td>{{referee.name}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> -->
+    </div>
+    <!-- Bodystyle -->
+    <div class="col-md-4">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-inverse" style="background-color: #174BAB">
+            <tr>
+              <td ng-click="showThisTable($event)" colspan="5">Bodystyle</td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <section class="table-filter" layout="row" layout-align="center center">
+                  <md-button class="groupX left" ng-click="bsBySize('')">All</md-button>
+                  <md-button class="groupX middle" ng-click="bsBySize('Under 70 kg')">Under 70 kg</md-button>
+                  <md-button class="groupX middle" ng-click="bsBySize('Under 80 kg')">Under 80 kg</md-button>
+                  <md-button class="groupX right" ng-click="bsBySize('Above 80 kg')">Above 80 kg</md-button>
+                </section>
+              </td>
+            </tr>
+            <tr>
+              <th width="5%">RANKING</th>
+              <th width="75%">PLAYER</th>
+              <th width="20%">POINTS</th>
+            </tr>
+          </thead>
+          <tbody class="md-body-1">
+            <tr ng-repeat = "player in data.players | filter: data.type='Bodystyle' | limitTo: limit| filter: data.size= bsFilter | orderBy:'-points' track by $index" ng-click="showItem('player',player)">
+              <th scope="row">{{$index+1}}</th>
+              <td>{{player.name}}</td>
+              <td>{{player.points}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>    
+    </div>
+  </div>
+  <div class="row">
+    <!-- Coaches -->
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-inverse" style="background-color: #174BAB">
+            <tr>
+              <td ng-click="showThisTable($event)" colspan="5">Coaches Rank</td>
+            </tr>
+            <tr>
+              <th width="5%">RANKING</th>
+              <th width="75%">PLAYER</th>
+              <th width="20%">POINTS</th>
+            </tr>
+          </thead>
+          <tbody class="md-body-1">
+            <tr ng-repeat = "coach in data.coaches |  limitTo: 10 | orderBy:'-points' track by $index" ng-click="showItem('coach',coach)">
+              <th scope="row">{{$index+1}}</th>
+              <td>{{coach.name}}</td>
+              <td>{{coach.points}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>    
+    </div>
+    <!-- Clubs -->
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" >
+          <thead class="thead-inverse" style="background-color: #97248E">
+            <tr>
+              <td ng-click="showThisTable($event)" colspan="5">Clubs Rank</td>
+            </tr>
+            <tr>
+              <th width="5%">RANKING</th>
+              <th width="75%">PLAYER</th>
+            </tr>
+          </thead>
+          <tbody class="md-body-1">
+            <tr ng-repeat = "club in data.clubs | limitTo: 10| orderBy:'-points' track by $index" ng-click="showItem('club',club)">
+              <th scope="row">{{$index+1}}</th>
+              <td>{{club.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-
-<!-- Referees Points -->
-
-<!--   <div class="container" >
-    <table class="table table-bordered" flex="30">
-      <thead class="thead-inverse">
-        <tr>
-          <th width="15%">RANKING</th>
-          <th>Referee</th>
-          <th>POINTS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="referee in data.referees | orderBy:'-points' track by $index" ng-click="showItem('referee',referee)">
-          <th scope="row">{{$index+1}}</th>
-          <td>{{referee.name}}</td>
-          <td>{{referee.points}}</td>
-        </tr>
-      </tbody>
-    </table> -->
-
-
-
-<!-- Clubs Points -->
-<!-- 
-    <table class="table table-bordered">
-      <thead class="thead-inverse"  flex="30">
-        <tr>
-          <th width="15%">RANKING</th>
-          <th>Club</th>
-          <th>POINTS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat = "club in data.clubs | orderBy:'-points' track by $index" ng-click="showItem('club',club)">
-          <th scope="row">{{$index+1}}</th>
-          <td>{{club.name}}</td>
-          <td>{{club.points}}</td>
-        </tr>
-      </tbody>
-    </table> -->
-
-
-
-<!-- Coaches Points -->
-
-  <!-- 
-    <table class="table table-bordered">
-      <thead class="thead-inverse"  flex="30">
-        <tr>
-          <th width="15%">RANKING</th>
-          <th>Coach</th>
-          <th>POINTS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat = "coach in data.coaches | orderBy:'-points' track by $index" ng-click="showItem('coach',coach)">
-          <th scope="row">{{$index+1}}</th>
-          <td>{{coach.name}}</td>
-          <td>{{coach.points}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
- -->
-
-
