@@ -6,7 +6,7 @@ angular.module('Wawan.home', [])
 	$scope.limit = 10;
 
 
-	$scope.types = ["Physic","Bodybuilding"];
+	$scope.types = ["Physic","Bodybuilding","Bodystyle"];
 	$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM"];
 	$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
 
@@ -14,15 +14,19 @@ angular.module('Wawan.home', [])
 
 	$scope.bFilter='';
 	$scope.phFilter='';
+	$scope.bsFilter='';
 
-	$scope.bBySize = function(id, $event){//filter bodybuilding players by size
-		$scope.bFilter= id;
+	$scope.bBySize = function(size){//filter bodybuilding players by size
+		$scope.bFilter= size;
 	}
 
-	$scope.phBySize = function(id, $event){//filter physique players by size
-		$scope.phFilter= id;
+	$scope.phBySize = function(size){//filter physique players by size
+		$scope.phFilter= size;
 	}
-
+	$scope.bsBySize = function(size){//filter bodystyle players by size
+		$scope.bsFilter= size;
+	}
+		//checkk for functionality
 	$scope.typeChanged = function(id){
 		$scope.selectSize('',-1);
 		$scope.data.type = id;
@@ -34,6 +38,14 @@ angular.module('Wawan.home', [])
 			$scope.BodybuildingActive = '';
 		}
 		else if(id === "Physic"){
+			$scope.sizeShow = true;
+			$scope.PhysicActive = 'active'
+			$scope.BodybuildingActive = '';
+			$scope.allActive = "";
+			$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+			$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+		}
+		else if(id === "Bodystyle"){
 			$scope.sizeShow = true;
 			$scope.PhysicActive = 'active'
 			$scope.BodybuildingActive = '';
@@ -53,9 +65,22 @@ angular.module('Wawan.home', [])
 
 	$scope.showThisTable = function($event){
 		$scope.limit='';
-		$('.table-responsive').hide()
-		$($event.srcElement).parents('.table-responsive').show().addClass('main-table');
-		$('div').removeClass('col-md-3');
+		$('.table-responsive').addClass('hidden')
+		$('.row').children().removeClass('col-md-4');
+		$('.row').children().removeClass('col-md-6');
+		$('.upper-bar').removeClass('hidden');
+		$($event.srcElement).parents('.table-responsive').removeClass('hidden');
+		$('thead td').removeAttr('title')
+		$('small').html('(full ranking)')
+		$('#backBtn').click(function(){
+			$scope.limit=10;
+			$('.table-responsive').removeClass('hidden');
+			$('.row:nth-child(1)').children('div').addClass('col-md-6');
+			$('.row:nth-child(2)').children('div').addClass('col-md-6');
+			$('.upper-bar').addClass('hidden');
+			$('thead td').attr('title','Go to full ranking');
+			$('small').html('(top ten)');
+		});
 	}
 	$scope.initialize = function () {
 		$scope.allActive = "active";
@@ -64,7 +89,6 @@ angular.module('Wawan.home', [])
 		$scope.playersTableShow = true;
 		Player.getAllPlayer()
 		.then(function (players) {
-			console.log(players);
 			$scope.data.players = players;
 		});
 
@@ -87,8 +111,10 @@ angular.module('Wawan.home', [])
 		Coach.getAllCoachs()
 		.then(function (coachs) {
 			$scope.data.coaches = coachs;
-		})								
-	}
+		});
+
+		$('[data-toggle="tooltip"]').tooltip();
+	}   									
 
 	$scope.initialize();
 
