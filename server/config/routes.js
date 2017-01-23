@@ -1,5 +1,7 @@
 var helpers = require('./helpers.js');
 
+var user = require('../users/userController.js');
+
 var Competition = require('../competitions/competitionController.js');
 var Championship = require('../championships/championshipController.js');
 var Player = require('../players/playerController.js');
@@ -9,6 +11,9 @@ var referee = require('../referees/refereeController.js');
 var coach = require('../coaches/coachController.js');
 
 module.exports = function(app, express) {
+	//admin routes
+	app.post('/api/users/login', user.login);
+
 	//club routes
 	app.get('/api/clubs', club.getAllClubs);
 	app.get('/api/club/:id', club.getClub);
