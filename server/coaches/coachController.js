@@ -13,7 +13,8 @@ module.exports = {
 			nationality : coach.nationality,
 			nationalityAr : coach.nationalityAr,
 			countryOfResidence : coach.countryOfResidence,
-			countryOfResidenceAr : coach.countryOfResidenceAr
+			countryOfResidenceAr : coach.countryOfResidenceAr,
+			age : coach.age
 		})
 
 

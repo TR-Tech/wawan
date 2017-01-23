@@ -22,6 +22,26 @@ module.exports = {
 		});
 	},
 
+
+	editChampionship : function (req, res, next) {
+		var championship = req.body;
+		Championship.findOneAndUpdate({_id: req.params.id},{$set : {
+			name : championship.name,
+			nameAr : championship.nameAr,
+			date : championship.date,
+			pic : championship.pic,
+			audiencelink : championship.audiencelink,
+			playersLink : championship.playersLink,
+			addressAr : championship.addressAr,
+			address : championship.address,
+			awardsAr : championship.awardsAr,
+			awards : championship.awards
+		}},{new : true})
+		.exec(function (err, championship) {
+			repsonseHandler(err, req, res, {status : 200, returnObj :championship}, next);
+		})
+	},
+
 	createChampionship : function (req, res, next) {
 		var championship = req.body; 
 		console.log(championship);

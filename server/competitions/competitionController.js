@@ -95,18 +95,18 @@ module.exports = {
 			Player.findOne({_id: playerId}).exec(
 			function (err, player) {
 				// add points for clube 
-				Club.findOneAndUpdate({_id: player.club}, { $inc: { points: competitionsEnterpoint }}).exec();
+				// Club.findOneAndUpdate({_id: player.club}, { $inc: { points: competitionsEnterpoint }}).exec();
 				// add points for Coach
-				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: 2 }}).exec();
+				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: 1 }}).exec();
 			});
 		}
 		else {
 			Player.findOne({_id: playerId}).exec(
 			function (err, player) {
 				// add points for clube 
-				Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -competitionsEnterpoint }}).exec();
+				// Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -competitionsEnterpoint }}).exec();
 				// add points for Coach
-				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -2 }}).exec();
+				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -1 }}).exec();
 			});
 		} 
 
@@ -140,12 +140,20 @@ module.exports = {
 		var championshipId = req.body.championshipId;
 		var positionPoints = [];
 
+		var playerOldPoint = 0;
+		var playerNewPoint = 0;
+
+		var coachOldPoint = 0;
+		var coachNewPoint = 0;
+
+
+
+
 		Championship.findOne({_id : championshipId})
 		.exec(function (err, championship) {
-			positionPoints = championship.winersPoints;
-			var newPoint = positionPoints[position-1];
-			console.log("newPoint is " , newPoint);
-			
+			// positionPoints = championship.winersPoints;
+			// var newPoint = positionPoints[position-1];
+			// console.log("newPoint is " , newPoint);
 			Competition.findOne({_id: competitionId, "joinPlayers.player" : playerId})
 			.exec(function (err, competition) {
 				for (var i = 0; i < competition.joinPlayers.length; i++) {
@@ -155,28 +163,54 @@ module.exports = {
 						break;
 					}
 				}
-				if(oldPosition){
-					var oldPoint = (positionPoints[oldPosition-1]);
-					console.log("oldPoint is " , oldPoint);
-					Player.findOneAndUpdate({_id: playerId}, { $inc: { points: -oldPoint }})
-					.exec(function (err, player) {
-						Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -oldPoint }}).exec();
-						Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -oldPoint }}).exec();
-					});
+				if(oldPosition === 1){
+
+					playerOldPoint = 10;
+					coachOldPoint = 10;
 				}
+				else if(oldPosition === 2) {
+					playerOldPoint = 7;
+					coachOldPoint = 7;
+				}
+				else if(oldPosition === 3) {
+					playerOldPoint = 5;
+					coachOldPoint = 5;
+				}
+				else if( oldPosition <= 10) {
+					coachOldPoint = 2;
+				}
+				// var oldPoint = (positionPoints[oldPosition-1]);
+				// console.log("oldPoint is " , oldPoint);
+				Player.findOneAndUpdate({_id: playerId}, { $inc: { points: -playerOldPoint }})
+				.exec(function (err, player) {
+					// Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -oldPoint }}).exec();
+					Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -coachOldPoint }}).exec();
+				});
 				
 			})
 			
 			Competition.findOneAndUpdate({_id: competitionId, "joinPlayers.player" : playerId}, {$set : {"joinPlayers.$.position" : position}},{ new : true})
 			.exec(function (err, competition) {
-				if(newPoint){
-					console.log("hii")
-					Player.findOneAndUpdate({_id: playerId}, { $inc: { points: newPoint }})
-					.exec(function (err, player) {
-						Club.findOneAndUpdate({_id: player.club}, { $inc: { points: newPoint }}).exec();
-						Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: newPoint }}).exec();
-					});
+				if(position === 1){
+					playerNewPoint = 10;
+					coachNewPoint = 10;
 				}
+				else if(position === 2) {
+					playerNewPoint = 7;
+					coachNewPoint = 7;
+				}
+				else if(position === 3) {
+					playerNewPoint = 5;
+					coachNewPoint = 5;
+				}
+				else if( position <= 10) {
+					coachNewPoint = 2;
+				}
+				Player.findOneAndUpdate({_id: playerId}, { $inc: { points: playerNewPoint }})
+				.exec(function (err, player) {
+					// Club.findOneAndUpdate({_id: player.club}, { $inc: { points: newPoint }}).exec();
+					Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: coachNewPoint }}).exec();
+				});
 				repsonseHandler(err, req, res, {status: 200, returnObj: competition}, next);
 			})
 		})

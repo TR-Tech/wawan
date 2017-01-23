@@ -18,14 +18,14 @@ module.exports = function(app, express) {
 	app.get('/api/clubs', club.getAllClubs);
 	app.get('/api/club/:id', club.getClub);
 	app.post('/api/club', club.createClub);
-	app.put('/api/club/:id/edit', club.editClub);
+	app.post("/api/editClub/:id", club.editClub);
 	app.delete('/api/club/removeClub/:id', club.removeClub);
 
 	//referee routes
 	app.get('/api/referees', referee.getAllReferees);
 	app.get('/api/referee/:id', referee.getReferee);
 	app.post('/api/referee', referee.createReferee);
-	app.put('/api/referee/:id/edit', referee.editReferee);
+	app.post('/api/referee/:id/edit', referee.editReferee);
 	app.delete('/api/referee/removeReferee/:id', referee.removeReferee);
 
 	// Competition routes :
@@ -50,6 +50,7 @@ module.exports = function(app, express) {
 	app.post("/api/refereeJoinChampionship/:id", Championship.refereeJoinChampionship);
 	app.post("/api/addCompetitionToChampionship/:id", Championship.addCompetitionToChampionship);
 	app.post("/api/addOverAllWiner/:id", Championship.addOverAllWiner);
+	app.post("/api/editChampionship/:id", Championship.editChampionship);
 
 	// Player routes :
 	app.get("/api/player/getOne/:id", Player.getOnePlayer);
@@ -63,7 +64,7 @@ module.exports = function(app, express) {
 	app.get('/api/coachs', coach.getAllCoaches);
 	app.get('/api/coach/:id', coach.getCoach);
 	app.post('/api/coach', coach.createCoach);
-	app.put('/api/coach/:id/edit', coach.editCoach);
+	app.post('/api/coach/:id/edit', coach.editCoach);
 	app.delete('/api/coach/removeCoach/:id', coach.removeCoach);
 
 	//error handling
