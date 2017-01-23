@@ -7,8 +7,8 @@ angular.module('Wawan.admin', [
 	$scope.types = ["Physic","Bodybuilding","Bodystyle"];
 	$scope.typesAr = ["فيزيك","كمال اجسام","بادي ستايل"];
 
-	$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM","Under 75 KG","Under 85 KG","Above 85 KG"];
-	$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم","تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
+	$scope.sizes = ["Under 171 cm","Under 176 cm","Above 176 cm","Under 75 kg","Under 85 kg","Above 85 kg", "Under 70 kg","Under 80 kg","Above 80 kg"];
+	$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم","تحت 75 كغ","تحت 85 كغ","فوق 85 كغ","تحت 70 كغ","تحت 80 كغ","فوق 80 كغ"];
 
 	$scope.disableLevel = true;
 	$scope.player.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg"
@@ -34,8 +34,10 @@ angular.module('Wawan.admin', [
 	$scope.referee = {};
 
 	$scope.initialize = function () {
-		if($window.localStorage.loggedIN=='false'){
+		if($window.localStorage.loggedIN=='false' || $window.localStorage.loggedIN==null){
+			console.log('login in here')
 			$location.path('/login');
+
 		}
 		$scope.club.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg";
 		$scope.coach.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg";
@@ -72,26 +74,39 @@ angular.module('Wawan.admin', [
 	$scope.initialize();
 
 	$scope.logout = function () {
-	    $window.localStorage.clear();
-	    $window.localStorage.loggedIN=false;
-	    $location.path('/login');
+		if(typeof(Storage)!="undefined"){
+			$window.localStorage.clear();
+		    $window.localStorage.loggedIN=false;
+		    $location.path('/login');
+		}
+	    else{
+	    	setCookie('token','', 15);
+        	setCookie('userId','', 15);
+        	setCookie('loggedIN', false, 15);
+        	$location.path('/login');
+	    }
 	}
-
+	function setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/login";
+    }
 	$scope.typeSelectChangedPlayer = function(){
 		$scope.disableLevel = false;
 		if($scope.player.type === "Physic"){
 			$scope.player.typeAr = "فيزيك";
-			$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+			$scope.sizes = ["Under 171 cm","Under 176 cm","Above 176 cm"];
 			$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
 		}
 		else if($scope.player.type === "Bodystyle") {
 			$scope.player.typeAr = "بادي ستايل";
-			$scope.sizes = ["Under 171 CM","Under 176 CM","Above 176 CM"];
-			$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+			$scope.sizes = ["Under 70 kg","Under 80 kg","Above 80 kg"];
+			$scope.sizeAr = ["تحت 70 كغ","تحت 80 كغ","فوق 80 كغ"];
 		}
 		else{
 			$scope.player.typeAr = "كمال اجسام";
-			$scope.sizes = ["Under 75 KG","Under 85 KG","Above 85 KG"];
+			$scope.sizes = ["Under 75 kg","Under 85 kg","Above 85 kg"];
 			$scope.sizeAr = ["تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
 		}
 	};
@@ -99,30 +114,30 @@ angular.module('Wawan.admin', [
 	$scope.typeSelectChangedChampions = function(){
 		$scope.disableLevel = false;
 		if($scope.competition.type === "Physic"){
-			$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+			$scope.sizesChampion = ["Under 171 cm","Under 176 cm","Above 176 cm"];
 			$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
 		}
 		else if($scope.competition.type === "Bodystyle") {
-			$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
-			$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+			$scope.sizesChampion = ["Under 70 kg","Under 80 kg","Above 80 kg"];
+			$scope.sizeArChampion = ["تحت 70 كغ","تحت 80 كغ","فوق 80 كغ"];
 		}
 		else{
-			$scope.sizesChampion = ["Under 75 KG","Under 85 KG","Above 85 KG"];
+			$scope.sizesChampion = ["Under 75 kg","Under 85 kg","Above 85 kg"];
 			$scope.sizeArChampion = ["تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
 		}
 	};
 
 	$scope.sizeSelectChanged = function () {
 		console.log($scope.player.size)
-		if($scope.player.size === "Under 171 CM")
+		if($scope.player.size === "Under 171 cm")
 			$scope.player.sizeAr = "تحت 171 سم";
-		else if($scope.player.size === "Under 176 CM")
+		else if($scope.player.size === "Under 176 cm")
 			$scope.player.sizeAr = "تحت 176 سم";
-		else if($scope.player.size === "Above 176 CM")
+		else if($scope.player.size === "Above 176 cm")
 			$scope.player.sizeAr = "فوق 176 سم";
-		else if($scope.player.size === "Under 75 KG")
+		else if($scope.player.size === "Under 75 kg")
 			$scope.player.sizeAr = "تحت 75 كغ";
-		else if($scope.player.size === "Under 85 KG")
+		else if($scope.player.size === "Under 85 kg")
 			$scope.player.sizeAr = "تحت 85 كغ";
 		else
 			$scope.player.sizeAr = "فوق 85 كغ";	
@@ -164,10 +179,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 		var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 		var fileBt = $('<input>').attr('type','file');
-		fileBt.on('change', () => {
+		fileBt.on('change', function() {
 			var file = fileBt[0].files[0];
 			var reader = new FileReader();
-			reader.addEventListener('load', ()=>{
+			reader.addEventListener('load', function(){
 				var imgData = (reader.result.split(','))[1];
 				// sending the decoded image to IMGUR to get a link for that image
 				Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -186,10 +201,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 			var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 			var fileBt = $('<input>').attr('type','file');
-			fileBt.on('change', () => {
+			fileBt.on('change', function(){
 				var file = fileBt[0].files[0];
 				var reader = new FileReader();
-				reader.addEventListener('load', ()=>{
+				reader.addEventListener('load', function(){
 					var imgData = (reader.result.split(','))[1];
 					// sending the decoded image to IMGUR to get a link for that image
 					Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -256,10 +271,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 			var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 			var fileBt = $('<input>').attr('type','file');
-			fileBt.on('change', () => {
+			fileBt.on('change', function() {
 				var file = fileBt[0].files[0];
 				var reader = new FileReader();
-				reader.addEventListener('load', ()=>{
+				reader.addEventListener('load', function(){
 					var imgData = (reader.result.split(','))[1];
 					// sending the decoded image to IMGUR to get a link for that image
 					Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -291,10 +306,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 		var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 		var fileBt = $('<input>').attr('type','file');
-		fileBt.on('change', () => {
+		fileBt.on('change', function() {
 			var file = fileBt[0].files[0];
 			var reader = new FileReader();
-			reader.addEventListener('load', ()=>{
+			reader.addEventListener('load', function(){
 				var imgData = (reader.result.split(','))[1];
 				// sending the decoded image to IMGUR to get a link for that image
 				Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -333,10 +348,10 @@ angular.module('Wawan.admin', [
 		$scope.isLoading = true;
 		var IMGUR_CLIENT_ID = window.IMGUR_CLIENT_ID;
 		var fileBt = $('<input>').attr('type','file');
-		fileBt.on('change', () => {
+		fileBt.on('change', function() {
 			var file = fileBt[0].files[0];
 			var reader = new FileReader();
-			reader.addEventListener('load', ()=>{
+			reader.addEventListener('load', function(){
 				var imgData = (reader.result.split(','))[1];
 				// sending the decoded image to IMGUR to get a link for that image
 				Imugur.uploadToIMGUR(IMGUR_CLIENT_ID, imgData, function(result){
@@ -685,14 +700,11 @@ angular.module('Wawan.admin', [
 
   $scope.addOverAllWiner = function (championshipId, player, type) {
   	console.log(championshipId._id, $scope.getPlayerId(player), type);
-  	console.log("hiii");
   	Championship.addOverAllWiner(championshipId._id, $scope.getPlayerId(player), type)
   	.then(function (championship) {
-	  	console.log("hiii2");
 		console.log(championship);
 	})
 	.catch(function (err) {
-	  	console.log("hiii2");
 		console.log(err);
 	})
   }
@@ -713,7 +725,6 @@ angular.module('Wawan.admin', [
   	}
   	return null;
   }
-
   $scope.getCoachName = function (id) {
   	for (var i = 0; i < $scope.coaches.length; i++) {
   		if($scope.coaches[i]._id === id)
@@ -737,39 +748,5 @@ angular.module('Wawan.admin', [
   $scope.sizeEditSelected = function () {
   	$scope.edit.player.sizeAr = Translate.getArr($scope.edit.player.size);
   }
-
- //  $scope.disableLevel = false;
-	// 	if($scope.competition.type === "Physic"){
-	// 		$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
-	// 		$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
-	// 	}
-	// 	else if($scope.competition.type === "Bodystyle") {
-	// 		$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
-	// 		$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
-	// 	}
-	// 	else{
-	// 		$scope.sizesChampion = ["Under 75 KG","Under 85 KG","Above 85 KG"];
-	// 		$scope.sizeArChampion = ["تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
-	// 	}
-	// };
-
-	// $scope.sizeSelectChanged = function () {
-	// 	console.log($scope.player.size)
-	// 	if($scope.player.size === "Under 171 CM")
-	// 		$scope.player.sizeAr = "تحت 171 سم";
-	// 	else if($scope.player.size === "Under 176 CM")
-	// 		$scope.player.sizeAr = "تحت 176 سم";
-	// 	else if($scope.player.size === "Above 176 CM")
-	// 		$scope.player.sizeAr = "فوق 176 سم";
-	// 	else if($scope.player.size === "Under 75 KG")
-	// 		$scope.player.sizeAr = "تحت 75 كغ";
-	// 	else if($scope.player.size === "Under 85 KG")
-	// 		$scope.player.sizeAr = "تحت 85 كغ";
-	// 	else
-	// 		$scope.player.sizeAr = "فوق 85 كغ";
-
-
-
-
 
 });

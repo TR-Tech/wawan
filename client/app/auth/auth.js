@@ -17,6 +17,9 @@ angular.module('Wawan.auth', [])
       .catch(function (err) {
         $scope.username="";
         $scope.password="";
+        $('.invalid').show();
+        $('input#username').val('');
+        $('input#password').val('')
       })
     };
 })
