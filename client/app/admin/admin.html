@@ -137,8 +137,10 @@
 
 										<md-input-container>
 											<label>Date of birthd</label>
-											<md-datepicker required ng-model="player.dateOB"></md-datepicker>
+											<!-- <md-datepicker  ng-model="player.dateOB"></md-datepicker> -->
+											<input type="date" ng-model="player.dateOB" required>
 										</md-input-container>
+
 									</div>
 
 									<div layout-gt-sm="row">
@@ -216,7 +218,7 @@
 									<div layout-gt-sm="row" >
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Coach Name</label>
-											<md-select required ng-model="player.coach">
+											<md-select ng-model="player.coach">
 												<md-option ng-repeat="coach in coaches" value="{{coach.name}}">
 													{{coach.name}}
 												</md-option>
@@ -225,7 +227,7 @@
 
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Club Name</label>
-											<md-select required ng-model="player.club" >
+											<md-select  ng-model="player.club" >
 												<md-option ng-repeat="club in clubs" value="{{club.name}}">
 													{{club.name}}
 												</md-option>
@@ -263,7 +265,8 @@
 
 										<md-input-container>
 											<label>Date of Championship</label>
-											<md-datepicker required ng-model="championship.date"></md-datepicker>
+											<!-- <md-datepicker required ng-model="championship.date"></md-datepicker> -->
+											<input type="date" ng-model="championship.date" required>
 										</md-input-container>
 									</div>
 
@@ -303,12 +306,11 @@
 											<tr>
 												<th>Competition Type</th>
 												<th>Competition Level</th>
-												<th></th>
 											</tr>
 											<tr ng-repeat= "OneCompetition in data.competitions">
 												<td>{{OneCompetition.type}}</td>
 												<td>{{OneCompetition.size}}</td>
-												<td ng-click ="removeCopmetitiopn(OneCompetition)">Remove</td>
+												<!-- <td ng-click ="removeCopmetitiopn(OneCompetition)">Remove</td> -->
 											</tr>
 										</table>
 									</div>
@@ -320,65 +322,14 @@
 										</md-input-container>
 									</div> -->
 
-									<div layout-gt-sm="row">
-										<md-input-container class="md-block" flex-gt-sm>
-											<label>Awards (English)</label>
-											<textarea ng-model="championship.awards" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-											<!-- <textarea  ng-model="championship.awards" rows="3" maxlength="150"> </textarea> -->
-										</md-input-container>
-
-										<md-input-container class="md-block" flex-gt-sm>
-											<label>Awards (Arabic)</label>
-											<textarea ng-model="championship.awardsAr" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-											<!-- <textarea  ng-model="championship.awardsAr" rows="3" maxlength="150" /> -->
-										</md-input-container>
-									</div>
-
-
-									<div layout-gt-sm="row">
-										<md-input-container class="md-block" flex-gt-sm>
-											<label>Championship Address (English)</label>
-											<input required ng-model="championship.address">
-										</md-input-container>
-
-										<md-input-container class="md-block" flex-gt-sm>
-											<label>Championship Address (Arabic)</label>
-											<input required ng-model="championship.addressAr">
-										</md-input-container>
-									</div>
-
-									<div layout-gt-sm="row">
-										<md-input-container class="md-block" flex-gt-sm>
-											<label>Required Points</label>
-											<input required ng-model="championship.requiredPoints" type="Number">
-										</md-input-container>
-
-										<md-input-container class="md-block" flex-gt-sm>
-											<label>Referees Enter Point</label>
-											<input required ng-model="championship.refereesEnterPoint" type="Number">
-										</md-input-container>
-									</div>
-
-									<div layout-gt-sm="row">
-										<md-input-container class="md-block" flex-gt-sm>
-											<label>Players Link</label>
-											<input required ng-model="championship.playersLink">
-										</md-input-container>
-
-										<md-input-container class="md-block" flex-gt-sm>
-											<label>Audience Link</label>
-											<input required ng-model="championship.audiencelink">
-										</md-input-container>
-									</div> 
-
 									
 									<div layout-gt-sm="row" >
-										<md-button class="md-raised" ng-click="championshipPic()" flex-gt-sm >Upload Image</md-button>
-										<img ng-src="{{championship.pic}}" width="50px" height="50px">
+										<!-- <md-button class="md-raised" ng-click="championshipPic()" flex-gt-sm >Upload Image</md-button> -->
+										<!-- <img ng-src="{{championship.pic}}" width="50px" height="50px"> -->
 										<md-button type="submit" class="md-raised md-primary"  flex-gt-sm >Create</md-button>
 									</div>
 									<div layout="row" layout-sm="column" layout-align="space-around">
-										<md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+										<!-- <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular> -->
 									</div>
 								</form>
 							</div>
@@ -717,7 +668,10 @@
 
 									<md-input-container>
 										<label>Date of Championship</label>
-										<md-datepicker required ng-model="edit.championship.date"></md-datepicker>
+										<!-- <md-datepicker required ng-model="edit.championship.date"></md-datepicker> -->
+											<!-- <md-datepicker required ng-model="edit.championship.date"></md-datepicker> -->
+											<input type="date" ng-model="edit.championship.date" required>
+
 									</md-input-container>
 								</div>
 

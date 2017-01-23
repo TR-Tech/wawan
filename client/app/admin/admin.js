@@ -20,7 +20,7 @@ angular.module('Wawan.admin', [
 	$scope.championship.pic = "http://www.clipartkid.com/images/523/prize-reward-sport-trophy-win-winner-icon-icon-search-engine-mmsWyq-clipart.png"
 	$scope.typesChampion = ["Physic","Bodybuilding","Bodystyle"];
 	$scope.typesArChampion = ["فيزيك","كمال اجسام","بادي ستايل"];
-	$scope.positions = [1,2,3,4,5,6,7,8,9,10];
+	$scope.positions = [1,2,3];
 	$scope.championship.competitions = [];
 	$scope.championship.positions=[];
 
@@ -122,21 +122,26 @@ angular.module('Wawan.admin', [
 
 	$scope.createPlayer = function () {
 		console.log($scope.player);
-		if($scope.player.name && $scope.player.nameAr && $scope.player.dateOB && $scope.player.nationality && $scope.player.nationalityAr && $scope.player.countryOfResidence && $scope.player.countryOfResidenceAr && $scope.player.type && $scope.player.size && $scope.player.coach && $scope.player.club){
-			var coachName = $scope.player.coach;
-			for (var i = 0; i < $scope.coaches.length; i++) {
-				if($scope.coaches[i].name === coachName){
-					console.log($scope.coaches[i]._id);
-					$scope.player.coach = $scope.coaches[i]._id
+		if($scope.player.name && $scope.player.nameAr && $scope.player.dateOB && $scope.player.nationality && $scope.player.nationalityAr && $scope.player.countryOfResidence && $scope.player.countryOfResidenceAr && $scope.player.type && $scope.player.size){
+			if($scope.player.coach) {
+				var coachName = $scope.player.coach;
+				for (var i = 0; i < $scope.coaches.length; i++) {
+					if($scope.coaches[i].name === coachName){
+						console.log($scope.coaches[i]._id);
+						$scope.player.coach = $scope.coaches[i]._id
+					}
 				}
 			}
-			var clubName = $scope.player.club;
-			for (var i = 0; i < $scope.clubs.length; i++) {
-				if($scope.clubs[i].name === clubName){
-					console.log($scope.clubs[i]._id);
-					$scope.player.club = $scope.clubs[i]._id
+			if($scope.player.club) {
+				var clubName = $scope.player.club;
+				for (var i = 0; i < $scope.clubs.length; i++) {
+					if($scope.clubs[i].name === clubName){
+						console.log($scope.clubs[i]._id);
+						$scope.player.club = $scope.clubs[i]._id
+					}
 				}
 			}
+			
 			Player.createNewPlayer($scope.player)
 			.then(function (player) {
 				console.log(player);
