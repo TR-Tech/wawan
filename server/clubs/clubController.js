@@ -49,9 +49,9 @@ module.exports = {
 			name: club.name,
 			nameAr: club.nameAr,
 			pic: club.pic,
-			club: club.club,
-			competitions: club.competitions, 
-			points: club.points || 0,
+			//club: club.club,
+			//competitions: club.competitions, 
+			//points: club.points || 0,
 			address : club.address,
 			addressAr : club.addressAr
 		}})

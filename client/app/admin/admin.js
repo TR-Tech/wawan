@@ -24,6 +24,8 @@ angular.module('Wawan.admin', [
 	$scope.championship.competitions = [];
 	$scope.championship.positions=[];
 
+	$scope.editChampionship = {};
+
 
 	$scope.club = {};
 
@@ -386,7 +388,41 @@ angular.module('Wawan.admin', [
 		.catch(function (err) {
 			console.log(err)
 		})
+
+		Championship.getAllChampionship()
+		.then(function (championships) {
+			$scope.edit.championships = championships;
+		})
+		.catch(function (err) {
+			console.log(err)
+		})
+
+		Club.getAllClub()
+		.then(function (clubs) {
+			$scope.edit.clubs = clubs;
+		})
+		.catch(function (err) {
+			console.log(err)
+		})
+
+		Coach.getAllCoachs()
+		.then(function (coaches) {
+			$scope.edit.coaches = coaches;
+		})
+		.catch(function (err) {
+			console.log(err)
+		})
+
+		Referee.getAllReferee()
+		.then(function (referees) {
+			$scope.edit.referees = referees;
+		})
+		.catch(function (err) {
+			console.log(err)
+		})
 	}
+
+
 
 	$scope.selectPlayer = function () {
 		console.log($scope.edit.player.name);
@@ -394,10 +430,92 @@ angular.module('Wawan.admin', [
 		for (var i = 0; i < $scope.edit.players.length; i++) {
 			if($scope.edit.players[i].name === playerName){
 				$scope.edit.player = $scope.edit.players[i];
-				console.log($scope.edit.players[i]);
+				$scope.edit.player.coach = $scope.getCoachName($scope.edit.player.coach);
+				$scope.edit.player.club = $scope.getClubName($scope.edit.player.club);
+				$scope.edit.player.type = $scope.edit.player.type;
+				$scope.edit.player.size = $scope.edit.player.size;
 			}
 		}
 
+	}
+
+	$scope.selectChampion = function () {
+		var championshipName = $scope.edit.championship.name;
+		for (var i = 0; i < $scope.data.championships.length; i++) {
+			if($scope.data.championships[i].name === championshipName){
+				$scope.edit.championship = $scope.edit.championships[i];
+				console.log($scope.data.championships[i].date);
+				$scope.edit.championship.date = new Date($scope.data.championships[i].date);
+				// $scope.getCoachName($scope.edit.player.coach);
+				// $scope.edit.player.club = $scope.getClubName($scope.edit.player.club);
+				// $scope.edit.player.type = $scope.edit.player.type;
+				// $scope.edit.player.size = $scope.edit.player.size;
+			}
+		}
+	}
+
+	$scope.selectClub = function () {
+		var clubName = $scope.edit.club.name;
+		for (var i = 0; i < $scope.edit.clubs.length; i++) {
+			if($scope.edit.clubs[i].name === clubName){
+				$scope.edit.club = $scope.edit.clubs[i];
+			}
+		}
+	}
+
+	$scope.selectCoach = function () {
+		var coachName = $scope.edit.coach.name;
+		for (var i = 0; i < $scope.edit.coaches.length; i++) {
+			if($scope.edit.coaches[i].name === coachName){
+				$scope.edit.coach = $scope.edit.coaches[i];
+				$scope.edit.coach.club = $scope.getClubName($scope.edit.coach.club);
+			}
+		}
+	}
+
+	$scope.selectReferee = function () {
+		var refereeName = $scope.edit.referee.name;
+		for (var i = 0; i < $scope.edit.referees.length; i++) {
+			if($scope.edit.referees[i].name === refereeName){
+				$scope.edit.referee = $scope.edit.referees[i];
+			}
+		}
+	}
+
+	$scope.editClub = function () {
+		Club.editClub($scope.edit.club._id, $scope.edit.club)
+		.then(function (club) {
+			console.log(club);
+			$scope.edit.club = {};
+			alert("Done");
+		})
+		.catch(function (err) {
+			console.log(err);
+		})
+	}
+
+	$scope.editCoach = function () {
+		Coach.editCoach($scope.edit.coach._id, $scope.edit.coach)
+		.then(function (coach) {
+			console.log(coach);
+			$scope.edit.coach = {};
+			alert("Done");
+		})
+		.catch(function (err) {
+			console.log(err);
+		})
+	}
+
+	$scope.editReferee = function () {
+		Referee.editReferee($scope.edit.referee._id, $scope.edit.referee)
+		.then(function (referee) {
+			console.log(referee);
+			$scope.edit.referee = {};
+			alert("Done");
+		})
+		.catch(function (err) {
+			console.log(err);
+		})
 	}
 
 	$scope.editPlayer = function () {
@@ -418,13 +536,27 @@ angular.module('Wawan.admin', [
 		Player.editePlayer($scope.edit.player._id, $scope.edit.player)
 		.then(function (player) {
 			console.log(player);
-			$scope.player = {};
+			$scope.edit.player = {};
 			alert("Done");
 		})
 		.catch(function (err) {
 			alert("ther is same name")
 		})
 	}
+
+	$scope.editChampion = function () {
+		Championship.editChampionship($scope.edit.championship)
+		.then(function (championship) {
+			console.log(championship);
+			$scope.edit.championship = {};
+			alert("Done");
+		})
+		.catch(function (err) {
+			console.log(err);
+		})
+	}
+
+
 	$scope.data.championship = {};
 	$scope.data.championship.refereesID = [];
 	$scope.data.championship.referees = [];
@@ -593,4 +725,28 @@ angular.module('Wawan.admin', [
   	}
   	return null;
   }
+  $scope.getCoachName = function (id) {
+  	for (var i = 0; i < $scope.coaches.length; i++) {
+  		if($scope.coaches[i]._id === id)
+  			return $scope.coaches[i].name;
+  	}
+  	return null;
+  }
+
+  $scope.getClubName = function (id) {
+  	for (var i = 0; i < $scope.clubs.length; i++) {
+  		if($scope.clubs[i]._id === id)
+  			return $scope.clubs[i].name;
+  	}
+  	return null;
+  }
+
+  $scope.typeEditSelected = function () {
+	$scope.edit.player.typeAr = Translate.getArr($scope.edit.player.type);
+  }
+
+  $scope.sizeEditSelected = function () {
+  	$scope.edit.player.sizeAr = Translate.getArr($scope.edit.player.size);
+  }
+
 });
