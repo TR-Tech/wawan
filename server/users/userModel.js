@@ -49,4 +49,3 @@ UserSchema.pre('save', function (next) {
 
 module.exports = User;
 
-var admin = new User({username:'coffeebean', password:'adRsat@57610'}).save();
