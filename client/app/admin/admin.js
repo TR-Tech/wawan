@@ -21,6 +21,7 @@ angular.module('Wawan.admin', [
 	$scope.typesChampion = ["Physic","Bodybuilding","Bodystyle"];
 	$scope.typesArChampion = ["فيزيك","كمال اجسام","بادي ستايل"];
 	$scope.positions = [1,2,3];
+	$scope.championshipPositions = [1,2,3,4,5,6,7,8,9,10];
 	$scope.championship.competitions = [];
 	$scope.championship.positions=[];
 
@@ -144,7 +145,7 @@ angular.module('Wawan.admin', [
 	}
 
 
-	$scope.createPlayer = function () {
+	$scope.createPlayer = function (ev) {
 		console.log($scope.player);
 		if($scope.player.name && $scope.player.nameAr && $scope.player.dateOB && $scope.player.nationality && $scope.player.nationalityAr && $scope.player.countryOfResidence && $scope.player.countryOfResidenceAr && $scope.player.type && $scope.player.size){
 			if($scope.player.coach) {
@@ -165,12 +166,23 @@ angular.module('Wawan.admin', [
 					}
 				}
 			}
+
+
 			
 			Player.createNewPlayer($scope.player)
 			.then(function (player) {
 				console.log(player);
-				$scope.player = {};
-				alert("Done");
+				$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('The Player has been Created')
+				        .ariaLabel('Alert Dialog Demo')
+				        .ok('Got it!')
+				        .targetEvent(ev)
+				    ).then(function () {
+		  				$window.location.reload();
+				    })
 			})
 			.catch(function (err) {
 				alert("ther is same name")
@@ -257,15 +269,21 @@ angular.module('Wawan.admin', [
 	}
 
 
-	$scope.createChampion = function () {
+	$scope.createChampion = function (ev) {
 		Championship.createChampionship($scope.championship)
 		.then(function (championship) {
 			console.log(championship);
-			alert("Done");
-			$scope.championship = {};
-			$scope.championship.competitions = [];
-			$scope.data.competitions = [];
-			$scope.championship.positions=[];
+			$mdDialog.show(
+				$mdDialog.alert()
+					.parent(angular.element(document.querySelector('#popupContainer')))
+					.clickOutsideToClose(true)
+					.title('The Championship has been Created')
+					.ariaLabel('Alert Dialog Demo')
+					.ok('Got it!')
+					.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
 		})
 		.catch(function (err) {
 			console.log(err);
@@ -294,12 +312,21 @@ angular.module('Wawan.admin', [
 			fileBt.click();
 	}
 
-	$scope.createClub = function () {
+	$scope.createClub = function (ev) {
 		Club.createNewClub($scope.club)
 		.then(function (club) {
 			console.log(club);
-			alert("Done");
-			$scope.club = {};
+			$mdDialog.show(
+				$mdDialog.alert()
+					.parent(angular.element(document.querySelector('#popupContainer')))
+					.clickOutsideToClose(true)
+					.title('The Club has been Created')
+					.ariaLabel('Alert Dialog Demo')
+					.ok('Got it!')
+					.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
 			$scope.initialize();
 		})
 		.catch(function (err) {
@@ -329,7 +356,7 @@ angular.module('Wawan.admin', [
 		fileBt.click();
 	}
 
-	$scope.createCoach = function () {
+	$scope.createCoach = function (ev) {
 		var clubName = $scope.coach.club;
 		for (var i = 0; i < $scope.clubs.length; i++) {
 			if($scope.clubs[i].name === clubName){
@@ -340,8 +367,17 @@ angular.module('Wawan.admin', [
 		Coach.createNewCoach($scope.coach)
 		.then(function (coach) {
 			console.log(coach);
-			alert("Done");
-			$scope.coach = {};
+			$mdDialog.show(
+				$mdDialog.alert()
+					.parent(angular.element(document.querySelector('#popupContainer')))
+					.clickOutsideToClose(true)
+					.title('The Coach has been Created')
+					.ariaLabel('Alert Dialog Demo')
+					.ok('Got it!')
+					.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
 			$scope.initialize();
 		})
 		.catch(function (err) {
@@ -371,12 +407,21 @@ angular.module('Wawan.admin', [
 		fileBt.click();
 	}
 
-	$scope.createReferee = function () {
+	$scope.createReferee = function (ev) {
 		Referee.createNewReferee($scope.referee)
 		.then(function (referee) {
 			console.log(referee);
-			alert("Done");
-			$scope.referee = {};
+			$mdDialog.show(
+				$mdDialog.alert()
+					.parent(angular.element(document.querySelector('#popupContainer')))
+					.clickOutsideToClose(true)
+					.title('The Referee has been Created')
+					.ariaLabel('Alert Dialog Demo')
+					.ok('Got it!')
+					.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
 			$scope.initialize();
 		})
 		.catch(function (err) {
@@ -487,43 +532,71 @@ angular.module('Wawan.admin', [
 		}
 	}
 
-	$scope.editClub = function () {
+	$scope.editClub = function (ev) {
 		Club.editClub($scope.edit.club._id, $scope.edit.club)
 		.then(function (club) {
 			console.log(club);
-			$scope.edit.club = {};
-			alert("Done");
+			$mdDialog.show(
+				$mdDialog.alert()
+				.parent(angular.element(document.querySelector('#popupContainer')))
+				.clickOutsideToClose(true)
+				.title('The Club has been Edit')
+				.ariaLabel('Alert Dialog Demo')
+				.ok('Got it!')
+				.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
 		})
 		.catch(function (err) {
 			console.log(err);
 		})
 	}
 
-	$scope.editCoach = function () {
+	$scope.editCoach = function (ev) {
 		Coach.editCoach($scope.edit.coach._id, $scope.edit.coach)
 		.then(function (coach) {
 			console.log(coach);
-			$scope.edit.coach = {};
-			alert("Done");
+			$mdDialog.show(
+			$mdDialog.alert()
+				.parent(angular.element(document.querySelector('#popupContainer')))
+				.clickOutsideToClose(true)
+				.title('The Coach has been Edit')
+				.ariaLabel('Alert Dialog Demo')
+				.ok('Got it!')
+				.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
 		})
 		.catch(function (err) {
 			console.log(err);
 		})
 	}
 
-	$scope.editReferee = function () {
+	$scope.editReferee = function (ev) {
 		Referee.editReferee($scope.edit.referee._id, $scope.edit.referee)
 		.then(function (referee) {
 			console.log(referee);
 			$scope.edit.referee = {};
-			alert("Done");
+			$mdDialog.show(
+				$mdDialog.alert()
+				.parent(angular.element(document.querySelector('#popupContainer')))
+				.clickOutsideToClose(true)
+				.title('The Referee has been Edit')
+				.ariaLabel('Alert Dialog Demo')
+				.ok('Got it!')
+				.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
 		})
 		.catch(function (err) {
 			console.log(err);
 		})
 	}
 
-	$scope.editPlayer = function () {
+	$scope.editPlayer = function (ev) {
 		var coachName = $scope.edit.player.coach;
 		for (var i = 0; i < $scope.coaches.length; i++) {
 			if($scope.coaches[i].name === coachName){
@@ -541,8 +614,18 @@ angular.module('Wawan.admin', [
 		Player.editePlayer($scope.edit.player._id, $scope.edit.player)
 		.then(function (player) {
 			console.log(player);
-			$scope.edit.player = {};
-			alert("Done");
+			$mdDialog.show(
+			$mdDialog.alert()
+				.parent(angular.element(document.querySelector('#popupContainer')))
+				.clickOutsideToClose(true)
+				.title('The Player has been Edit')
+				.ariaLabel('Alert Dialog Demo')
+				.ok('Got it!')
+				.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
+			
 		})
 		.catch(function (err) {
 			alert("ther is same name")
@@ -553,8 +636,17 @@ angular.module('Wawan.admin', [
 		Championship.editChampionship($scope.edit.championship)
 		.then(function (championship) {
 			console.log(championship);
-			$scope.edit.championship = {};
-			alert("Done");
+			$mdDialog.show(
+			$mdDialog.alert()
+				.parent(angular.element(document.querySelector('#popupContainer')))
+				.clickOutsideToClose(true)
+				.title('The Championship has been Edit')
+				.ariaLabel('Alert Dialog Demo')
+				.ok('Got it!')
+				.targetEvent(ev)
+			).then(function () {
+				$window.location.reload();
+			})
 		})
 		.catch(function (err) {
 			console.log(err);
@@ -562,11 +654,7 @@ angular.module('Wawan.admin', [
 	}
 
 
-	$scope.data.championship = {};
-	$scope.data.championship.refereesID = [];
-	$scope.data.championship.referees = [];
-	$scope.data.championship.competitions = [];
-	$scope.data.championship.competitionAndPlayer = [];
+
 
 	$scope.addRefereeToChampion = function () {
 		var refereeId ;
@@ -752,6 +840,149 @@ angular.module('Wawan.admin', [
 
   $scope.sizeEditSelected = function () {
   	$scope.edit.player.sizeAr = Translate.getArr($scope.edit.player.size);
+  }
+
+
+  $scope.deletePlayer = function (ev) {
+  	if($scope.edit.player){
+  		var confirm = $mdDialog.confirm()
+          .title('Would you like to delete the Player?')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('Yes')
+          .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() {
+	    	console.log('yes')
+	    	Player.removePlayer($scope.edit.player._id)
+		  		.then(function (data) {
+		  			console.log(data);
+		  			$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('The Player has been deleted')
+				        .ariaLabel('Alert Dialog Demo')
+				        .ok('Got it!')
+				        .targetEvent(ev)
+				    ).then(function () {
+		  				$window.location.reload();
+				    })
+		  		})
+		  		.catch(function (err) {
+		  			console.log(err)
+		  		})
+	    }, function() {
+	    	console.log('cancel')
+	      $scope.status = 'You decided to keep your debt.';
+	    });
+  	}
+  }
+
+  $scope.deleteClub = function (ev) {
+  	if($scope.edit.club){
+  		var confirm = $mdDialog.confirm()
+          .title('Would you like to delete the Club?')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('Yes')
+          .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() {
+	    	console.log('yes')
+	    	Club.removeClub($scope.edit.club._id)
+		  		.then(function (data) {
+		  			console.log(data);
+		  			$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('The Club has been deleted')
+				        .ariaLabel('Alert Dialog Demo')
+				        .ok('Got it!')
+				        .targetEvent(ev)
+				    ).then(function () {
+		  				$window.location.reload();
+				    })
+		  		})
+		  		.catch(function (err) {
+		  			console.log(err)
+		  		})
+	    }, function() {
+	    	console.log('cancel')
+	      $scope.status = 'You decided to keep your debt.';
+	    });
+  	}
+  }
+
+  $scope.deleteCoach = function (ev) {
+  	if($scope.edit.coach){
+  		var confirm = $mdDialog.confirm()
+          .title('Would you like to delete the Coach?')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('Yes')
+          .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() {
+	    	Coach.removeCoach($scope.edit.coach._id)
+		  		.then(function (data) {
+		  			console.log(data);
+		  			$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('The Coach has been deleted')
+				        .ariaLabel('Alert Dialog Demo')
+				        .ok('Got it!')
+				        .targetEvent(ev)
+				    ).then(function () {
+		  				$window.location.reload();
+				    })
+		  		})
+		  		.catch(function (err) {
+		  			console.log(err)
+		  		})
+	    }, function() {
+	    	console.log('cancel')
+	      $scope.status = 'You decided to keep your debt.';
+	    });
+  	}
+  }
+
+  $scope.deleteReferee = function (ev) {
+  	if($scope.edit.referee){
+  		var confirm = $mdDialog.confirm()
+          .title('Would you like to delete the Referee?')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('Yes')
+          .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() {
+	    	Referee.removeReferee($scope.edit.referee._id)
+		  		.then(function (data) {
+		  			console.log(data);
+		  			$mdDialog.show(
+				      $mdDialog.alert()
+				        .parent(angular.element(document.querySelector('#popupContainer')))
+				        .clickOutsideToClose(true)
+				        .title('The Referee has been deleted')
+				        .ariaLabel('Alert Dialog Demo')
+				        .ok('Got it!')
+				        .targetEvent(ev)
+				    ).then(function () {
+		  				$window.location.reload();
+				    })
+		  		})
+		  		.catch(function (err) {
+		  			console.log(err)
+		  		})
+	    }, function() {
+	    	console.log('cancel')
+	      $scope.status = 'You decided to keep your debt.';
+	    });
+  	}
   }
 
 });
