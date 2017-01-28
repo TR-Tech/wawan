@@ -79,6 +79,16 @@ module.exports = {
 		.exec(function (err, player) {
 			repsonseHandler(err, req, res, {status : 200, returnObj :player}, next);
 		})
+	},
+	removePlayer: function(req, res){
+		Player.remove({_id: req.params.id}, function(err){
+			if(!err){
+				res.status(200).send("Player successfully removed")
+			}
+			else{
+				res.status(500).send(err)
+			}
+		})
 	}
 
 

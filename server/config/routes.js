@@ -59,6 +59,7 @@ module.exports = function(app, express) {
 	app.post("/api/player/createNewPlayer", Player.createNewPlayer);
 	app.post("/api/player/addImagesToPlayer/:id", Player.addImagesToPlayer);
 	app.post("/api/player/editPlayer/:id", Player.editPlayer);
+	app.delete('/api/player/removePlayer/:id', Player.removePlayer);
 
 	//coach routes
 	app.get('/api/coachs', coach.getAllCoaches);
