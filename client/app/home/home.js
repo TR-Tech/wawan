@@ -110,6 +110,7 @@ angular.module('Wawan.home', [])
 		$scope.coachesTableShow = false;
 		Coach.getAllCoachs()
 		.then(function (coachs) {
+			console.log(coachs)
 			$scope.data.coaches = coachs;
 		});
 

@@ -139,13 +139,15 @@
             </tr>
             <tr>
               <th width="5%">RANK</th>
-              <th width="95%">NAME</th>
+              <th width="75%">NAME</th>
+              <th width="20%">POINTS</th>
             </tr>
           </thead>
           <tbody class="md-body-1">
             <tr ng-repeat = "club in data.clubs | limitTo: 10| orderBy:'-points' track by $index" ng-click="showItem('club',club)">
               <th scope="row">{{$index+1}}</th>
               <td>{{club.name}}</td>
+              <td>{{club.points}}</td>
             </tr>
           </tbody>
         </table>

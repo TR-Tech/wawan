@@ -104,7 +104,7 @@ module.exports = {
 			Player.findOne({_id: playerId}).exec(
 			function (err, player) {
 				// add points for clube 
-				Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -1 }}).exec();
+				Club.findOneAndUpdate({_id: player.club}, { $inc: { points: -1}}).exec();
 				// add points for Coach
 				Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: -1 }}).exec();
 			});
@@ -156,6 +156,7 @@ module.exports = {
 			// console.log("newPoint is " , newPoint);
 			Competition.findOne({_id: competitionId, "joinPlayers.player" : playerId})
 			.exec(function (err, competition) {
+				console.log(competition);
 				for (var i = 0; i < competition.joinPlayers.length; i++) {
 					if((competition.joinPlayers[i].player).toString() === playerId){
 						var oldPosition = competition.joinPlayers[i].position;
@@ -203,12 +204,13 @@ module.exports = {
 					playerNewPoint = 5;
 					coachNewPoint = 5;
 				}
-				// else if( position <= 10) {
-				// 	coachNewPoint = 2;
-				// }
+				else if( position <= 10) {
+					playerNewPoint = 0;
+					coachNewPoint = 1;
+				}
 				Player.findOneAndUpdate({_id: playerId}, { $inc: { points: playerNewPoint }})
 				.exec(function (err, player) {
-					Club.findOneAndUpdate({_id: player.club}, { $inc: { points: playerNewPoint }}).exec();
+					Club.findOneAndUpdate({_id: player.club}, { $inc: { points: coachNewPoint }}).exec();
 					Coach.findOneAndUpdate({_id: player.coach}, { $inc: { points: coachNewPoint }}).exec();
 				});
 				repsonseHandler(err, req, res, {status: 200, returnObj: competition}, next);
@@ -262,10 +264,21 @@ module.exports = {
 					Player.findOne({_id :competition.joinPlayers[i].player})
 					.exec(function (err, player) {
 						playersArr.push(player);
+						console.log(playersArr)
 						if(playersArr.length === competition.joinPlayers.length){
+						console.log(playersArr.length === competition.joinPlayers.length)
 							for (var i = 0; i < playersArr.length; i++) {
-								playersArr[i].flag = flagArr[i];
-								playersArr[i].position = positionArr[i];
+						console.log(playersArr[i])
+						console.log(playersArr)
+								if(!playersArr[i]){
+									playersArr.splice(i, 1);
+									flagArr.splice(i, 1);
+									i--;
+									continue;
+								}
+									playersArr[i].flag = flagArr[i];
+									playersArr[i].position = positionArr[i];
+								
 							}
 							repsonseHandler(err, req, res, {status: 200, returnObj: {flags : flagArr,competition : competition, players:playersArr }}, next);
 						}

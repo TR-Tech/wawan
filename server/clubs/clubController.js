@@ -51,7 +51,7 @@ module.exports = {
 			pic: club.pic,
 			//club: club.club,
 			//competitions: club.competitions, 
-			//points: club.points || 0,
+			points: club.points || 0,
 			address : club.address,
 			addressAr : club.addressAr
 		}})
@@ -65,7 +65,7 @@ module.exports = {
 		})
 	}, 
 	removeClub: function(req, res){
-		Club.remove({_id: req.body.id}, function(err){
+		Club.remove({_id: req.params.id}, function(err){
 			if(!err){
 				res.status(200).send("Club successfully removed")
 			}

@@ -74,6 +74,16 @@ angular.module('Wawan.services',[])
 			.then(function (res) {
 				return res.data;
 			})
+		},
+		removePlayer : function (playerId) {
+			//
+			return $http({
+				url : "/api/player/removePlayer/"+playerId,
+				method : "DELETE"
+			})
+			.then(function (res) {
+				return res.data;
+			})
 		}
 	}
 })
