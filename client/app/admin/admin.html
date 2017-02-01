@@ -143,7 +143,7 @@
 										<md-input-container>
 											<label>Date of birthd</label>
 											<!-- <md-datepicker  ng-model="player.dateOB"></md-datepicker> -->
-											<input type="date" ng-model="player.dateOB" required>
+											<input type="date" ng-model="player.dateOB">
 										</md-input-container>
 
 									</div>
@@ -151,7 +151,7 @@
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Nationality (English)</label>
-											<md-select required ng-model="player.nationality">
+											<md-select ng-model="player.nationality">
 												<md-option ng-repeat="nationality in countryes" value="{{nationality.alpha2Code}}+{{nationality.name}}">
 													{{nationality.name}}
 												</md-option>
@@ -160,14 +160,14 @@
 
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Nationality (Arabic)</label>
-											<input required ng-model="player.nationalityAr">
+											<input ng-model="player.nationalityAr">
 										</md-input-container>
 									</div>
 
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Country of residence (English)</label>
-											<md-select required ng-model="player.countryOfResidence">
+											<md-select ng-model="player.countryOfResidence">
 												<md-option ng-repeat="countrye in countryes" value="{{countrye.name}}">
 													{{countrye.name}}
 												</md-option>
@@ -176,7 +176,7 @@
 
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Country of residence (Arabic)</label>
-											<input required ng-model="player.countryOfResidenceAr">
+											<input ng-model="player.countryOfResidenceAr">
 										</md-input-container>
 									</div>
 
@@ -509,7 +509,7 @@
 								<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Select Player</label>
-											<md-select  ng-model="edit.player.name" ng-change="selectPlayer()">
+											<md-select ng-model="edit.player.name" ng-change="selectPlayer()">
 												<md-option ng-repeat="player in edit.players" value="{{player.name}}">
 													{{player.name}}
 												</md-option>
@@ -645,7 +645,7 @@
 						<div>
 							<div layout-gt-sm="row">
 									<md-input-container class="md-block" flex-gt-sm>
-										<label>Select Player</label>
+										<label>Select Championship</label>
 										<md-select  ng-model="edit.championship.name" ng-change="selectChampion()">
 											<md-option ng-repeat="championship in edit.championships" value="{{championship.name}}">
 												{{championship.name}}
@@ -798,7 +798,7 @@
 						<div>
 							<div layout-gt-sm="row">
 									<md-input-container class="md-block" flex-gt-sm>
-										<label>Select Club</label>
+										<label>Select Coach</label>
 										<md-select  ng-model="edit.coach.name" ng-change="selectCoach()">
 											<md-option ng-repeat="coach in edit.coaches" value="{{coach.name}}">
 												{{coach.name}}
