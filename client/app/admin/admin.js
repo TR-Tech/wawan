@@ -147,7 +147,7 @@ angular.module('Wawan.admin', [
 
 	$scope.createPlayer = function (ev) {
 		console.log($scope.player);
-		if($scope.player.name && $scope.player.nameAr && $scope.player.dateOB && $scope.player.nationality && $scope.player.nationalityAr && $scope.player.countryOfResidence && $scope.player.countryOfResidenceAr && $scope.player.type && $scope.player.size){
+		if($scope.player.name && $scope.player.nameAr && $scope.player.type && $scope.player.size){
 			if($scope.player.coach) {
 				var coachName = $scope.player.coach;
 				for (var i = 0; i < $scope.coaches.length; i++) {
