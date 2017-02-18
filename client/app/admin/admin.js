@@ -162,7 +162,7 @@ angular.module('Wawan.admin', [
 					}
 				}
 			}
-						
+
 			Player.createNewPlayer($scope.player)
 			.then(function (player) {
 				console.log(player);
@@ -469,7 +469,7 @@ angular.module('Wawan.admin', [
 
 
 	$scope.selectPlayer = function () {
-		console.log($scope.edit.player.name);
+		//console.log($scope.edit.player.name);
 		var playerName = $scope.edit.player.name;
 		for (var i = 0; i < $scope.edit.players.length; i++) {
 			if($scope.edit.players[i].name === playerName){
@@ -478,6 +478,7 @@ angular.module('Wawan.admin', [
 				$scope.edit.player.club = $scope.getClubName($scope.edit.player.club);
 				$scope.edit.player.type = $scope.edit.player.type;
 				$scope.edit.player.size = $scope.edit.player.size;
+				$scope.edit.player.dateOB = new Date($scope.edit.players[i].dateOB);
 			}
 		}
 
