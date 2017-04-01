@@ -7,7 +7,7 @@ angular.module('Wawan.admin', [
 	$scope.types = ["Physic","Bodybuilding","Bodystyle"];
 	$scope.typesAr = ["فيزيك","كمال اجسام","بادي ستايل"];
 
-	$scope.sizes = ["Under 171 cm","Under 176 cm","Above 176 cm","Under 75 kg","Under 85 kg","Above 85 kg", "Under 70 kg","Under 80 kg","Above 80 kg"];
+	$scope.sizes = ["Under 170 cm","Under 175 cm", "Under 180 cm","Over 180 cm","Under 75 kg","Under 85 kg","Above 85 kg", "Under 70 kg","Under 80 kg","Above 80 kg"];
 	$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم","تحت 75 كغ","تحت 85 كغ","فوق 85 كغ","تحت 70 كغ","تحت 80 كغ","فوق 80 كغ"];
 
 	$scope.disableLevel = true;
@@ -94,8 +94,8 @@ angular.module('Wawan.admin', [
 		$scope.disableLevel = false;
 		if($scope.player.type === "Physic"){
 			$scope.player.typeAr = "فيزيك";
-			$scope.sizes = ["Under 171 cm","Under 176 cm","Above 176 cm"];
-			$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+			$scope.sizes = ["Under 170 cm","Under 175 cm", "Under 180 cm","Over 180 cm"];
+			$scope.sizeAr = ["تحت 170 سم","تحت 175 سم","تحت 180 سم","فوق 180 سم"];
 		}
 		else if($scope.player.type === "Bodystyle") {
 			$scope.player.typeAr = "بادي ستايل";
@@ -104,8 +104,8 @@ angular.module('Wawan.admin', [
 		}
 		else{
 			$scope.player.typeAr = "كمال اجسام";
-			$scope.sizes = ["Under 75 kg","Under 85 kg","Above 85 kg"];
-			$scope.sizeAr = ["تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
+			$scope.sizes = ["Under 70 kg", "Under 80 kg", "Under 90 kg","Above 90 kg"];
+			$scope.sizeAr = ["تحت 70 كغ","تحت 80 كغ", "تحت 90 كغ", "فوق 90 كغ"];
 		}
 	};
 
@@ -481,6 +481,7 @@ angular.module('Wawan.admin', [
 				$scope.edit.player.dateOB = new Date($scope.edit.players[i].dateOB);
 			}
 		}
+		$scope.typeSelectChangedPlayer();
 
 	}
 

@@ -543,7 +543,11 @@
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Nationality (English)</label>
-											<input ng-model="edit.player.nationality" >
+											<md-select required ng-model="edit.player.nationality">
+												<md-option ng-repeat="nationality in countryes" value="{{nationality.alpha2Code}}+{{nationality.name}}">
+													{{nationality.name}}
+												</md-option>
+											</md-select>
 										</md-input-container>
 
 										<md-input-container class="md-block" flex-gt-sm>
