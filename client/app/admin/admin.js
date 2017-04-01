@@ -7,7 +7,7 @@ angular.module('Wawan.admin', [
 	$scope.types = ["Physic","Bodybuilding","Bodystyle"];
 	$scope.typesAr = ["فيزيك","كمال اجسام","بادي ستايل"];
 
-	$scope.sizes = ["Under 170 cm","Under 175 cm", "Under 180 cm","Over 180 cm","Under 75 kg","Under 85 kg","Above 85 kg", "Under 70 kg","Under 80 kg","Above 80 kg"];
+	$scope.sizes = ["Under 170 cm","Under 175 cm", "Under 180 cm","Above 180 cm","Under 75 kg","Under 85 kg","Above 85 kg", "Under 70 kg","Under 80 kg","Above 80 kg"];
 	$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم","تحت 75 كغ","تحت 85 كغ","فوق 85 كغ","تحت 70 كغ","تحت 80 كغ","فوق 80 كغ"];
 
 	$scope.disableLevel = true;
