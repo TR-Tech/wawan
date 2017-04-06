@@ -534,23 +534,28 @@
 											<label>Name (Arabic)</label>
 											<input required ng-model="edit.player.nameAr" >
 										</md-input-container>
+										<md-input-container>
+											<label>Date of birthd</label>
+											<!-- <md-datepicker  ng-model="player.dateOB"></md-datepicker> -->
+											<input type="date" ng-model="edit.player.dateOB" value="1/1/1992">
+										</md-input-container>
 									</div>
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Nationality (English)</label>
-											<input required ng-model="edit.player.nationality" >
+											<input ng-model="edit.player.nationality" >
 										</md-input-container>
 
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Nationality (Arabic)</label>
-											<input required ng-model="edit.player.nationalityAr">
+											<input ng-model="edit.player.nationalityAr">
 										</md-input-container>
 									</div>
 
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Country of residence (English)</label>
-											<md-select required ng-model="edit.player.countryOfResidence">
+											<md-select ng-model="edit.player.countryOfResidence">
 												<md-option ng-repeat="countrye in countryes" value="{{countrye.name}}">
 													{{countrye.name}}
 												</md-option>
@@ -559,7 +564,7 @@
 
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Country of residence (Arabic)</label>
-											<input required ng-model="edit.player.countryOfResidenceAr">
+											<input ng-model="edit.player.countryOfResidenceAr">
 										</md-input-container>
 									</div>
 
