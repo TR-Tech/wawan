@@ -1,4 +1,5 @@
 var Player = require("./playerModel.js");
+var Coach = require("../coaches/coachModel.js");
 var repsonseHandler = require('../config/helpers.js').repsonseHandler;
 
 module.exports = {
@@ -30,6 +31,8 @@ module.exports = {
 			sizeAr : player.sizeAr,
 			points : 0
 		}).save(function (err, player) {
+
+			Coach.findOneAndUpdate({_id: player.coach}, {$push: {"players": player._id}}).exec();
 			
 			repsonseHandler(err, req, res, {status: 200, returnObj: player}, next);
 		})
