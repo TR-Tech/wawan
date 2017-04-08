@@ -1,4 +1,5 @@
 var Player = require("./playerModel.js");
+var Club = require('../clubs/clubModel.js');
 var Coach = require("../coaches/coachModel.js");
 var repsonseHandler = require('../config/helpers.js').repsonseHandler;
 
@@ -33,6 +34,7 @@ module.exports = {
 		}).save(function (err, player) {
 
 			Coach.findOneAndUpdate({_id: player.coach}, {$push: {"players": player._id}}).exec();
+			Club.findOneAndUpdate({_id: player.club}, {$push: {"players": player._id}}).exec();
 			
 			repsonseHandler(err, req, res, {status: 200, returnObj: player}, next);
 		})
@@ -90,6 +92,29 @@ module.exports = {
 			}
 			else{
 				res.status(500).send(err)
+			}
+		})
+	},
+
+	updateAllPlayers : function (req, res, next) {
+		Player.find().exec(function (err, players) {
+			for (var i = 0; i < players.length; i++) {
+				let player = players[i];
+				Coach.findOneAndUpdate({_id: player.coach}, {$pull: {"players": player._id}}).exec();
+				Coach.findOneAndUpdate({_id: player.coach}, {$push: {"players": player._id}}).exec();
+				
+				Club.findOneAndUpdate({_id: player.club}, {$pull: {"players": player._id}}).exec();
+				Club.findOneAndUpdate({_id: player.club}, {$push: {"players": player._id}}).exec();
+				let obj = {};
+				Coach.find().exec(function (err, coaches) {
+					obj.coaches = coaches;
+					Club.find().exec(function (err, clubs) {
+						obj.clubs = clubs;
+						res.send(obj)
+						// repsonseHandler(err, req, res, {status : 200, returnObj :res}, next);
+					})
+				})
+			
 			}
 		})
 	}
