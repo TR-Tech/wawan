@@ -68,6 +68,10 @@ module.exports = function(app, express) {
 	app.post('/api/coach/:id/edit', coach.editCoach);
 	app.delete('/api/coach/removeCoach/:id', coach.removeCoach);
 
+
+	// updateAllPlayers
+	app.get('/api/updateallplayers', Player.updateAllPlayers);
+
 	//error handling
 	app.use(helpers.errorLogger);
 	app.use(helpers.errorHandler);
