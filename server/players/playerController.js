@@ -100,20 +100,30 @@ module.exports = {
 		Player.find().exec(function (err, players) {
 			for (var i = 0; i < players.length; i++) {
 				let player = players[i];
-				Coach.findOneAndUpdate({_id: player.coach}, {$pull: {"players": player._id}}).exec();
-				Coach.findOneAndUpdate({_id: player.coach}, {$push: {"players": player._id}}).exec();
+				Coach.findOneAndUpdate({_id: player.coach}, {$pull: {"players": player._id}}).exec(function (err, coach) {
+					Coach.findOneAndUpdate({_id: player.coach}, {$push: {"players": player._id}}).
+					exec(function (err, coach) {
+						Club.findOneAndUpdate({_id: player.club}, {$pull: {"players": player._id}})
+						.exec(function (err, club) {
+							Club.findOneAndUpdate({_id: player.club}, {$push: {"players": player._id}})
+							.exec(function (err, club) {
+								let obj = {};
+								Coach.find().exec(function (err, coaches) {
+									obj.coaches = coaches;
+									Club.find().exec(function (err, clubs) {
+										obj.clubs = clubs;
+										res.send(obj)
+										// repsonseHandler(err, req, res, {status : 200, returnObj :res}, next);
+									})
+								})
+							});
+							
+						});
+						
+					});
+				});
 				
-				Club.findOneAndUpdate({_id: player.club}, {$pull: {"players": player._id}}).exec();
-				Club.findOneAndUpdate({_id: player.club}, {$push: {"players": player._id}}).exec();
-				let obj = {};
-				Coach.find().exec(function (err, coaches) {
-					obj.coaches = coaches;
-					Club.find().exec(function (err, clubs) {
-						obj.clubs = clubs;
-						res.send(obj)
-						// repsonseHandler(err, req, res, {status : 200, returnObj :res}, next);
-					})
-				})
+				
 			
 			}
 		})
