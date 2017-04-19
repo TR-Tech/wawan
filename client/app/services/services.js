@@ -65,11 +65,15 @@ angular.module('Wawan.services',[])
 				return res.data;
 			})
 		},
-		editePlayer : function (playerId, player) {
+		editePlayer : function (playerId, player, oldPlayer) {
 			return $http({
 				url : "/api/player/editPlayer/"+playerId,
 				method : "POST",
-				data : player
+				data : {
+					player: player,
+					oldCoach: oldPlayer.coach,
+					oldClub: oldPlayer.club
+				}
 			})
 			.then(function (res) {
 				return res.data;
