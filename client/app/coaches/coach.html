@@ -1,38 +1,45 @@
 <style>
-	.player-table-container{
-		padding-top: 10px;
-	}
+      .player-table-container{
+            padding-top: 10px;
+      }
+        .empty{
+            font-style: italic;
+            color: grey;
+      }
 
 </style>
 <div class="upper-bar"><button class="btn" id="backBtn" onclick="window.location.href='/'"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Back</button></div>
 <div class="container" style="padding-top: 20px;">
-	<div class="row">	
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h1 class="panel-title">Coach {{data.name}}</h1>
-			</div>
-			<div class="panel-body">
-				<div class="col-sm-6 col-md-4">
+      <div class="row"> 
+            <div class="panel panel-default">
+                  <div class="panel-heading">
+                        <h1 class="panel-title">Coach {{data.name}}</h1>
+                  </div>
+                  <div class="panel-body">
+                        <div class="col-sm-6 col-md-4">
                               <div class="thumbnail">
-      					<img src={{data.pic}} alt="{{data.name}}'s image">
-      				</div>
-      			</div>
-      			<div class="player-table-container">
+                                    <img src={{data.pic}} alt="{{data.name}}'s image">
+                              </div>
+                        </div>
+                        <div class="player-table-container">
                               <div ng-if="data.age"><b>Age:</b> {{data.age}}</div>
-					<div><b>Nationality: </b><span class='flag'></span><span> {{nationality}}</span></div>
-					
-					<div><b>Country of Residence:</b><span> {{data.countryOfResidence}}</span></div>
-					
-					<div><b>Points:</b><span> {{data.points}}</span></div>
-					
-					<div><b>Club:</b><a ng-click="showItem('club', club)" style="cursor: pointer;color:blue;"> {{club}}</a></div>     							
-					<div class="pull-left" ng-if="hasPlayers"><b>Players:</b>
+                              <div><b>Nationality: </b><span class='flag'></span><span> {{nationality}}</span></div>
+                              
+                              <div><b>Country of Residence:</b><span> {{data.countryOfResidence}}</span></div>
+                              
+                              <div><b>Points:</b><span> {{data.points}}</span></div>
+                              
+                              <div><b>Club:</b>
+                              <p class ='empty' ng-if="!club.name">This couch is not in any club yet</p>
+                              <a ng-click="showItem('club', club)" style="cursor: pointer;color:blue;"> {{club.name}}</a></div>                                               
+                              <div class="pull-left"><b>Players:</b>
+                                    <p class ='empty' ng-if="players.length===0">This couch has no players yet</p>
                                     <ul>
                                           <li ng-repeat="player in players" ng-click="showItem('player', player)">{{player.name}} - {{player.type}}<i>({{player.size}})</i></li>
                                     </ul>
-                              </div>    								
-      			</div>
-			</div>
-		</div>   
+                              </div>                                                
+                        </div>
+                  </div>
+            </div>   
     </div>
 </div>

@@ -2,22 +2,19 @@ angular.module('Wawan.coach', [])
 .controller('coachController', function($scope, $routeParams, $location, Player, $location, Club, Coach, Competition, Championship) {
 	$scope.data={};
 	$scope.players=[];
-	$scope.hasPlayers = false;
+	$scope.club={}
 	$scope.initialize = function () {
 	}
 	$scope.initialize();
 	Coach.getOneCoach($routeParams.id)
 	.then(function(coach){
 		$scope.data=coach;
-		if($scope.data.players.length>0){
-			$scope.hasPlayers = true;
-		}
 		$('.flag').addClass('flag-'+$scope.data.nationality.toLowerCase().substring(0,2));//add class to get flag
 		$scope.nationality = coach.nationality.substring(3);
 	})
 	.then(function(){
 		Club.getOneClub($scope.data.club).then(function(club){
-			$scope.club=club.name;
+			$scope.club=club;
 		});
 		for (var i = 0; i < $scope.data.players.length; i++) {
 			Player.getOnePlayer($scope.data.players[i]).then(function(player){
