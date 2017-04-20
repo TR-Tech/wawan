@@ -1,68 +1,76 @@
 <style>
-	td:first-child{
-		font-weight: bold;
-		padding-right: 15px;
-	}
-	.player-table-container{
-		padding-top: 10px;
-	}
+    td:first-child{
+        font-weight: bold;
+        padding-right: 15px;
+    }
+    .player-table-container{
+        padding-top: 10px;
+    }
+  .empty {
+      font-style: italic;
+      color: grey;
+      white-space: nowrap;
+      }
 </style>
 <div class="upper-bar"><button class="btn" id="backBtn" onclick="window.location.href='/'"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Back</button></div>
 <div class="container" style="padding-top: 20px;">
-	<div class="row">	
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h1 class="panel-title">{{data.name}}</h1>
-			</div>
-			<div class="panel-body">
-				<div class="col-sm-6 col-md-4">
-    				<div class="thumbnail">
-      					<img src={{data.pic}} alt="{{data.name}}'s image">
-      				</div>
-      			</div>
-      			<div class="player-table-container">
-      				<table class="player-table">
-      					<tbody>
-      						<tr>
-      							<td>{{data.type}}:</td>
-      							<td>{{data.size}}</td>
-      						</tr>
-      						<tr>
-      							<td>Age:</td>
-      							<td >{{age}}</td>
-      						</tr>
-      						<tr>
-      							<td>Nationality:</td>
-      							<td><span class='flag'></span>{{nationality}}</td>
-      						</tr>
-      						<tr>
-      							<td>Country of Residence:</td>
-      							<td>{{data.countryOfResidence}}</td>
-      						</tr>
-      						<tr>
-      							<td>Points:</td>
-      							<td>{{data.points}}</td>
-      						</tr>
-      						<tr>
-      							<td>Coach:</td>
-      							<td><a ng-click="showItem('coach', coach)" style="cursor: pointer;color:blue; text-decoration: underline;">{{coach}}</a></td>
-      						</tr>
-      						<tr>
-      							<td>Club:</td>
-      							<td>{{club}}</td>
-      						</tr>
-      						<tr>
-      							<td>Competitions:</td>
-      							<td>
-      								<ul ng-repeat="competition in competitions" style="margin-bottom: 0;">
-      									<li>{{competition}}</li>
-      								</ul>
-      							</td>
-      						</tr>
-      					</tbody>
-      				</table>
-      			</div>
-			</div>
-		</div>   
+    <div class="row">   
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">{{data.name}}</h1>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src={{data.pic}} alt="{{data.name}}'s image">
+                    </div>
+                </div>
+                <div class="player-table-container">
+                    <table class="player-table">
+                        <tbody>
+                            <tr>
+                                <td>{{data.type}}:</td>
+                                <td>{{data.size}}</td>
+                            </tr>
+                            <tr>
+                                <td>Age:</td>
+                                <td >{{age}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nationality:</td>
+                                <td><span class='flag'></span>{{nationality}}</td>
+                            </tr>
+                            <tr>
+                                <td>Country of Residence:</td>
+                                <td>{{data.countryOfResidence}}</td>
+                            </tr>
+                            <tr>
+                                <td>Points:</td>
+                                <td>{{data.points}}</td>
+                            </tr>
+                            <tr>
+                                <td>Coach:</td>
+                                <td class='empty' ng-if='!coach'>This player doesn't have any coach yet</td>
+                                <td ng-if='coach'><a ng-click="showItem('coach', coach)" style="cursor: pointer;color:blue; text-decoration: underline;">{{coach.name}}</a></td>
+                            </tr>
+                            <tr>
+                                <td >Club:</td>
+                                <td class='empty' ng-if='!club'>This player doesn't belong to any club</td>
+                                <td ng-if='club'><a ng-click="showItem('club', club)" style="cursor: pointer;color:blue; text-decoration: underline;">{{club.name}}</a></td>
+                            </tr>
+                            <tr>
+                                <td>Competitions:</td>
+                                <td class='empty' ng-if='competitions.length==0'>This player doesn't have any competition yet</td>
+                                <td ng-if="competitions.length>0">
+                                    <ul ng-repeat="competition in competitions" style="margin-bottom: 0;">
+                                        <li>{{competition}}</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>   
     </div>
 </div>
