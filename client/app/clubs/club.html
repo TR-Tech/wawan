@@ -1,0 +1,79 @@
+<style>
+	td:first-child{
+		font-weight: bold;
+		padding-right: 15px;
+	}
+	.player-table-container{
+		padding-top: 10px;
+	}
+      .empty{
+            font-style: italic;
+            color: grey;
+      }
+</style>
+<div class="upper-bar"><button class="btn" id="backBtn" onclick="window.location.href='/'"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Back</button></div>
+<div class="container" style="padding-top: 20px;">
+	<div class="row">	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1 class="panel-title">{{data.name}}</h1>
+			</div>
+			<div class="panel-body">
+				<div class="col-sm-6 col-md-4">
+    				<div class="thumbnail">
+      					<img src={{data.pic}} alt="{{data.name}}'s image">
+      				</div>
+      			</div>
+                        <div class="player-table-container">
+                              <div><b>Address:</b> {{data.address}}</div>
+                              <div><b>Points: </b>{{data.points}}</div> 
+
+                              <div class="pull-left">
+                                    <b>Championships:</b>
+                                    <p class='empty' ng-if='championships.length === 0'>This club doesn't have any championships yet</p>
+
+                                    <ul>
+                                          <li ng-repeat="championship in championships">{{championship.name}}</li>
+                                    </ul>
+                              <b>Players:</b>
+                                <p class='empty' ng-if='players.length === 0'>This club doesn't have any players yet</p>
+                                    <ul>
+                                          <li ng-repeat="player in players" ng-click="showItem('player', player)">{{player.name}} - {{player.type}}<i>({{player.size}})</i></li>
+                                    </ul>
+                              </div>                                                
+                        </div>
+      			<!-- <div class="player-table-container">
+      				<table class="player-table">
+      					<tbody>
+      						<tr>
+      							<td>Adress:</td>
+      							<td>{{data.address}}</td>
+      						</tr>
+      						<tr>
+      							<td>Points:</td>
+      							<td >{{data.points}}</td>
+      						</tr>
+      					
+      						      <tr>
+                                                <td>championships:</td>
+                                                <td>
+                                                      <ul ng-repeat="championship in championships" style="margin-bottom: 0;">
+                                                            <li>{{championship}}</li>
+                                                      </ul>
+                                                </td>
+                                          </tr>
+      						
+      						<div class="pull-left"><b>Players:</b>
+                                    <ul>
+                                          <li ng-repeat="player in players" ng-click="showItem('player', player)">{{player.name}} - {{player.type}}<i>({{player.size}})</i></li>
+                                    </ul>
+                              </div>  
+      					
+      					
+      					</tbody> -->
+      				</table>
+      			</div>
+			</div>
+		</div>   
+    </div>
+</div>
