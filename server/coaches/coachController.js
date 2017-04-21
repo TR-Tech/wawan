@@ -8,7 +8,7 @@ module.exports = {
 			nameAr: coach.nameAr,
 			pic: coach.pic,
 			club: coach.club,
-			competitions: coach.competitions, 
+			championships: coach.championships, 
 			points: coach.points || 0,
 			nationality : coach.nationality,
 			nationalityAr : coach.nationalityAr,
@@ -54,12 +54,13 @@ module.exports = {
 			nameAr: coach.nameAr,
 			pic: coach.pic,
 			club: coach.club,
-			competitions: coach.competitions, 
+			championships: coach.championships, 
 			points: coach.points || 0,
 			nationality : coach.nationality,
 			nationalityAr : coach.nationalityAr,
 			countryOfResidence : coach.countryOfResidence,
-			countryOfResidenceAr : coach.countryOfResidenceAr
+			countryOfResidenceAr : coach.countryOfResidenceAr,
+			age: coach.age
 		}})
 		.exec(function(err, edited){
 			if(err){

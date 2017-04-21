@@ -62,7 +62,7 @@ module.exports = {
 	},
 
 	editPlayer : function (req, res, next) {
-		var player = req.body;
+		var player = req.body.player;
 		Player.findOneAndUpdate({_id: req.params.id},{$set : {
 			name : player.name,
 			nameAr : player.nameAr,
@@ -82,6 +82,14 @@ module.exports = {
 			points : player.points
 		}},{new : true})
 		.exec(function (err, player) {
+			if(player.coach !== req.body.oldCoach){
+				Coach.findOneAndUpdate({_id: req.body.oldCoach}, {$pull: {"players": ObjectId(req.body.player._id)}}).exec();
+			}
+			if(player.club !== req.body.oldClub){
+				Club.findOneAndUpdate({_id: req.body.oldClub}, {$pull: {"players": req.body.player._id}}).exec();
+			}
+			Coach.findOneAndUpdate({_id: player.coach}, {$push: {"players": player._id}}).exec();
+			Club.findOneAndUpdate({_id: player.club}, {$push: {"players": player._id}}).exec();
 			repsonseHandler(err, req, res, {status : 200, returnObj :player}, next);
 		})
 	},

@@ -37,7 +37,7 @@ angular.module('Wawan',[
     	controller : 'refereeController'
     })
     .when('/club/:id', {
-    	templateUrl : 'app/clubs/club',
+    	templateUrl : 'app/clubs/club.html',
     	controller : 'clubController'
     })
     .when('/coach/:id', {

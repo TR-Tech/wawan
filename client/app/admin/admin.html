@@ -537,13 +537,17 @@
 										<md-input-container>
 											<label>Date of birthd</label>
 											<!-- <md-datepicker  ng-model="player.dateOB"></md-datepicker> -->
-											<input type="date" ng-model="edit.player.dateOB" value="1/1/1992">
+											<input type="date" ng-model="edit.player.dateOB">
 										</md-input-container>
 									</div>
 									<div layout-gt-sm="row">
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Nationality (English)</label>
-											<input ng-model="edit.player.nationality" >
+											<md-select required ng-model="edit.player.nationality">
+												<md-option ng-repeat="nationality in countryes" value="{{nationality.alpha2Code}}+{{nationality.name}}">
+													{{nationality.name}}
+												</md-option>
+											</md-select>
 										</md-input-container>
 
 										<md-input-container class="md-block" flex-gt-sm>
@@ -612,7 +616,7 @@
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Coach Name</label>
 											<md-select  ng-model="edit.player.coach">
-												<md-option ng-repeat="coach in coaches" value="{{coach.name}}">
+												<md-option ng-repeat="coach in coaches" value="{{coach._id}}">
 													{{coach.name}}
 												</md-option>
 											</md-select>
@@ -621,7 +625,7 @@
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Club Name</label>
 											<md-select  ng-model="edit.player.club" >
-												<md-option ng-repeat="club in clubs" value="{{club.name}}">
+												<md-option value="{{club._id}}" ng-repeat="club in clubs" >
 													{{club.name}}
 												</md-option>
 											</md-select>
@@ -833,7 +837,7 @@
 										<md-input-container class="md-block" flex-gt-sm>
 											<label>Club Name</label>
 											<md-select  ng-model="edit.coach.club" >
-												<md-option ng-repeat="club in clubs" value="{{club.name}}">
+												<md-option value="{{club._id}}" ng-repeat="club in clubs"  >
 													{{club.name}}
 												</md-option>
 											</md-select>

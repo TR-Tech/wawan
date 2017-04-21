@@ -7,7 +7,7 @@ angular.module('Wawan.admin', [
 	$scope.types = ["Physic","Bodybuilding","Bodystyle"];
 	$scope.typesAr = ["فيزيك","كمال اجسام","بادي ستايل"];
 
-	$scope.sizes = ["Under 171 cm","Under 176 cm","Above 176 cm","Under 75 kg","Under 85 kg","Above 85 kg", "Under 70 kg","Under 80 kg","Above 80 kg"];
+	$scope.sizes = ["Under 170 cm","Under 175 cm", "Under 180 cm","Above 180 cm","Under 75 kg","Under 85 kg","Above 85 kg", "Under 70 kg","Under 80 kg","Above 80 kg"];
 	$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم","تحت 75 كغ","تحت 85 كغ","فوق 85 كغ","تحت 70 كغ","تحت 80 كغ","فوق 80 كغ"];
 
 	$scope.disableLevel = true;
@@ -27,18 +27,16 @@ angular.module('Wawan.admin', [
 
 	$scope.editChampionship = {};
 
-
 	$scope.club = {};
 
 	$scope.coach = {};
 
 	$scope.referee = {};
+	var editTab=false;
 
 	$scope.initialize = function () {
 		if($window.localStorage.loggedIN=='false' || $window.localStorage.loggedIN==null){
-			console.log('login in here')
 			$location.path('/login');
-
 		}
 		$scope.club.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg";
 		$scope.coach.pic = "https://amploprod.s3.amazonaws.com/assets/no-user-image-square-9f6a473a32ad639f619216331d10d61ce1b35c9271d5683920960e1a5ee45bb8.jpg";
@@ -95,55 +93,64 @@ angular.module('Wawan.admin', [
     }
 	$scope.typeSelectChangedPlayer = function(){
 		$scope.disableLevel = false;
-		if($scope.player.type === "Physic"){
-			$scope.player.typeAr = "فيزيك";
-			$scope.sizes = ["Under 171 cm","Under 176 cm","Above 176 cm"];
-			$scope.sizeAr = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+		var currentType = $scope.player.type;
+		if(editTab){
+			var currentType = $scope.edit.player.type;
 		}
-		else if($scope.player.type === "Bodystyle") {
+		if(currentType === "Physic"){
+			$scope.player.typeAr = "فيزيك";
+			$scope.sizes = ["Under 170 cm","Under 175 cm", "Under 180 cm","Above 180 cm"];
+			$scope.sizeAr = ["تحت 170 سم","تحت 175 سم", "تحت 180 سم","فوق 180 سم"];
+		}
+		else if(currentType === "Bodystyle") {
 			$scope.player.typeAr = "بادي ستايل";
 			$scope.sizes = ["Under 70 kg","Under 80 kg","Above 80 kg"];
 			$scope.sizeAr = ["تحت 70 كغ","تحت 80 كغ","فوق 80 كغ"];
 		}
 		else{
 			$scope.player.typeAr = "كمال اجسام";
-			$scope.sizes = ["Under 75 kg","Under 85 kg","Above 85 kg"];
-			$scope.sizeAr = ["تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
+			$scope.sizes = ["Under 70 kg", "Under 80 kg", "Under 90 kg","Above 90 kg"];
+			$scope.sizeAr = ["تحت 70 كغ","تحت 80 كغ", "تحت 90 كغ", "فوق 90 كغ"];
 		}
 	};
 
 	$scope.typeSelectChangedChampions = function(){
 		$scope.disableLevel = false;
 		if($scope.competition.type === "Physic"){
-			$scope.sizesChampion = ["Under 171 cm","Under 176 cm","Above 176 cm"];
-			$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+			$scope.sizesChampion = ["Under 170 cm","Under 175 cm", "Under 180 cm","Above 180 cm"];
+			$scope.sizeArChampion = ["تحت 170 سم","تحت 175 سم", "تحت 180 سم","فوق 180 سم"];
 		}
 		else if($scope.competition.type === "Bodystyle") {
 			$scope.sizesChampion = ["Under 70 kg","Under 80 kg","Above 80 kg"];
 			$scope.sizeArChampion = ["تحت 70 كغ","تحت 80 كغ","فوق 80 كغ"];
 		}
 		else{
-			$scope.sizesChampion = ["Under 75 kg","Under 85 kg","Above 85 kg"];
-			$scope.sizeArChampion = ["تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
+			$scope.sizesChampion = ["Under 70 kg", "Under 80 kg", "Under 90 kg","Above 90 kg"];
+			$scope.sizeArChampion = ["تحت 70 كغ","تحت 80 كغ", "تحت 90 كغ", "فوق 90 كغ"];
 		}
 	};
 
 	$scope.sizeSelectChanged = function () {
 		console.log($scope.player.size)
-		if($scope.player.size === "Under 171 cm")
-			$scope.player.sizeAr = "تحت 171 سم";
-		else if($scope.player.size === "Under 176 cm")
-			$scope.player.sizeAr = "تحت 176 سم";
-		else if($scope.player.size === "Above 176 cm")
-			$scope.player.sizeAr = "فوق 176 سم";
-		else if($scope.player.size === "Under 75 kg")
-			$scope.player.sizeAr = "تحت 75 كغ";
-		else if($scope.player.size === "Under 85 kg")
-			$scope.player.sizeAr = "تحت 85 كغ";
-		else
-			$scope.player.sizeAr = "فوق 85 كغ";	
-	}
+		if($scope.player.size === "Under 170 cm")
+			$scope.player.sizeAr = "تحت 170 سم";
+		else if($scope.player.size === "Under 175 cm")
+			$scope.player.sizeAr = "تحت 175 سم";
+		else if($scope.player.size === "Under 180 cm")
+			$scope.player.sizeAr = "تحت 180 سم";
+		else if($scope.player.size === "Above 180 cm")
+			$scope.player.sizeAr = "فوق 180 سم";
 
+		else if($scope.player.size === "Under 70 kg")
+			$scope.player.sizeAr = "تحت 70 كغ";
+		else if($scope.player.size === "Under 80 kg")
+			$scope.player.sizeAr = "تحت 80 كغ";
+		else if($scope.player.size === "Under 90 kg")
+			$scope.player.sizeAr = "تحت 90 كغ";
+		else if($scope.player.size === "Above 90 kg")
+			$scope.player.sizeAr = "فوق 90 كغ";
+		
+	}
 
 	$scope.createPlayer = function (ev) {
 		console.log($scope.player);
@@ -167,8 +174,6 @@ angular.module('Wawan.admin', [
 				}
 			}
 
-
-			
 			Player.createNewPlayer($scope.player)
 			.then(function (player) {
 				console.log(player);
@@ -430,6 +435,7 @@ angular.module('Wawan.admin', [
 	}
 
 	$scope.editTab = function () {
+		editTab = true;
 		$scope.edit = {};
 		Player.getAllPlayer()
 		.then(function (players) {
@@ -475,17 +481,20 @@ angular.module('Wawan.admin', [
 
 
 	$scope.selectPlayer = function () {
-		console.log($scope.edit.player.name);
+		//console.log($scope.edit.player.name);
 		var playerName = $scope.edit.player.name;
 		for (var i = 0; i < $scope.edit.players.length; i++) {
 			if($scope.edit.players[i].name === playerName){
 				$scope.edit.player = $scope.edit.players[i];
-				$scope.edit.player.coach = $scope.getCoachName($scope.edit.player.coach);
-				$scope.edit.player.club = $scope.getClubName($scope.edit.player.club);
+				$scope.edit.player.coach = $scope.getCoachId($scope.edit.player.coach);
+				$scope.edit.player.club = $scope.getClubId($scope.edit.player.club);
 				$scope.edit.player.type = $scope.edit.player.type;
 				$scope.edit.player.size = $scope.edit.player.size;
+				$scope.edit.player.dateOB = new Date($scope.edit.players[i].dateOB);
+				$scope.player = $scope.edit.player;
 			}
 		}
+		$scope.typeSelectChangedPlayer();
 
 	}
 
@@ -496,8 +505,8 @@ angular.module('Wawan.admin', [
 				$scope.edit.championship = $scope.edit.championships[i];
 				console.log($scope.data.championships[i].date);
 				$scope.edit.championship.date = new Date($scope.data.championships[i].date);
-				// $scope.getCoachName($scope.edit.player.coach);
-				// $scope.edit.player.club = $scope.getClubName($scope.edit.player.club);
+				// $scope.getCoachId($scope.edit.player.coach);
+				// $scope.edit.player.club = $scope.getClubId($scope.edit.player.club);
 				// $scope.edit.player.type = $scope.edit.player.type;
 				// $scope.edit.player.size = $scope.edit.player.size;
 			}
@@ -518,7 +527,7 @@ angular.module('Wawan.admin', [
 		for (var i = 0; i < $scope.edit.coaches.length; i++) {
 			if($scope.edit.coaches[i].name === coachName){
 				$scope.edit.coach = $scope.edit.coaches[i];
-				$scope.edit.coach.club = $scope.getClubName($scope.edit.coach.club);
+				$scope.edit.coach.club = $scope.getClubId($scope.edit.coach.club);
 			}
 		}
 	}
@@ -597,21 +606,14 @@ angular.module('Wawan.admin', [
 	}
 
 	$scope.editPlayer = function (ev) {
-		var coachName = $scope.edit.player.coach;
+		/*var coachName = $scope.edit.player.coach;
 		for (var i = 0; i < $scope.coaches.length; i++) {
 			if($scope.coaches[i].name === coachName){
 				console.log($scope.coaches[i]._id);
 				$scope.edit.player.coach = $scope.coaches[i]._id
 			}
-		}
-		var clubName = $scope.edit.player.club;
-		for (var i = 0; i < $scope.clubs.length; i++) {
-			if($scope.clubs[i].name === clubName){
-				console.log($scope.clubs[i]._id);
-				$scope.edit.player.club = $scope.clubs[i]._id
-			}
-		}
-		Player.editePlayer($scope.edit.player._id, $scope.edit.player)
+		}*/
+		Player.editePlayer($scope.edit.player._id, $scope.edit.player, $scope.player)
 		.then(function (player) {
 			console.log(player);
 			$mdDialog.show(
@@ -818,30 +820,32 @@ angular.module('Wawan.admin', [
   	}
   	return null;
   }
-  $scope.getCoachName = function (id) {
+
+  $scope.getCoachId = function (id) {
   	for (var i = 0; i < $scope.coaches.length; i++) {
   		if($scope.coaches[i]._id === id)
-  			return $scope.coaches[i].name;
+  			return $scope.coaches[i]._id;
   	}
   	return null;
   }
 
-  $scope.getClubName = function (id) {
+  $scope.getClubId = function (id) {
   	for (var i = 0; i < $scope.clubs.length; i++) {
   		if($scope.clubs[i]._id === id)
-  			return $scope.clubs[i].name;
+  			return $scope.clubs[i]._id;
   	}
   	return null;
   }
 
   $scope.typeEditSelected = function () {
+  	$scope.typeSelectChangedPlayer();
 	$scope.edit.player.typeAr = Translate.getArr($scope.edit.player.type);
   }
 
   $scope.sizeEditSelected = function () {
+  	$scope.typeSelectChangedPlayer();
   	$scope.edit.player.sizeAr = Translate.getArr($scope.edit.player.size);
   }
-
 
   $scope.deletePlayer = function (ev) {
   	if($scope.edit.player){
@@ -984,5 +988,33 @@ angular.module('Wawan.admin', [
 	    });
   	}
   }
+ //  $scope.disableLevel = false;
+	// 	if($scope.competition.type === "Physic"){
+	// 		$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+	// 		$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+	// 	}
+	// 	else if($scope.competition.type === "Bodystyle") {
+	// 		$scope.sizesChampion = ["Under 171 CM","Under 176 CM","Above 176 CM"];
+	// 		$scope.sizeArChampion = ["تحت 171 سم","تحت 176 سم","فوق 176 سم"];
+	// 	}
+	// 	else{
+	// 		$scope.sizesChampion = ["Under 75 KG","Under 85 KG","Above 85 KG"];
+	// 		$scope.sizeArChampion = ["تحت 75 كغ","تحت 85 كغ","فوق 85 كغ"];
+	// 	}
+	// };
 
+	// $scope.sizeSelectChanged = function () {
+	// 	console.log($scope.player.size)
+	// 	if($scope.player.size === "Under 171 CM")
+	// 		$scope.player.sizeAr = "تحت 171 سم";
+	// 	else if($scope.player.size === "Under 176 CM")
+	// 		$scope.player.sizeAr = "تحت 176 سم";
+	// 	else if($scope.player.size === "Above 176 CM")
+	// 		$scope.player.sizeAr = "فوق 176 سم";
+	// 	else if($scope.player.size === "Under 75 KG")
+	// 		$scope.player.sizeAr = "تحت 75 كغ";
+	// 	else if($scope.player.size === "Under 85 KG")
+	// 		$scope.player.sizeAr = "تحت 85 كغ";
+	// 	else
+	// 		$scope.player.sizeAr = "فوق 85 كغ";
 });

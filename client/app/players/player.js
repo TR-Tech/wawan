@@ -2,6 +2,8 @@ angular.module('Wawan.player', [])
 .controller('playerController', function($scope, $routeParams, $location, Player, $location, Club, Coach, Competition, Championship) {
 	$scope.data={};
 	$scope.competitions=[];
+	$scope.coach;
+	$scope.club;
 	$scope.initialize = function () {
 	}
 	$scope.initialize();
@@ -14,11 +16,12 @@ angular.module('Wawan.player', [])
 	})
 	.then(function(){
 		Club.getOneClub($scope.data.club).then(function(club){
-			$scope.club=club.name;
+			$scope.club=club;
 		});
 		Coach.getOneCoach($scope.data.coach).then(function(coach){
-			$scope.coach=coach.name;
+			$scope.coach=coach
 		});
+
 		for (var i = 0; i < $scope.data.competitions.length; i++) {
 			Competition.getOne($scope.data.competitions[i]).then(function(competition){
 				Championship.getOne(competition.championship).then(function(championship){
