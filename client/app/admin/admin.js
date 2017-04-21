@@ -99,8 +99,8 @@ angular.module('Wawan.admin', [
 		}
 		if(currentType === "Physic"){
 			$scope.player.typeAr = "فيزيك";
-			$scope.sizes = ["Under 170 cm","Under 175 cm", "Under 180 cm","Over 180 cm"];
-			$scope.sizeAr = ["Under 170 cm","Under 175 cm", "Under 180 cm","Over 180 cm"];
+			$scope.sizes = ["Under 170 cm","Under 175 cm", "Under 180 cm","Above 180 cm"];
+			$scope.sizeAr = ["تحت 170 سم","تحت 175 سم", "تحت 180 سم","فوق 180 سم"];
 		}
 		else if(currentType === "Bodystyle") {
 			$scope.player.typeAr = "بادي ستايل";
@@ -117,8 +117,8 @@ angular.module('Wawan.admin', [
 	$scope.typeSelectChangedChampions = function(){
 		$scope.disableLevel = false;
 		if($scope.competition.type === "Physic"){
-			$scope.sizesChampion = ["Under 170 cm","Under 175 cm", "Under 180 cm","Over 180 cm"];
-			$scope.sizeArChampion = ["Under 170 cm","Under 175 cm", "Under 180 cm","Over 180 cm"];
+			$scope.sizesChampion = ["Under 170 cm","Under 175 cm", "Under 180 cm","Above 180 cm"];
+			$scope.sizeArChampion = ["تحت 170 سم","تحت 175 سم", "تحت 180 سم","فوق 180 سم"];
 		}
 		else if($scope.competition.type === "Bodystyle") {
 			$scope.sizesChampion = ["Under 70 kg","Under 80 kg","Above 80 kg"];
@@ -132,18 +132,24 @@ angular.module('Wawan.admin', [
 
 	$scope.sizeSelectChanged = function () {
 		console.log($scope.player.size)
-		if($scope.player.size === "Under 171 cm")
-			$scope.player.sizeAr = "تحت 171 سم";
-		else if($scope.player.size === "Under 176 cm")
-			$scope.player.sizeAr = "تحت 176 سم";
-		else if($scope.player.size === "Above 176 cm")
-			$scope.player.sizeAr = "فوق 176 سم";
-		else if($scope.player.size === "Under 75 kg")
-			$scope.player.sizeAr = "تحت 75 كغ";
-		else if($scope.player.size === "Under 85 kg")
-			$scope.player.sizeAr = "تحت 85 كغ";
-		else
-			$scope.player.sizeAr = "فوق 85 كغ";	
+		if($scope.player.size === "Under 170 cm")
+			$scope.player.sizeAr = "تحت 170 سم";
+		else if($scope.player.size === "Under 175 cm")
+			$scope.player.sizeAr = "تحت 175 سم";
+		else if($scope.player.size === "Under 180 cm")
+			$scope.player.sizeAr = "تحت 180 سم";
+		else if($scope.player.size === "Above 180 cm")
+			$scope.player.sizeAr = "فوق 180 سم";
+
+		else if($scope.player.size === "Under 70 kg")
+			$scope.player.sizeAr = "تحت 70 كغ";
+		else if($scope.player.size === "Under 80 kg")
+			$scope.player.sizeAr = "تحت 80 كغ";
+		else if($scope.player.size === "Under 90 kg")
+			$scope.player.sizeAr = "تحت 90 كغ";
+		else if($scope.player.size === "Above 90 kg")
+			$scope.player.sizeAr = "فوق 90 كغ";
+		
 	}
 
 	$scope.createPlayer = function (ev) {
